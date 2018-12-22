@@ -1,0 +1,54 @@
+{
+    "name": "thadbryson/toolkit-support",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../exceptions"
+        },
+        {
+            "type": "path",
+            "url": "../validation"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "illuminate/http": "^5.6",
+        "illuminate/support": "^5.6",
+        "ramsey/uuid": "3.7.*",
+        "danielstjules/stringy": "3.1.*",
+        "giggsey/libphonenumber-for-php": "8.*",
+        "thadbryson/toolkit-exceptions": "*",
+        "thadbryson/toolkit-validation": "*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master",
+        "codeception/codeception": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tool\\Support\\": "src/"
+        },
+        "files": [
+            "src-functions/call.php",
+            "src-functions/reflect.php",
+            "src-functions/request.php",
+            "src-functions/string.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "_assets\\": "tests/_assets/",
+            "_generated\\": "tests/_support/_generated/",
+            "_support\\": "tests/_support/",
+            "Tests\\Unit\\": "tests/unit/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-community": "1.0-dev"
+        }
+    }
+}

@@ -1,0 +1,6 @@
+tests/unit/ArrTest.php:testOrderKeys
+tests/unit/ArrTest.php:testCast
+tests/unit/ArrTest.php:testRemove
+tests/unit/ArrTest.php:testGetAll
+tests/unit/ArrTest.php:testMerge
+tests/unit/ArrTest.php:testReplace

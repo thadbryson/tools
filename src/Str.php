@@ -23,19 +23,21 @@ class Str extends \Stringy\Stringy
         return static::create($str, $encoding);
     }
 
-    /**
-     * Explode string into an array.
-     */
-    public function explode(string $delimeter, int $limit = null): array
-    {
-        return explode($this->toString(), $delimeter, $limit);
-    }
-
     public static function implode(string $glue, array $parts, string $encoding = null): self
     {
         $str = implode($glue, $parts);
 
         return static::create($str, $encoding);
+    }
+
+    /**
+     * Explode string into an array.
+     */
+    public function explode(string $delimeter): array
+    {
+        Assert::stringNotEmpty($delimeter, '$delimeter cannot be an empty string.');
+
+        return explode($delimeter, $this->get());
     }
 
     /**
@@ -46,9 +48,32 @@ class Str extends \Stringy\Stringy
         return Uuid::uuid4()->toString();
     }
 
-    public function toString(): string
+    public static function random(int $length, string $encoding = null,
+        string $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'): self
+    {
+        $random      = '';
+        $charsLength = mb_strlen($chars, '8bit') - 1;
+
+        for ($i = 0;$i < $length;$i++) {
+            $random .= $chars[random_int(0, $charsLength)];
+        }
+
+        return static::make($random, $encoding)->shuffle();
+    }
+
+    public function get(): string
     {
         return $this->__toString();
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->get() === '';
+    }
+
+    public function isNotEmpty(): bool
+    {
+        return $this->get() !== '';
     }
 
     public function beforeSubstr(string $substr, int $offset = 0): self
@@ -66,40 +91,16 @@ class Str extends \Stringy\Stringy
         return $this->substr($index);
     }
 
-    public function removeLeftAny(string ...$substrings): self
-    {
-        foreach ($substrings as $substr) {
-
-            if ($this->startsWith($substr)) {
-                return $this->removeLeft($substr);
-            }
-        }
-
-        return $this;
-    }
-
-    public function removeRightAny(string ...$substrings): self
-    {
-        foreach ($substrings as $substr) {
-
-            if ($this->startsWith($substr)) {
-                return $this->removeRight($substr);
-            }
-        }
-
-        return $this;
-    }
-
-    public function jsonDecode(): array
+    public function jsonDecode()
     {
         return $this->jsonDecodeOptions(true);
     }
 
-    public function jsonDecodeOptions(bool $assoc = false, int $options = 0)
+    public function jsonDecodeOptions(bool $assoc = false, int $options = 0, int $depth = 512)
     {
         Assert::true($this->isJson(), 'String is not valid JSON.');
 
-        $decoded = json_decode($this->str, $assoc, $options);
+        $decoded = json_decode($this->str, $assoc, $depth, $options);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \InvalidArgumentException(json_last_error_msg(), 400);
@@ -121,18 +122,37 @@ class Str extends \Stringy\Stringy
     private function getAsMethod(string $prepend, string $append): self
     {
         return $this->replace('_', ' ')
+                    ->prepend($prepend . ' ')
+                    ->append(' ' . $append)
                     ->titleize()
-                    ->prepend($prepend)
-                    ->append($append);
+                    ->lowerCaseFirst()
+                    ->replace(' ', '');
     }
 
-    public function getter(string $append = 'Attribute'): self
+    public function getter(string $append = ''): self
     {
         return $this->getAsMethod('get', $append);
     }
 
-    public function setter(string $append = 'Attribute'): self
+    public function setter(string $append = ''): self
     {
         return $this->getAsMethod('set', $append);
+    }
+
+    public function hasser(string $append = ''): self
+    {
+        return $this->getAsMethod('has', $append);
+    }
+
+    public function isser(string $append = ''): self
+    {
+        return $this->getAsMethod('is', $append);
+    }
+
+    public function hasSubstr(string $substr, bool $caseSensitive = true): bool
+    {
+        Assert::stringNotEmpty($substr, '$substr cannot be an empty string.');
+
+        return $this->contains($substr, $caseSensitive);
     }
 }

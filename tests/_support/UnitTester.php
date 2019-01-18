@@ -1,5 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
+use _generated\UnitTesterActions;
+use Tool\Support\Clock;
+use Tool\Support\Str;
 
 /**
  * Inherited Methods
@@ -12,15 +17,43 @@
  * @method void am($role)
  * @method void lookForwardTo($achieveValue)
  * @method void comment($description)
- * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = NULL)
+ * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = null)
  *
  * @SuppressWarnings(PHPMD)
-*/
+ */
 class UnitTester extends \Codeception\Actor
 {
-    use _generated\UnitTesterActions;
+    use UnitTesterActions;
 
-   /**
-    * Define custom actions here
-    */
+    /**
+     * Define custom actions here
+     */
+    public function assertStr(Str $str, string $expected, string $encoding = null): self
+    {
+        $encoding = $encoding ?? \mb_internal_encoding();
+
+        $this->assertInstanceOf(Str::class, $str, 'Must be object instance of ' . Str::class);
+
+        $this->assertEquals($expected, $str->get());
+        $this->assertEquals($expected, $str->__toString());
+        $this->assertEquals($expected, (string) $str);
+
+        $this->assertEquals($encoding, $str->getEncoding());
+
+        return $this;
+    }
+
+    public function assertArr($expected, $result, string $message = ''): self
+    {
+        $this->assertEquals($expected, $result, sprintf('%s, with array: %s', $message, json_encode($result)));
+
+        return $this;
+    }
+
+    public function assertClock(DateTime $datetime, Clock $clock, string $message = ''): self
+    {
+        $this->assertEquals($datetime->format('Y-m-d H:i:s'), $clock->format('Y-m-d H:i:s'), $message);
+
+        return $this;
+    }
 }

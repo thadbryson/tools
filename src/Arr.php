@@ -4,162 +4,100 @@ declare(strict_types = 1);
 
 namespace Tool\Support;
 
-use ArrayAccess;
-use InvalidArgumentException;
-use Tool\Validation\Assert;
-use function array_merge;
-use function array_merge_recursive;
+use Tool\Support\Traits\Arr as ArrTraits;
 use function array_replace_recursive;
-use function is_object;
-use function method_exists;
-use function preg_match;
+use function array_walk_recursive;
+use function is_string;
 
 /**
  * Array helper class.
  */
 class Arr extends \Illuminate\Support\Arr
 {
-    /**
-     * @param \ArrayAccess|array $array
-     * @param array              $mappings
-     *
-     * @return \ArrayAccess|array
-     */
-    public static function map($array, array $mappings)
+    use ArrTraits\AliasMethodsTrait,
+        ArrTraits\KeyMethodsTrait;
+
+    protected static function mapInternal(array $array, array $mappings, bool $only): array
     {
-        $mapped = [];
+        $result = $only ? [] : $array;
 
         foreach ($mappings as $fromDot => $toDot) {
-            static::copy($array, $mapped, $fromDot, $toDot);
+            $result = static::move($array, $result, (string) $fromDot, (string) $toDot);
         }
 
-        return $mapped;
+        return $result;
     }
 
-    /**
-     * @param \ArrayAccess|array $array
-     * @param \ArrayAccess|array $destination
-     * @param string             $fromDot
-     * @param string             $toDot
-     *
-     * @return void
-     */
-    public static function copy($array, &$destination, string $fromDot, string $toDot): void
+    public static function map(array $array, array $mappings): array
     {
-        $destination = Assert::isArrayAccessible($destination ?? [],
-            '$destination must be an array, an ArrayAccess object, or NULL');
+        return static::mapInternal($array, $mappings, false);
+    }
 
+    public static function mapOnly(array $array, array $mappings): array
+    {
+        return static::mapInternal($array, $mappings, true);
+    }
+
+    public static function copy(array $array, array $destination, string $fromDot, string $toDot = null): array
+    {
         $value = static::get($array, $fromDot);
 
-        static::set($destination, $toDot, $value);
+        static::set($destination, $toDot ?? $fromDot, $value);
+
+        return $destination;
     }
 
-    /**
-     * Convert DOT keys into normal key array.
-     */
-    public static function undot(array $array): array
+    public static function move(array &$array, array $destination, string $fromDot, string $toDot = null): array
     {
-        $results = [];
+        $value = static::pull($array, $fromDot);
 
-        foreach ($array as $dot => $value) {
-            static::set($results, $dot, $value);
-        }
+        static::set($destination, $toDot ?? $fromDot, $value);
 
-        return $results;
+        return $destination;
     }
 
-    /**
-     * Order array keys exactly as specified
-     */
-    public static function orderKeys(array $array, string ...$dots): array
+    public static function trimAll(array $array, string $chars = " \t\n\r\0\x0B"): array
     {
-        $array  = static::dot($array);
-        $sorted = [];
+        array_walk_recursive($array, function (&$value) use ($chars) {
 
-        foreach ($dots as $dot) {
-            // Get value from array and remove it.
-            // (remove to save memory in case of large arrays)
-            $sorted[$dot] = static::pull($array, $dot);
-        }
-
-        // Undo the dot keys.
-        $sorted = static::undot($sorted);
-
-        // Now put whatever is left on the $array on the end.
-        return array_merge($sorted, $array);
-    }
-
-    public static function merge(array $array1, array $array2, array ...$arrays): array
-    {
-        $arrays = static::prepend($arrays, $array2, $array1);
-
-        return array_merge_recursive(...$arrays);
-    }
-
-    public static function replace(array $array1, array $array2, array ...$arrays): array
-    {
-        $arrays = static::prepend($arrays, $array2, $array1);
-
-        return array_replace_recursive(...$arrays);
-    }
-
-    /**
-     * Convert all these to an array.
-     *
-     * @param mixed $array
-     *
-     * @return array
-     * @throws InvalidArgumentException
-     */
-    public static function cast(&$array): array
-    {
-        // Object with ->toArray() method?
-        if (is_object($array) && method_exists($array, 'toArray')) {
-            return $array->toArray();
-        }
-
-        // An Iterator object?
-        if ($array instanceof \iterable) {
-            return iterator_to_array($array, true);
-        }
-
-        // ArrayAccess object?
-        if ($array instanceof ArrayAccess) {
-            return (array) $array;
-        }
-
-        // Just put it in an array. Or return itself it's already an array.
-        return parent::wrap($array);
-    }
-
-    /**
-     * @param array $array
-     */
-    public static function remove(array $array, string ...$dots): array
-    {
-        static::forget($array, $dots);
+            if (is_string($value) === true) {
+                $value = trim($value, $chars);
+            }
+        });
 
         return $array;
     }
 
     /**
-     * Check if an item or items exist in an array using "dot" notation.
+     * Set any default values (on $defaults) on $array.
      *
-     * @param  array $array
+     * @param array $array
+     * @param array $defaults
+     *
+     * @return array
      */
-    public static function hasAll(array $array, string ...$dots): bool
+    public static function defaults(array $array, array $defaults): array
     {
-        return parent::has($array, $dots);
+        return array_replace_recursive($defaults, $array);
     }
 
     /**
      * Get a subset of the items from the given array.
      *
-     * @param  array $array
+     * @param array  $array
+     * @param string ...$dots
+     *
+     * @return array
      */
-    public static function getAll(array $array, string ...$dots): array
+    public static function getMany(array $array, string ...$dots): array
     {
-        return parent::only($array, $dots);
+        $return = [];
+
+        foreach ($dots as $dot) {
+            $return[$dot] = static::get($array, $dot);
+        }
+
+        return $return;
     }
 
     /**
@@ -170,7 +108,8 @@ class Arr extends \Illuminate\Support\Arr
     public static function isEmpty(array ...$arrays): bool
     {
         foreach ($arrays as $array) {
-            if (empty($array) === false) {
+
+            if ($array !== []) {
                 return false;
             }
         }
@@ -185,117 +124,6 @@ class Arr extends \Illuminate\Support\Arr
      */
     public static function isNotEmpty(array ...$arrays): bool
     {
-        return !static::isEmpty(...$arrays);
-    }
-
-    public static function whereValue(array $array, $value): array
-    {
-        return static::where($array, function ($item) use ($value) {
-
-            return $item === $value;
-        });
-    }
-
-    public static function whereValueStrict(array $array, $value): array
-    {
-        return static::where($array, function ($item) use ($value) {
-
-            return $item === $value;
-        });
-    }
-
-    /**
-     * Filter items matching Regular expression given.
-     *
-     * @param array|ArrayAccess $array
-     */
-    public static function whereRegex(array $array, string $key, string $regex): array
-    {
-        return static::where($array, static::operandRegexWhere($key, $regex, 1));
-    }
-
-    /**
-     * Filter items matching Regular expression given.
-     *
-     * @param array|ArrayAccess $array
-     */
-    public static function whereNotRegex(array $array, string $key, string $regex): array
-    {
-        return static::where($array, static::operandRegexWhere($key, $regex, 0));
-    }
-
-    /**
-     * Filter items matching Regular expression given.
-     *
-     * @param array|ArrayAccess $array
-     */
-    public static function whereLike(array $array, string $key, string $like): array
-    {
-        $regex = '/' . str_replace('%', '.+', $like) . '/m';
-
-        return static::whereRegex($array, $key, $regex);
-    }
-
-    /**
-     * Filter items matching Regular expression given.
-     *
-     * @param array|ArrayAccess $array
-     */
-    public static function whereNotLike(array $array, string $key, string $like): array
-    {
-        $regex = '/' . str_replace('%', '.+', $like) . '/m';
-
-        return static::whereNotRegex($array, $key, $regex);
-    }
-
-    /**
-     * Get an operator checker callback.
-     */
-    protected static function operatorForWhere(string $key, string $operator, $value): \Closure
-    {
-        return function ($item) use ($key, $operator, $value) {
-            $retrieved = data_get($item, $key);
-
-            try {
-                switch (trim($operator)) {
-                    case '=':
-                    case '===':
-                        return $retrieved === $value;
-                    case '==':
-                        return $retrieved == $value;
-                    case '!=':
-                    case '<>':
-                        return $retrieved != $value;
-                    case '<':
-                        return $retrieved < $value;
-                    case '>':
-                        return $retrieved > $value;
-                    case '<=':
-                        return $retrieved <= $value;
-                    case '>=':
-                        return $retrieved >= $value;
-                    case '!==':
-                        return $retrieved !== $value;
-                    default:
-                }
-            } catch (\Exception $_) {
-
-            }
-
-            return false;
-        };
-    }
-
-    /**
-     * Get callable for comparing Regular expressions in where methods.
-     */
-    protected static function operandRegexWhere(string $key, string $regex, int $found): \Closure
-    {
-        return function ($item) use ($key, $regex, $found) {
-
-            $retrieved = data_get($item, $key);
-
-            return preg_match($regex, $retrieved) === $found;
-        };
+        return static::isEmpty(...$arrays) === false;
     }
 }

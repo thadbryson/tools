@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use _generated\UnitTesterActions;
 use Tool\Support\Clock;
+use Tool\Support\Collection;
 use Tool\Support\Str;
 
 /**
@@ -45,6 +46,14 @@ class UnitTester extends \Codeception\Actor
 
     public function assertArr($expected, $result, string $message = ''): self
     {
+        if (is_object($expected) && method_exists($expected, 'toArray')) {
+            $expected = $expected->toArray();
+        }
+
+        if (is_object($result) && method_exists($result, 'toArray')) {
+            $result = $result->toArray();
+        }
+
         $this->assertEquals($expected, $result, sprintf('%s, with array: %s', $message, json_encode($result)));
 
         return $this;

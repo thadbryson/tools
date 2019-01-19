@@ -11,6 +11,14 @@ use Tool\Support\Arr;
  */
 trait KeyMethodsTrait
 {
+    /**
+     * Turn DOT keyed array into a normal array.
+     *
+     * @param array  $array
+     * @param string $prepend
+     *
+     * @return array
+     */
     public static function undot(array $array, string $prepend = ''): array
     {
         $results = [];
@@ -41,48 +49,6 @@ trait KeyMethodsTrait
     public static function keysDot(array $array): array
     {
         return array_keys(Arr::dot($array));
-    }
-
-    /**
-     * @param array  $array
-     * @param string ...$dots
-     *
-     * @return array
-     */
-    public static function orderKeys(array $array, string ...$dots): array
-    {
-        $array  = Arr::dot($array);
-        $sorted = [];
-
-        foreach ($dots as $dot) {
-            // Get value from array and remove it.
-            // (remove to save memory in case of large arrays)
-            $sorted[$dot] = Arr::pull($array, $dot);
-        }
-
-        // Undo the dot keys.
-        $sorted = Arr::undot($sorted);
-
-        // Now put whatever is left on the $array on the end.
-        return array_merge($sorted, $array);
-    }
-
-    /**
-     * Rename keys from (current DOT key => new DOT key)
-     *
-     * @param array $mappings
-     *
-     * @return array
-     */
-    public static function renameKeys(array $array, array $mappings): array
-    {
-        foreach ($mappings as $fromDot => $toDot) {
-            $value = Arr::pull($array, $fromDot);
-
-            Arr::set($array, $toDot, $value);
-        }
-
-        return $array;
     }
 
     /**

@@ -4,113 +4,66 @@ declare(strict_types = 1);
 
 namespace Tool\Support\Traits\Collection;
 
-use Illuminate\Support\Collection;
-use Tool\Support\Request;
+use Illuminate\Http\Request;
+use Tool\Support\Collection;
+use function array_replace_recursive;
 
 /**
  * Trait FromTypesTrait
- *
- * @mixin \Tool\Support\Collection
  */
 trait FromTypesTrait
 {
+
+
     /**
-     * @param Request|null $request  = null
-     * @param array        $defaults = []
+     * Build Collection from exploded string.
+     *
+     * @param string $delimiter
+     * @param string $string
+     * @param int    $limit = null
      *
      * @return Collection
      */
-    public static function fromRequest(Request $request = null, array $defaults = []): Collection
+    public static function fromExplodeString(string $delimiter, string $string, int $limit = null): Collection
     {
-        $keys = array_keys($defaults);
+        $args = [$delimiter, $string];
 
-        return static::make($defaults)->loadRequest($request, ...$keys);
+        if ($limit !== null) {
+            $args[] = $limit;
+        }
+
+        $items = explode(...$args);
+
+        return new static($items);
     }
 
     /**
-     * @param Request|null $request
-     * @param string       ...$keys
+     * Load HTTP Request DOT keys.
+     *
+     * @param Request|null $request = null - If NULL will capture the current HTTP request.
+     * @param string       ...$dots
      *
      * @return Collection
      */
-    public function loadRequest(Request $request = null, string ...$keys): Collection
+    public static function fromRequest(Request $request = null): Collection
+    {
+        return static::make()->loadRequest($request);
+    }
+
+    /**
+     * Load HTTP Request DOT keys.
+     *
+     * @param Request|null $request = null - If NULL will capture the current HTTP request.
+     * @param string       ...$dots
+     *
+     * @return Collection
+     */
+    public function loadRequest(Request $request = null): Collection
     {
         $request = $request ?? Request::createFromGlobals();
 
-        if ($keys === []) {
-            $all = $request->all();
-        }
-        else {
-            $all = $request->all($keys);
-        }
+        $this->items = array_replace_recursive($this->items, $request->input());
 
-        return $this->merge($all);
-    }
-
-    /**
-     * @param string      $string
-     * @param string      $delimiter
-     * @param string|null $delimeterLines = null
-     *
-     * @return Collection
-     */
-    public static function fromString(string $string, string $delimiter, string $delimeterLines = null): Collection
-    {
-        if ($delimeterLines !== null) {
-
-            $items = explode($delimeterLines, $string);
-
-            return static::make($items)
-                         ->transform(function (string $value) use ($delimiter) {
-
-                             return explode($delimiter, $value);
-                         });
-        }
-
-        $items = explode($delimiter, $string);
-
-        return new static($items);
-    }
-
-    /**
-     * Import a CSV (comma separated value) string into a Collection.
-     *
-     * @param string $contents
-     * @param string $eol       = PHP_EOL
-     * @param string $delimiter = ','
-     * @param string $enclosure = '"'
-     * @param string $escape    = "\\"
-     *
-     * @return $this
-     */
-    public static function fromCsv(string $contents, string $eol = PHP_EOL, string $delimiter = ',',
-        string $enclosure = '"', string $escape = "\\"): Collection
-    {
-        $items = [];
-
-        foreach (explode($eol, $contents) as $line) {
-
-            $line[] = static::fromCsvLine($line, $delimiter, $enclosure, $escape)->all();
-        }
-
-        return new static($items);
-    }
-
-    /**
-     * Import a CSV (comma separated value) string into a Collection.
-     *
-     * @param string $contents
-     * @param string $delimiter
-     * @param string $enclosure
-     * @param string $escape
-     *
-     * @return $this
-     */
-    public static function fromCsvLine(string $contents, string $delimiter = ',', string $enclosure = '"',
-        string $escape = "\\"): Collection
-    {
-        $items = str_getcsv($contents, $delimiter, $enclosure, $escape);
-
-        return new static($items);
+        return $this;
     }
 }

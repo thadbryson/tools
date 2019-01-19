@@ -20,32 +20,29 @@ class ArrAliasMethodsTest extends \Codeception\Test\Unit
             ->assertArr([], Arr::remove([], '', 'id'));
     }
 
-    public function testBlacklist(): void
-    {
-        $this->tester
-            ->assertArr([], Arr::blacklist([]))
-            ->assertArr([], Arr::blacklist(['id' => 1, 'name' => '', 'other' => 2], 'id', 'name', 'other'));
-    }
-
-    public function testWhitelist(): void
-    {
-        $this->tester
-            ->assertArr(['id' => 1, 'some' => 2], Arr::whitelist(['id' => 1, 2, 3, 'many' => [], 'some' => 2], 'id', 'some'));
-    }
-
     public function testRemoveFirst(): void
     {
+        $array = [1, 2, 3];
+
         $this->tester
-            ->assertArr(null, Arr::removeFirst([]))
-            ->assertArr(null, Arr::removeFirst([null]))
-            ->assertArr(1, Arr::removeFirst([1, 2, 3]));
+            ->assertArr(1, Arr::removeFirst($array))
+            ->assertArr(2, Arr::removeFirst($array))
+            ->assertArr(3, Arr::removeFirst($array));
+
+        $this->assertEquals([], $array);
+        $this->assertNull(Arr::removeFirst($array));
     }
 
     public function testRemoveLast(): void
     {
+        $array = [1, 2, 3];
+
         $this->tester
-            ->assertArr(null, Arr::removeLast([]))
-            ->assertArr(null, Arr::removeLast([null]))
-            ->assertArr(3, Arr::removeLast([1, 2, 3]));
+            ->assertArr(3, Arr::removeLast($array))
+            ->assertArr(2, Arr::removeLast($array))
+            ->assertArr(1, Arr::removeLast($array));
+
+        $this->assertEquals([], $array);
+        $this->assertNull(Arr::removeLast($array));
     }
 }

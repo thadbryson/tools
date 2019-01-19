@@ -177,4 +177,33 @@ class ArrTest extends \Codeception\Test\Unit
         $this->assertTrue(Arr::isNotEmpty([1]));
         $this->assertTrue(Arr::isNotEmpty([], [1]));
     }
+
+    public function testBlacklist(): void
+    {
+        $this->tester
+            ->assertArr([], Arr::blacklist([]))
+            ->assertArr($this->asset, Arr::blacklist($this->asset, 'else'))
+            ->assertArr($this->asset, Arr::blacklist($this->asset, '2.whatever'));
+
+        $this->tester->expectException(new \InvalidArgumentException('Inivalid key/value pairs found in array.'),
+            function () {
+
+                Arr::blacklist($this->asset, '2');
+            }
+        );
+    }
+
+    public function testWhitelist(): void
+    {
+        $this->tester
+            ->assertArr([], Arr::whitelist([]))
+            ->assertArr($this->asset, Arr::whitelist($this->asset, '0', '1', '2', '3', '4'));
+
+        $this->tester->expectException(new \InvalidArgumentException('Inivalid key/value pairs found in array.'),
+            function () {
+
+                Arr::whitelist($this->asset, '2');
+            }
+        );
+    }
 }

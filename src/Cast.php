@@ -4,95 +4,131 @@ declare(strict_types = 1);
 
 namespace Tool\Support;
 
-use Illuminate\Support\Arr;
 use InvalidArgumentException;
-use function filter_var;
-use function settype;
-use const FILTER_VALIDATE_BOOLEAN;
-use const FILTER_VALIDATE_FLOAT;
-use const FILTER_VALIDATE_INT;
+use function is_float;
+use function is_int;
+use function is_string;
+use function strtolower;
 
 /**
  * Cast Class
  */
 class Cast
 {
-    protected static function prepareValues(array $casts, array $values): array
+    /**
+     * Cast all values given.
+     *
+     * @param array $values
+     * @param array $casts
+     *
+     * @return array
+     */
+    public static function all(array $values, array $casts): array
     {
-        // Get DOT values array so we can search it easier.
-        $values = Arr::dot($values);
+        foreach ($casts as $dot => $type) {
 
-        // Get any casts that aren't in $values.
-        $notIn = array_diff($casts, $values);
+            $value = Arr::get($values, $dot);
 
-        if (count($notIn) > 0) {
-            throw new InvalidArgumentException('Casts not found in values: ' . implode(', ', $notIn));
+            // Set new casted value.
+            $value = static::cast($value, $type);
+
+            Arr::set($values, $dot, $value);
         }
 
         return $values;
     }
 
-    public static function all(array $casts, array $values): array
-    {
-        $values = static::prepareValues($casts, $values);
-
-        foreach ($casts as $dot => $type) {
-
-            // Set new casted value.
-            $values[$dot] = static::cast($type, $values[$dot]);
-        }
-
-        // Now return "undotted" array.
-        $return = [];
-
-        foreach ($values as $dot => $value) {
-            Arr::get($return, $dot, $value);
-        }
-
-        return $return;
-    }
-
     /**
+     * @param mixed  $value
      * @param string $type
-     * @param        $value
      *
-     * @return bool|int|float|string|Clock
+     * @return null|bool|int|float|string|array|Clock|Collection
      * @throws InvalidArgumentException
      */
-    public static function cast(string $type, $value)
+    public static function cast($value, string $type)
     {
-        $format = null;
-
-        if (strpos($type, ':') !== false) {
-            [$type, $format] = explode(':', $type);
-
-            $format = $format ?? null;
+        if ($value === null) {
+            return null;
         }
 
-        settype($value, $type);
-
-        switch ($type) {
+        switch (strtolower($type)) {
 
             case 'bool':
-                return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+                return static::toBoolean($value);
 
             case 'int':
-                return filter_var($value, FILTER_VALIDATE_INT);
+                return static::toInteger($value);
 
             case 'float':
-                return filter_var($value, FILTER_VALIDATE_FLOAT);
+                return static::toFloat($value);
 
             case 'string':
-                return Str::make($value);
+                return static::toString($value);
 
-            case 'datetime':
-                return Clock::createFromFormat($format ?? 'Y-m-d H:i:s', (string) $value);
-
-            case 'collection':
-                return Collection::make($value);
+            case 'array':
+                return static::toArray($value);
 
             default:
-                throw new InvalidArgumentException('Unknown cast type: ' . $type);
+                throw new InvalidArgumentException('Invalid cast type given: ' . $type);
         }
+    }
+
+    public static function toBoolean($value): ?bool
+    {
+        if ($value === true || $value === 1 || $value === '1') {
+            return true;
+        }
+
+        if ($value === false || $value === 0 || $value === '0') {
+            return false;
+        }
+
+        return null;
+    }
+
+    public static function toInteger($value): ?int
+    {
+        if (is_int($value)) {
+            return $value;
+        }
+
+        /** @noinspection TypeUnsafeComparisonInspection */
+        if (is_string($value) && (int) $value == (float) $value) {
+            return (int) $value;
+        }
+
+        return null;
+    }
+
+    public static function toFloat($value): ?float
+    {
+        if (is_float($value) || is_int($value)) {
+            return (float) $value;
+        }
+
+        /** @noinspection TypeUnsafeComparisonInspection */
+        if (is_string($value) && (float) $value == $value) {
+            return (float) $value;
+        }
+
+        return null;
+    }
+
+    public static function toString($value): ?string
+    {
+        if (is_string($value) || is_int($value) || is_float($value)) {
+            return (string) $value;
+        }
+
+        return null;
+    }
+
+    public static function toArray($value): ?array
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return (array) $value;
     }
 }

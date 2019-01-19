@@ -42,22 +42,6 @@ class ArrKeyMethodsTest extends \Codeception\Test\Unit
         ]));
     }
 
-    public function testRenameKeys(): void
-    {
-        $this->assertEquals([
-            'id'    => 1,
-            'code'  => 2,
-            'other' => [
-                'person' => '',
-                'nice'   => 'maybe'
-            ]
-        ], Arr::renameKeys($this->original, [
-            'name'        => 'code',
-            'some'        => 'other',
-            'other.other' => 'other.nice'
-        ]));
-    }
-
     public function testIsNotAssoc(): void
     {
         $this->assertTrue(Arr::isNotAssoc([1, 2, 3]));

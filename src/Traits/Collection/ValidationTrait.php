@@ -8,8 +8,6 @@ use Tool\Support\Collection;
 use Tool\Validation\Assert;
 use Tool\Validation\Result;
 use Tool\Validation\Validator;
-use function array_fill_keys;
-use function array_keys;
 
 /**
  * Class ValidationTrait
@@ -40,16 +38,13 @@ trait ValidationTrait
      */
     public function assertEquals(array $values): Collection
     {
-        // Get search keys, and search keys => NULL (default)
-        $keys = array_keys($values);
-
-        Assert::true($this->has(...$keys), 'All values were not found.');
-
         // Get current values.
-        $found = array_fill_keys($keys, null);
-        $found = $this->getMany($found);
+        foreach ($values as $dot => $expected) {
 
-        Assert::equals($values, $found, 'Values found did not match expected.');
+            Assert::true($this->hasDot($dot), "Key does not exist: {$dot}");
+
+            Assert::equals($this->getDot($dot), $expected, "Value '%s' is not what is expected for key: {$dot}.");
+        }
 
         return $this;
     }

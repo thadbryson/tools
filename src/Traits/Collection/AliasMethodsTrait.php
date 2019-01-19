@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tool\Support\Traits\Collection;
 
-use Illuminate\Support\Collection as BaseCollection;
+use Tool\Support\Arr;
 use Tool\Support\Collection;
 
 /**
@@ -14,31 +14,38 @@ use Tool\Support\Collection;
  */
 trait AliasMethodsTrait
 {
-    public function blacklist(array $dots): BaseCollection
+    public function set(string $dot, $value): Collection
     {
-        return $this->forget($dots);
+        Arr::set($this->items, $dot, $value);
+
+        return $this;
     }
 
-    public function whitelist(array $dots): BaseCollection
+    /**
+     * Remove given DOT keys.
+     */
+    public function remove(string ...$dots): Collection
     {
-        return $this->only($dots);
+        $this->items = Arr::remove($this->items, ...$dots);
+
+        return $this;
     }
 
-    public function set(string $key, $value): BaseCollection
-    {
-        return $this->put($key, $value);
-    }
-
-    public function remove(array $keys): BaseCollection
-    {
-        return $this->forget($keys);
-    }
-
+    /**
+     * Remove first value.
+     *
+     * @return mixed
+     */
     public function removeFirst()
     {
         return $this->shift();
     }
 
+    /**
+     * Remove last value.
+     *
+     * @return mixed
+     */
     public function removeLast()
     {
         return $this->pop();

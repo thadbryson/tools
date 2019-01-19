@@ -4,13 +4,11 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
+use Tool\Support\Cast;
+use function ucfirst;
 use const M_PI;
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
-use Tool\Support\Cast;
-use Tool\Support\Clock;
-use Tool\Support\Collection;
-use function ucfirst;
 
 class CastTest extends \Codeception\Test\Unit
 {

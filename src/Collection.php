@@ -40,17 +40,19 @@ class Collection extends \Illuminate\Support\Collection
      *
      * @param array $items
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function reset(array $items): Collection
     {
-        return new static($items);
+        $this->items = $items;
+
+        return $this;
     }
 
     /**
      * Remove all items.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function clear(): Collection
     {
@@ -87,11 +89,26 @@ class Collection extends \Illuminate\Support\Collection
         return $found;
     }
 
+    /**
+     * Does Collection have all these DOT keys?
+     *
+     * @param string ...$dots
+     *
+     * @return bool
+     */
     public function hasDot(string ...$dots): bool
     {
         return Arr::has($this->items, $dots);
     }
 
+    /**
+     * Get value at this DOT key.
+     *
+     * @param string $dot
+     * @param null   $default
+     *
+     * @return mixed
+     */
     public function getDot(string $dot, $default = null)
     {
         return Arr::get($this->items, $dot, $default);

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tests\Unit;
 
 use Tool\Support\Cast;
+use function strtolower;
 use function ucfirst;
 use const M_PI;
 use const PHP_INT_MAX;
@@ -13,10 +14,16 @@ use const PHP_INT_MIN;
 class CastTest extends \Codeception\Test\Unit
 {
     /**
+     * @var \UnitTester
+     */
+    protected $tester;
+
+    /**
      * @dataProvider data
      */
     public function testCast(string $type, $value, $expected): void
     {
+        $type   = strtolower(trim($type));
         $method = 'to' . ucfirst($type);
 
         if ($type === 'bool') {
@@ -53,8 +60,9 @@ class CastTest extends \Codeception\Test\Unit
             ['bool', 'true', null],
             ['bool', 'TRUE', null],
             ['bool', 'false', null],
-            ['bool', 'FALSE', null],
-            ['bool', [], null],
+            [' bool', 'FALSE', null],
+            ['bool ', [], null],
+            ['BOOL', [], null],
 
             ['int', 0, 0],
             ['int', 1, 1],
@@ -67,8 +75,9 @@ class CastTest extends \Codeception\Test\Unit
             ['int', '1000000', 1000000],
             ['int', true, null],
             ['int', false, null],
-            ['int', 'true', null],
-            ['int', [], null],
+            [' int', 'true', null],
+            ['int ', [], null],
+            ['INT', [], null],
 
             ['float', 0.0, 0.0],
             ['float', 1.0, 1.0],
@@ -84,8 +93,9 @@ class CastTest extends \Codeception\Test\Unit
             ['float', true, null],
             ['float', false, null],
             ['float', '', null],
-            ['float', 'true', null],
-            ['float', [], null],
+            [' float', 'true', null],
+            ['float ', [], null],
+            ['FLOAT', [], null],
 
             ['string', '', ''],
             ['string', ' ', ' '],
@@ -95,8 +105,9 @@ class CastTest extends \Codeception\Test\Unit
             ['string', 1.1, '1.1'],
             ['string', M_PI, '3.1415926535898'],
             ['string', true, null],
-            ['string', false, null],
-            ['string', [], null],
+            [' string', false, null],
+            ['string ', [], null],
+            ['STRING', [], null],
 
             ['array', [], []],
             ['array', [null], [null]],
@@ -112,8 +123,17 @@ class CastTest extends \Codeception\Test\Unit
             ['array', '0.0', ['0.0']],
             ['array', '1.0', ['1.0']],
             ['array', '-6444.3333', ['-6444.3333']],
-            ['array', true, [true]],
-            ['array', false, [false]],
+            [' array', true, [true]],
+            ['array ', false, [false]],
+            ['ARRAY', false, [false]],
         ];
+    }
+
+    public function testCastInvalidOption(): void
+    {
+        $this->tester->expectException(new \InvalidArgumentException('Invalid cast type given: nah'), function () {
+
+            Cast::cast('some', 'nah');
+        });
     }
 }

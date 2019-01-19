@@ -14,6 +14,14 @@ use Tool\Support\Collection;
  */
 trait AliasMethodsTrait
 {
+    /**
+     * @alias push($value)
+     */
+    public function append($value): Collection
+    {
+        return $this->push($value);
+    }
+
     public function set(string $dot, $value): Collection
     {
         Arr::set($this->items, $dot, $value);

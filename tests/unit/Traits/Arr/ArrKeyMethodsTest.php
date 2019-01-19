@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Arr;
+namespace Tests\Unit\Traits\Arr;
 
 use Tool\Support\Arr;
 
@@ -13,7 +13,7 @@ class ArrKeyMethodsTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
-    protected $original = [
+    private $original = [
         'id'   => 1,
         'name' => 2,
         'some' => [
@@ -30,10 +30,19 @@ class ArrKeyMethodsTest extends \Codeception\Test\Unit
             'some.person' => '',
             'some.other'  => 'maybe'
         ]));
+
+        $this->assertEquals($this->original, Arr::undot([
+            'what.id'          => 1,
+            'what.name'        => 2,
+            'what.some.person' => '',
+            'what.some.other'  => 'maybe'
+        ], 'what.'));
     }
 
     public function testKeysDot(): void
     {
+        $this->assertEquals(['id', 'name', 'some.person', 'some.other'], Arr::keysDot($this->original));
+
         $this->assertEquals(['id', 'name', 'some.person', 'some.other'], Arr::keysDot([
             'id'          => 1,
             'name'        => 2,

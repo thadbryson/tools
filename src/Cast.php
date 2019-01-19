@@ -51,7 +51,9 @@ class Cast
             return null;
         }
 
-        switch (strtolower($type)) {
+        $type = strtolower(trim($type));
+
+        switch ($type) {
 
             case 'bool':
                 return static::toBoolean($value);

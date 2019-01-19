@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Collection;
+namespace Tests\Unit\Traits\Collection;
 
 use Tool\Support\Collection;
 
@@ -32,6 +32,25 @@ class AliasMethodsTraitTest extends \Codeception\Test\Unit
                 'friends' => ['Tom', 'Tina', 'Jenny']
             ]
         ]);
+    }
+
+    public function testAppends(): void
+    {
+        $this->coll
+            ->append(1)
+            ->append(2);
+
+        $this->tester->assertArr([
+            'id'   => 1,
+            'code' => 'abc',
+            'some' => [
+                'addr'    => 101,
+                'zip'     => 20000,
+                'friends' => ['Tom', 'Tina', 'Jenny']
+            ],
+            1,
+            2
+        ], $this->coll);
     }
 
     public function testSet(): void

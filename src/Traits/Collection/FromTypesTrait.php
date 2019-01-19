@@ -10,6 +10,8 @@ use function array_replace_recursive;
 
 /**
  * Trait FromTypesTrait
+ *
+ * @mixin Collection
  */
 trait FromTypesTrait
 {

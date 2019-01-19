@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Collection;
+namespace Tests\Unit\Traits\Collection;
 
 use Illuminate\Http\Request;
 use Tool\Support\Collection;

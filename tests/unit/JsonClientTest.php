@@ -28,6 +28,10 @@ class JsonClientTest extends \Codeception\Test\Unit
     public function _before(): void
     {
         $this->client = new JsonClientStub('https://example.co');
+        $this->client->setGlobalQueryParameters([
+            'id'    => 1,
+            'other' => 'some'
+        ]);
     }
 
     public function testGetBaseUri(): void
@@ -41,16 +45,17 @@ class JsonClientTest extends \Codeception\Test\Unit
 
         $this->client->get('/some/here');
 
-        $this->assertEquals('https://example.co/some/here', $this->client->getLastUri());
+        $this->assertEquals('https://example.co/some/here?id=1&other=some', $this->client->getLastUri());
     }
 
     public function testHasBeenCalled(): void
     {
         $this->assertFalse($this->client->isUsed());
 
-        $this->client->get('/some/here');
+        $this->client->get('deal');
 
         $this->assertTrue($this->client->isUsed());
+        $this->assertEquals('https://example.co/deal?id=1&other=some', $this->client->getLastUri());
     }
 
     public function testGetAndSetGlobalQueryParameters(): void
@@ -64,6 +69,10 @@ class JsonClientTest extends \Codeception\Test\Unit
             'id'   => 4,
             'some' => 'mess'
         ], $this->client->getGlobalQueryParameters());
+
+        $this->client->send('PUT', 'yo');
+
+        $this->assertEquals('https://example.co/yo?id=4&some=mess', $this->client->getLastUri());
     }
 
     public function testStaticJsonDecode(): void
@@ -99,6 +108,10 @@ class JsonClientTest extends \Codeception\Test\Unit
 
         // Call HTTP request method directly.
         $this->tester->assertArr($expected, $this->client->{$method}($uri));
+
+        $uri = trim($uri, '/ ');
+
+        $this->assertEquals("https://example.co/{$uri}?id=1&other=some", $this->client->getLastUri());
     }
 
     public function dataSend(): array

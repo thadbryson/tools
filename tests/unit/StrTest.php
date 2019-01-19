@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
-use UnitTester;
 use Tool\Support\Str;
+use UnitTester;
 use function json_encode;
 use function strlen;
 use const JSON_PRETTY_PRINT;
@@ -125,6 +125,18 @@ class StrTest extends \Codeception\Test\Unit
         $json = json_encode($var, JSON_PRETTY_PRINT);
 
         $this->assertEquals($var, Str::make($json)->jsonDecodeOptions(true, JSON_PRETTY_PRINT));
+    }
+
+    public function testJsonDecodeException(): void
+    {
+        $this->tester->expectException(new \InvalidArgumentException('String is not valid JSON: [ test: 1 ]'),
+            function () {
+
+                Str::make('[ test: 1 ]')->jsonDecodeOptions(false, JSON_PRETTY_PRINT);
+            }
+        );
+
+        $this->assertNotEquals(JSON_ERROR_NONE, json_last_error(), 'JSON error: ' . json_last_error());
     }
 
     public function dataJsonVariables(): array

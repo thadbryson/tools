@@ -98,12 +98,10 @@ class Str extends \Stringy\Stringy
 
     public function jsonDecodeOptions(bool $assoc = false, int $options = 0, int $depth = 512)
     {
-        Assert::true($this->isJson(), 'String is not valid JSON.');
-
         $decoded = json_decode($this->str, $assoc, $depth, $options);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \InvalidArgumentException(json_last_error_msg(), 400);
+            throw new \InvalidArgumentException('String is not valid JSON: ' . $this->get());
         }
 
         return $decoded;

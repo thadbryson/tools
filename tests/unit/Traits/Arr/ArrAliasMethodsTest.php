@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Arr;
+namespace Tests\Unit\Traits\Arr;
 
 use Tool\Support\Arr;
 
@@ -12,7 +12,6 @@ class ArrAliasMethodsTest extends \Codeception\Test\Unit
      * @var \UnitTester
      */
     protected $tester;
-
 
     public function testRemove(): void
     {

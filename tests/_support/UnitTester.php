@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 use _generated\UnitTesterActions;
 use Tool\Support\Clock;
-use Tool\Support\Collection;
+use Tool\Support\Collections\RestrictedCollection;
 use Tool\Support\Str;
 
 /**
@@ -55,6 +55,15 @@ class UnitTester extends \Codeception\Actor
         }
 
         $this->assertEquals($expected, $result, sprintf('%s, with array: %s', $message, json_encode($result)));
+
+        return $this;
+    }
+
+    public function assertRestrictedCollection($expected, RestrictedCollection $coll, string $message = ''): self
+    {
+        $this->assertArr($expected, $coll, $message);
+
+        $coll->assert();
 
         return $this;
     }

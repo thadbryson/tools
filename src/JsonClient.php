@@ -154,7 +154,7 @@ class JsonClient
     public function send(string $method, string $uri = '', array $options = []): array
     {
         if ($this->getGlobalQueryParameters() !== []) {
-            $uri = trim($uri, '& ') . http_build_query($this->globalParams);
+            $uri = trim($uri, '?& ') . '?' . http_build_query($this->globalParams);
         }
 
         $this->lastUri = trim($this->getBaseUri(), '/') . '/' . trim($uri, '/');

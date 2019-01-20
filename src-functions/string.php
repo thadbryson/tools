@@ -4,22 +4,31 @@ declare(strict_types = 1);
 
 namespace tool\support;
 
+use Tool\Validation\Assert;
 use function is_int;
 use function is_numeric;
 use function is_string;
+use function strpos;
 
-function is_timezone($str): bool
+/**
+ * Is variable given a valid DateTimeZone string?
+ *
+ * @param mixed $var
+ *
+ * @return bool
+ */
+function is_timezone($var): bool
 {
-    if (is_string($str) === false) {
-        return false;
-    }
-
     try {
-        new \DateTimeZone($str);
+
+        if (is_string($var) === false) {
+            return false;
+        }
+
+        new \DateTimeZone($var);
 
         return true;
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
         return false;
     }
 }
@@ -27,59 +36,48 @@ function is_timezone($str): bool
 /**
  * Is this a numeric string of an integer?
  */
-function is_numeric_int($str): bool
+function is_numeric_int($var): bool
 {
-    if (is_int($str)) {
+    if (is_int($var)) {
         return true;
     }
 
-    if (is_string($str) && is_numeric($str) && strpos($str, '.') === false) {
-        return true;
-    }
-
-    return false;
+    /** @noinspection TypeUnsafeComparisonInspection */
+    return is_numeric($var) && $var == (int) $var;
 }
 
 /**
  * Is this a numberic string of a float?
  */
-function is_numeric_float($str): bool
+function is_numeric_float($var): bool
 {
-    return is_numeric($str) && strpos($str, '.') > 0;
+    return is_numeric($var) && strpos($var, '.') !== false;
 }
 
 /**
  * Get monetery string format.
+ *
+ * @param string|int|float $str
+ *
+ * @return string
  */
-function money($str): string
+function money($var): string
 {
-    return money_format('%.2n', $str);
+    Assert::numeric($var, '$var must be a numeric string, integer, or float.');
+
+    return money_format('%.2n', $var);
 }
 
 /**
  * Get international monetery format.
- */
-function money_international($str): string
-{
-    return money_format('%.2i', $str);
-}
-
-/**
- * Get display format of phone number.
  *
- * @see Phone::display($str, $locale);
- */
-function phone($str, string $locale = null): string
-{
-    return Phone::make($str, $locale)->display();
-}
-
-/**
- * Phone International number format.
+ * @param string|int|float $str
  *
- * @see Phone::plain($str, $locale);
+ * @return string
  */
-function phone_plain($str, string $locale = null): string
+function money_international($var): string
 {
-    return Phone::make($str, $locale)->plain();
+    Assert::numeric($var, '$var must be a numeric string, integer, or float.');
+
+    return money_format('%.2i', $var);
 }

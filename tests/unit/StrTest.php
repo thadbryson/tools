@@ -49,13 +49,10 @@ class StrTest extends \Codeception\Test\Unit
         $uuid1 = Str::uuid();
         $uuid2 = Str::uuid();
 
-        $this->assertNotEquals($uuid1, $uuid2, 'All UUIDs should be unique. Never repeat.');
+        $this->assertNotEquals((string) $uuid1, (string) $uuid2, 'All UUIDs should be unique. Never repeat.');
 
-        $this->assertIsString($uuid1);
-        $this->assertIsString($uuid2);
-
-        $this->assertStringContainsString('-', $uuid1);
-        $this->assertEquals(36, strlen($uuid1), 'UUID made: ' . $uuid1);
+        $this->assertStringContainsString('-', $uuid1->get());
+        $this->assertEquals(36, strlen($uuid1->get()), 'UUID made: ' . $uuid1->get());
     }
 
     public function testStaticRandom(): void

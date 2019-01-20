@@ -151,6 +151,16 @@ class JsonClient
         return $this->send('HEAD', $uri, $options);
     }
 
+    /**
+     * Send an HTTP Request.
+     *
+     * @param string $method
+     * @param string $uri
+     * @param array  $options
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function send(string $method, string $uri = '', array $options = []): array
     {
         if ($this->getGlobalQueryParameters() !== []) {

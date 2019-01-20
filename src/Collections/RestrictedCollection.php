@@ -40,6 +40,21 @@ class RestrictedCollection extends Collection
     }
 
     /**
+     * Create RestrictedCollection with a certain 'type'.
+     *
+     * @param string $type
+     * @param array  $items
+     *
+     * @return RestrictedCollection
+     */
+    public static function makeType(string $type, array $items = []): self
+    {
+        return static::make($items)
+                     ->setRules(['*' => $type])
+                     ->assert();
+    }
+
+    /**
      * Set rules on entire Collection as a whole.
      *
      * @param array $rules

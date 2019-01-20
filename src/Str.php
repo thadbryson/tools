@@ -5,11 +5,10 @@ declare(strict_types = 1);
 namespace Tool\Support;
 
 use Illuminate\Support\Pluralizer;
-use Ramsey\Uuid\Uuid;
+use Tool\Support\Traits\Str as StrTraits;
 use Tool\Validation\Assert;
 use function json_decode;
 use function json_last_error;
-use function json_last_error_msg;
 use function strlen;
 use const JSON_ERROR_NONE;
 
@@ -18,16 +17,12 @@ use const JSON_ERROR_NONE;
  */
 class Str extends \Stringy\Stringy
 {
-    public static function make(string $str, string $encoding = null): self
-    {
-        return static::create($str, $encoding);
-    }
+    use StrTraits\BooleanTraits,
+        StrTraits\StaticMakeTrait;
 
-    public static function implode(string $glue, array $parts, string $encoding = null): self
+    public function get(): string
     {
-        $str = implode($glue, $parts);
-
-        return static::create($str, $encoding);
+        return $this->__toString();
     }
 
     /**
@@ -38,42 +33,6 @@ class Str extends \Stringy\Stringy
         Assert::stringNotEmpty($delimeter, '$delimeter cannot be an empty string.');
 
         return explode($delimeter, $this->get());
-    }
-
-    /**
-     * Get a v4 UUID string.
-     */
-    public static function uuid(): string
-    {
-        return Uuid::uuid4()->toString();
-    }
-
-    public static function random(int $length, string $encoding = null,
-        string $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'): self
-    {
-        $random      = '';
-        $charsLength = mb_strlen($chars, '8bit') - 1;
-
-        for ($i = 0;$i < $length;$i++) {
-            $random .= $chars[random_int(0, $charsLength)];
-        }
-
-        return static::make($random, $encoding)->shuffle();
-    }
-
-    public function get(): string
-    {
-        return $this->__toString();
-    }
-
-    public function isEmpty(): bool
-    {
-        return $this->get() === '';
-    }
-
-    public function isNotEmpty(): bool
-    {
-        return $this->get() !== '';
     }
 
     public function beforeSubstr(string $substr, int $offset = 0): self
@@ -147,10 +106,23 @@ class Str extends \Stringy\Stringy
         return $this->getAsMethod('is', $append);
     }
 
-    public function hasSubstr(string $substr, bool $caseSensitive = true): bool
+    /**
+     * Get monetery string format.
+     */
+    public function money(): self
     {
-        Assert::stringNotEmpty($substr, '$substr cannot be an empty string.');
+        $this->str = money($this->get());
 
-        return $this->contains($substr, $caseSensitive);
+        return $this;
+    }
+
+    /**
+     * Get international monetery format.
+     */
+    public function moneyInternational(): self
+    {
+        $this->str = money_international($this->get());
+
+        return $this;
     }
 }

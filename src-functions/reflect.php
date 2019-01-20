@@ -59,11 +59,15 @@ function reflect_class_deep(string $className): array
     $refl = $reflect['reflection'];
 
     foreach ($refl->getProperties() as $property) {
-        $reflect['properties'][$property->getName()] = reflect_property($className, $property->getName());
+        $name = $property->getName();
+
+        $reflect['properties'][$name] = reflect_property($className, $name);
     }
 
     foreach ($refl->getMethods() as $method) {
-        $reflect['methods'][$method->getName()] = reflect_method($className, $method->getName());
+        $name = $method->getName();
+
+        $reflect['methods'][$name] = reflect_method($className, $name);
     }
 
     return $reflect;
@@ -107,8 +111,10 @@ function reflect_method(string $className, string $methodName): array
     foreach ($refl->getParameters() as $reflParam) {
         $hasDefault = $reflParam->isDefaultValueAvailable();
 
-        $parameters[$reflParam->getName()] = [
-            'name'         => $reflParam->getName(),
+        $name = $reflParam->getName();
+
+        $parameters[$name] = [
+            'name'         => $name,
             'position'     => $reflParam->getPosition(),
             'type'         => $reflParam->getType(),
             'is_nullable'  => $reflParam->allowsNull(),
@@ -117,7 +123,7 @@ function reflect_method(string $className, string $methodName): array
             'is_optional'  => $reflParam->isOptional(),
             'is_reference' => $reflParam->isPassedByReference(),
             'has_default'  => $hasDefault,
-            'default'      => (($hasDefault) ? $reflParam->getDefaultValue() : null),
+            'default'      => $hasDefault ? $reflParam->getDefaultValue() : null,
         ];
     }
 

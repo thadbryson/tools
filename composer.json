@@ -31,7 +31,6 @@
             "Tool\\Support\\": "src/"
         },
         "files": [
-            "src-functions/call.php",
             "src-functions/reflect.php",
             "src-functions/request.php",
             "src-functions/string.php"

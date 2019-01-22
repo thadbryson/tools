@@ -109,9 +109,9 @@ class Str extends \Stringy\Stringy
     /**
      * Get monetery string format.
      */
-    public function money(): self
+    public function money(string $locale = 'en_US'): self
     {
-        $this->str = money($this->get());
+        $this->str = money($this->get(), $locale, $this->getEncoding());
 
         return $this;
     }
@@ -119,9 +119,9 @@ class Str extends \Stringy\Stringy
     /**
      * Get international monetery format.
      */
-    public function moneyInternational(): self
+    public function moneyInternational(string $locale = 'en_US'): self
     {
-        $this->str = money_international($this->get());
+        $this->str = money_international($this->get(), $locale, $this->getEncoding());
 
         return $this;
     }

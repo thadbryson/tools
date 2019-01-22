@@ -144,4 +144,24 @@ class StrTest extends \Codeception\Test\Unit
             ->assertStr(Str::make('my_var')->isser(), 'isMyVar')
             ->assertStr(Str::make('my_var')->isser('Attr'), 'isMyVarAttr');
     }
+
+    public function testMoney(): void
+    {
+        setlocale(LC_MONETARY, 'en_US');
+
+        $this->tester
+            ->assertStr(Str::make('1')->money(), '$1.00')
+            ->assertStr(Str::make('0')->money(), '$0.00')
+            ->assertStr(Str::make('876.53')->money(), '$876.53')
+            ->assertStr(Str::make('4876.52213')->money(), '$4,876.52');
+    }
+
+    public function testMoneyInternational(): void
+    {
+        $this->tester
+            ->assertStr(Str::make('1')->moneyInternational(), 'USD 1.00')
+            ->assertStr(Str::make('0')->moneyInternational(), 'USD 0.00')
+            ->assertStr(Str::make('98345.72')->moneyInternational(), 'USD 98,345.72')
+            ->assertStr(Str::make('712.832')->moneyInternational(), 'USD 712.83');
+    }
 }

@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace Tests\Unit\Collections;
 
 use Tests\Support\Stubs\RestrictedCollectionStub;
+use Tool\Exceptions\Error;
+use Tool\Support\Collection;
 use Tool\Support\Collections\RestrictedCollection;
 
 /**
@@ -55,12 +57,25 @@ class RestrictedCollectionTest extends \Codeception\Test\Unit
 
     public function testConstructorAssert(): void
     {
-        $this->tester->expectException(\Tool\Exceptions\Error::class, function () {
+        $this->tester->expectException(Error::class, function () {
 
             new RestrictedCollectionStub([
                 'id'   => 10,
                 'what' => '??'
             ]);
+        });
+    }
+
+    public function testMakeType(): void
+    {
+        $integers = RestrictedCollection::makeType('boolean', []);
+
+        $integers->append(true);
+        $integers->append(false);
+
+        $this->tester->expectException(Error::class, function () {
+
+            RestrictedCollection::makeType('integer', [1, 2, 3, false]);
         });
     }
 
@@ -87,7 +102,7 @@ class RestrictedCollectionTest extends \Codeception\Test\Unit
 
     public function testAssert(): void
     {
-        $this->tester->expectException(\Tool\Exceptions\Error::class, function () {
+        $this->tester->expectException(Error::class, function () {
 
             $this->coll->setRules(['id' => 'string'])
                        ->assert();

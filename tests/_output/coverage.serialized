@@ -277,7 +277,7 @@ $coverage->setData(array (
   ),
   '/home/thadbry/www/thadbryson/toolkit/support/src/Cast.php' => 
   array (
-    28 => 
+    29 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #1',
@@ -357,8 +357,9 @@ $coverage->setData(array (
       75 => 'Tests\\Unit\\CastTest::testCast with data set #75',
       76 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       77 => 'Tests\\Unit\\CastTest::testCast with data set #77',
+      78 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    30 => 
+    31 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #1',
@@ -438,6 +439,7 @@ $coverage->setData(array (
       75 => 'Tests\\Unit\\CastTest::testCast with data set #75',
       76 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       77 => 'Tests\\Unit\\CastTest::testCast with data set #77',
+      78 => 'Tests\\Unit\\RequestTest::testCast',
     ),
     33 => 
     array (
@@ -519,8 +521,9 @@ $coverage->setData(array (
       75 => 'Tests\\Unit\\CastTest::testCast with data set #75',
       76 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       77 => 'Tests\\Unit\\CastTest::testCast with data set #77',
+      78 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    35 => 
+    36 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #1',
@@ -600,6 +603,7 @@ $coverage->setData(array (
       75 => 'Tests\\Unit\\CastTest::testCast with data set #75',
       76 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       77 => 'Tests\\Unit\\CastTest::testCast with data set #77',
+      78 => 'Tests\\Unit\\RequestTest::testCast',
     ),
     38 => 
     array (
@@ -681,9 +685,92 @@ $coverage->setData(array (
       75 => 'Tests\\Unit\\CastTest::testCast with data set #75',
       76 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       77 => 'Tests\\Unit\\CastTest::testCast with data set #77',
+      78 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    39 => NULL,
-    50 => 
+    41 => 
+    array (
+      0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
+      1 => 'Tests\\Unit\\CastTest::testCast with data set #1',
+      2 => 'Tests\\Unit\\CastTest::testCast with data set #2',
+      3 => 'Tests\\Unit\\CastTest::testCast with data set #3',
+      4 => 'Tests\\Unit\\CastTest::testCast with data set #4',
+      5 => 'Tests\\Unit\\CastTest::testCast with data set #5',
+      6 => 'Tests\\Unit\\CastTest::testCast with data set #6',
+      7 => 'Tests\\Unit\\CastTest::testCast with data set #7',
+      8 => 'Tests\\Unit\\CastTest::testCast with data set #8',
+      9 => 'Tests\\Unit\\CastTest::testCast with data set #9',
+      10 => 'Tests\\Unit\\CastTest::testCast with data set #10',
+      11 => 'Tests\\Unit\\CastTest::testCast with data set #11',
+      12 => 'Tests\\Unit\\CastTest::testCast with data set #12',
+      13 => 'Tests\\Unit\\CastTest::testCast with data set #13',
+      14 => 'Tests\\Unit\\CastTest::testCast with data set #14',
+      15 => 'Tests\\Unit\\CastTest::testCast with data set #15',
+      16 => 'Tests\\Unit\\CastTest::testCast with data set #16',
+      17 => 'Tests\\Unit\\CastTest::testCast with data set #17',
+      18 => 'Tests\\Unit\\CastTest::testCast with data set #18',
+      19 => 'Tests\\Unit\\CastTest::testCast with data set #19',
+      20 => 'Tests\\Unit\\CastTest::testCast with data set #20',
+      21 => 'Tests\\Unit\\CastTest::testCast with data set #21',
+      22 => 'Tests\\Unit\\CastTest::testCast with data set #22',
+      23 => 'Tests\\Unit\\CastTest::testCast with data set #23',
+      24 => 'Tests\\Unit\\CastTest::testCast with data set #24',
+      25 => 'Tests\\Unit\\CastTest::testCast with data set #25',
+      26 => 'Tests\\Unit\\CastTest::testCast with data set #26',
+      27 => 'Tests\\Unit\\CastTest::testCast with data set #27',
+      28 => 'Tests\\Unit\\CastTest::testCast with data set #28',
+      29 => 'Tests\\Unit\\CastTest::testCast with data set #29',
+      30 => 'Tests\\Unit\\CastTest::testCast with data set #30',
+      31 => 'Tests\\Unit\\CastTest::testCast with data set #31',
+      32 => 'Tests\\Unit\\CastTest::testCast with data set #32',
+      33 => 'Tests\\Unit\\CastTest::testCast with data set #33',
+      34 => 'Tests\\Unit\\CastTest::testCast with data set #34',
+      35 => 'Tests\\Unit\\CastTest::testCast with data set #35',
+      36 => 'Tests\\Unit\\CastTest::testCast with data set #36',
+      37 => 'Tests\\Unit\\CastTest::testCast with data set #37',
+      38 => 'Tests\\Unit\\CastTest::testCast with data set #38',
+      39 => 'Tests\\Unit\\CastTest::testCast with data set #39',
+      40 => 'Tests\\Unit\\CastTest::testCast with data set #40',
+      41 => 'Tests\\Unit\\CastTest::testCast with data set #41',
+      42 => 'Tests\\Unit\\CastTest::testCast with data set #42',
+      43 => 'Tests\\Unit\\CastTest::testCast with data set #43',
+      44 => 'Tests\\Unit\\CastTest::testCast with data set #44',
+      45 => 'Tests\\Unit\\CastTest::testCast with data set #45',
+      46 => 'Tests\\Unit\\CastTest::testCast with data set #46',
+      47 => 'Tests\\Unit\\CastTest::testCast with data set #47',
+      48 => 'Tests\\Unit\\CastTest::testCast with data set #48',
+      49 => 'Tests\\Unit\\CastTest::testCast with data set #49',
+      50 => 'Tests\\Unit\\CastTest::testCast with data set #50',
+      51 => 'Tests\\Unit\\CastTest::testCast with data set #51',
+      52 => 'Tests\\Unit\\CastTest::testCast with data set #52',
+      53 => 'Tests\\Unit\\CastTest::testCast with data set #53',
+      54 => 'Tests\\Unit\\CastTest::testCast with data set #54',
+      55 => 'Tests\\Unit\\CastTest::testCast with data set #55',
+      56 => 'Tests\\Unit\\CastTest::testCast with data set #56',
+      57 => 'Tests\\Unit\\CastTest::testCast with data set #57',
+      58 => 'Tests\\Unit\\CastTest::testCast with data set #58',
+      59 => 'Tests\\Unit\\CastTest::testCast with data set #59',
+      60 => 'Tests\\Unit\\CastTest::testCast with data set #60',
+      61 => 'Tests\\Unit\\CastTest::testCast with data set #61',
+      62 => 'Tests\\Unit\\CastTest::testCast with data set #62',
+      63 => 'Tests\\Unit\\CastTest::testCast with data set #63',
+      64 => 'Tests\\Unit\\CastTest::testCast with data set #64',
+      65 => 'Tests\\Unit\\CastTest::testCast with data set #65',
+      66 => 'Tests\\Unit\\CastTest::testCast with data set #66',
+      67 => 'Tests\\Unit\\CastTest::testCast with data set #67',
+      68 => 'Tests\\Unit\\CastTest::testCast with data set #68',
+      69 => 'Tests\\Unit\\CastTest::testCast with data set #69',
+      70 => 'Tests\\Unit\\CastTest::testCast with data set #70',
+      71 => 'Tests\\Unit\\CastTest::testCast with data set #71',
+      72 => 'Tests\\Unit\\CastTest::testCast with data set #72',
+      73 => 'Tests\\Unit\\CastTest::testCast with data set #73',
+      74 => 'Tests\\Unit\\CastTest::testCast with data set #74',
+      75 => 'Tests\\Unit\\CastTest::testCast with data set #75',
+      76 => 'Tests\\Unit\\CastTest::testCast with data set #76',
+      77 => 'Tests\\Unit\\CastTest::testCast with data set #77',
+      78 => 'Tests\\Unit\\RequestTest::testCast',
+    ),
+    42 => NULL,
+    53 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #1',
@@ -764,8 +851,9 @@ $coverage->setData(array (
       76 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       77 => 'Tests\\Unit\\CastTest::testCast with data set #77',
       78 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
+      79 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    51 => 
+    54 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #1',
@@ -773,7 +861,7 @@ $coverage->setData(array (
       3 => 'Tests\\Unit\\CastTest::testCast with data set #3',
       4 => 'Tests\\Unit\\CastTest::testCast with data set #4',
     ),
-    54 => 
+    57 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #5',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #6',
@@ -849,160 +937,7 @@ $coverage->setData(array (
       71 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       72 => 'Tests\\Unit\\CastTest::testCast with data set #77',
       73 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
-    ),
-    56 => 
-    array (
-      0 => 'Tests\\Unit\\CastTest::testCast with data set #5',
-      1 => 'Tests\\Unit\\CastTest::testCast with data set #6',
-      2 => 'Tests\\Unit\\CastTest::testCast with data set #7',
-      3 => 'Tests\\Unit\\CastTest::testCast with data set #8',
-      4 => 'Tests\\Unit\\CastTest::testCast with data set #9',
-      5 => 'Tests\\Unit\\CastTest::testCast with data set #10',
-      6 => 'Tests\\Unit\\CastTest::testCast with data set #11',
-      7 => 'Tests\\Unit\\CastTest::testCast with data set #12',
-      8 => 'Tests\\Unit\\CastTest::testCast with data set #13',
-      9 => 'Tests\\Unit\\CastTest::testCast with data set #14',
-      10 => 'Tests\\Unit\\CastTest::testCast with data set #15',
-      11 => 'Tests\\Unit\\CastTest::testCast with data set #16',
-      12 => 'Tests\\Unit\\CastTest::testCast with data set #17',
-      13 => 'Tests\\Unit\\CastTest::testCast with data set #18',
-      14 => 'Tests\\Unit\\CastTest::testCast with data set #19',
-      15 => 'Tests\\Unit\\CastTest::testCast with data set #20',
-      16 => 'Tests\\Unit\\CastTest::testCast with data set #21',
-      17 => 'Tests\\Unit\\CastTest::testCast with data set #22',
-      18 => 'Tests\\Unit\\CastTest::testCast with data set #23',
-      19 => 'Tests\\Unit\\CastTest::testCast with data set #24',
-      20 => 'Tests\\Unit\\CastTest::testCast with data set #25',
-      21 => 'Tests\\Unit\\CastTest::testCast with data set #26',
-      22 => 'Tests\\Unit\\CastTest::testCast with data set #27',
-      23 => 'Tests\\Unit\\CastTest::testCast with data set #28',
-      24 => 'Tests\\Unit\\CastTest::testCast with data set #29',
-      25 => 'Tests\\Unit\\CastTest::testCast with data set #30',
-      26 => 'Tests\\Unit\\CastTest::testCast with data set #31',
-      27 => 'Tests\\Unit\\CastTest::testCast with data set #32',
-      28 => 'Tests\\Unit\\CastTest::testCast with data set #33',
-      29 => 'Tests\\Unit\\CastTest::testCast with data set #34',
-      30 => 'Tests\\Unit\\CastTest::testCast with data set #35',
-      31 => 'Tests\\Unit\\CastTest::testCast with data set #36',
-      32 => 'Tests\\Unit\\CastTest::testCast with data set #37',
-      33 => 'Tests\\Unit\\CastTest::testCast with data set #38',
-      34 => 'Tests\\Unit\\CastTest::testCast with data set #39',
-      35 => 'Tests\\Unit\\CastTest::testCast with data set #40',
-      36 => 'Tests\\Unit\\CastTest::testCast with data set #41',
-      37 => 'Tests\\Unit\\CastTest::testCast with data set #42',
-      38 => 'Tests\\Unit\\CastTest::testCast with data set #43',
-      39 => 'Tests\\Unit\\CastTest::testCast with data set #44',
-      40 => 'Tests\\Unit\\CastTest::testCast with data set #45',
-      41 => 'Tests\\Unit\\CastTest::testCast with data set #46',
-      42 => 'Tests\\Unit\\CastTest::testCast with data set #47',
-      43 => 'Tests\\Unit\\CastTest::testCast with data set #48',
-      44 => 'Tests\\Unit\\CastTest::testCast with data set #49',
-      45 => 'Tests\\Unit\\CastTest::testCast with data set #50',
-      46 => 'Tests\\Unit\\CastTest::testCast with data set #51',
-      47 => 'Tests\\Unit\\CastTest::testCast with data set #52',
-      48 => 'Tests\\Unit\\CastTest::testCast with data set #53',
-      49 => 'Tests\\Unit\\CastTest::testCast with data set #54',
-      50 => 'Tests\\Unit\\CastTest::testCast with data set #55',
-      51 => 'Tests\\Unit\\CastTest::testCast with data set #56',
-      52 => 'Tests\\Unit\\CastTest::testCast with data set #57',
-      53 => 'Tests\\Unit\\CastTest::testCast with data set #58',
-      54 => 'Tests\\Unit\\CastTest::testCast with data set #59',
-      55 => 'Tests\\Unit\\CastTest::testCast with data set #60',
-      56 => 'Tests\\Unit\\CastTest::testCast with data set #61',
-      57 => 'Tests\\Unit\\CastTest::testCast with data set #62',
-      58 => 'Tests\\Unit\\CastTest::testCast with data set #63',
-      59 => 'Tests\\Unit\\CastTest::testCast with data set #64',
-      60 => 'Tests\\Unit\\CastTest::testCast with data set #65',
-      61 => 'Tests\\Unit\\CastTest::testCast with data set #66',
-      62 => 'Tests\\Unit\\CastTest::testCast with data set #67',
-      63 => 'Tests\\Unit\\CastTest::testCast with data set #68',
-      64 => 'Tests\\Unit\\CastTest::testCast with data set #69',
-      65 => 'Tests\\Unit\\CastTest::testCast with data set #70',
-      66 => 'Tests\\Unit\\CastTest::testCast with data set #71',
-      67 => 'Tests\\Unit\\CastTest::testCast with data set #72',
-      68 => 'Tests\\Unit\\CastTest::testCast with data set #73',
-      69 => 'Tests\\Unit\\CastTest::testCast with data set #74',
-      70 => 'Tests\\Unit\\CastTest::testCast with data set #75',
-      71 => 'Tests\\Unit\\CastTest::testCast with data set #76',
-      72 => 'Tests\\Unit\\CastTest::testCast with data set #77',
-      73 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
-    ),
-    58 => 
-    array (
-      0 => 'Tests\\Unit\\CastTest::testCast with data set #5',
-      1 => 'Tests\\Unit\\CastTest::testCast with data set #6',
-      2 => 'Tests\\Unit\\CastTest::testCast with data set #7',
-      3 => 'Tests\\Unit\\CastTest::testCast with data set #8',
-      4 => 'Tests\\Unit\\CastTest::testCast with data set #9',
-      5 => 'Tests\\Unit\\CastTest::testCast with data set #10',
-      6 => 'Tests\\Unit\\CastTest::testCast with data set #11',
-      7 => 'Tests\\Unit\\CastTest::testCast with data set #12',
-      8 => 'Tests\\Unit\\CastTest::testCast with data set #13',
-      9 => 'Tests\\Unit\\CastTest::testCast with data set #14',
-      10 => 'Tests\\Unit\\CastTest::testCast with data set #15',
-      11 => 'Tests\\Unit\\CastTest::testCast with data set #16',
-      12 => 'Tests\\Unit\\CastTest::testCast with data set #17',
-      13 => 'Tests\\Unit\\CastTest::testCast with data set #18',
-      14 => 'Tests\\Unit\\CastTest::testCast with data set #19',
-      15 => 'Tests\\Unit\\CastTest::testCast with data set #20',
-      16 => 'Tests\\Unit\\CastTest::testCast with data set #21',
-      17 => 'Tests\\Unit\\CastTest::testCast with data set #22',
-      18 => 'Tests\\Unit\\CastTest::testCast with data set #23',
-      19 => 'Tests\\Unit\\CastTest::testCast with data set #24',
-      20 => 'Tests\\Unit\\CastTest::testCast with data set #25',
-      21 => 'Tests\\Unit\\CastTest::testCast with data set #26',
-      22 => 'Tests\\Unit\\CastTest::testCast with data set #27',
-      23 => 'Tests\\Unit\\CastTest::testCast with data set #28',
-      24 => 'Tests\\Unit\\CastTest::testCast with data set #29',
-      25 => 'Tests\\Unit\\CastTest::testCast with data set #30',
-      26 => 'Tests\\Unit\\CastTest::testCast with data set #31',
-      27 => 'Tests\\Unit\\CastTest::testCast with data set #32',
-      28 => 'Tests\\Unit\\CastTest::testCast with data set #33',
-      29 => 'Tests\\Unit\\CastTest::testCast with data set #34',
-      30 => 'Tests\\Unit\\CastTest::testCast with data set #35',
-      31 => 'Tests\\Unit\\CastTest::testCast with data set #36',
-      32 => 'Tests\\Unit\\CastTest::testCast with data set #37',
-      33 => 'Tests\\Unit\\CastTest::testCast with data set #38',
-      34 => 'Tests\\Unit\\CastTest::testCast with data set #39',
-      35 => 'Tests\\Unit\\CastTest::testCast with data set #40',
-      36 => 'Tests\\Unit\\CastTest::testCast with data set #41',
-      37 => 'Tests\\Unit\\CastTest::testCast with data set #42',
-      38 => 'Tests\\Unit\\CastTest::testCast with data set #43',
-      39 => 'Tests\\Unit\\CastTest::testCast with data set #44',
-      40 => 'Tests\\Unit\\CastTest::testCast with data set #45',
-      41 => 'Tests\\Unit\\CastTest::testCast with data set #46',
-      42 => 'Tests\\Unit\\CastTest::testCast with data set #47',
-      43 => 'Tests\\Unit\\CastTest::testCast with data set #48',
-      44 => 'Tests\\Unit\\CastTest::testCast with data set #49',
-      45 => 'Tests\\Unit\\CastTest::testCast with data set #50',
-      46 => 'Tests\\Unit\\CastTest::testCast with data set #51',
-      47 => 'Tests\\Unit\\CastTest::testCast with data set #52',
-      48 => 'Tests\\Unit\\CastTest::testCast with data set #53',
-      49 => 'Tests\\Unit\\CastTest::testCast with data set #54',
-      50 => 'Tests\\Unit\\CastTest::testCast with data set #55',
-      51 => 'Tests\\Unit\\CastTest::testCast with data set #56',
-      52 => 'Tests\\Unit\\CastTest::testCast with data set #57',
-      53 => 'Tests\\Unit\\CastTest::testCast with data set #58',
-      54 => 'Tests\\Unit\\CastTest::testCast with data set #59',
-      55 => 'Tests\\Unit\\CastTest::testCast with data set #60',
-      56 => 'Tests\\Unit\\CastTest::testCast with data set #61',
-      57 => 'Tests\\Unit\\CastTest::testCast with data set #62',
-      58 => 'Tests\\Unit\\CastTest::testCast with data set #63',
-      59 => 'Tests\\Unit\\CastTest::testCast with data set #64',
-      60 => 'Tests\\Unit\\CastTest::testCast with data set #65',
-      61 => 'Tests\\Unit\\CastTest::testCast with data set #66',
-      62 => 'Tests\\Unit\\CastTest::testCast with data set #67',
-      63 => 'Tests\\Unit\\CastTest::testCast with data set #68',
-      64 => 'Tests\\Unit\\CastTest::testCast with data set #69',
-      65 => 'Tests\\Unit\\CastTest::testCast with data set #70',
-      66 => 'Tests\\Unit\\CastTest::testCast with data set #71',
-      67 => 'Tests\\Unit\\CastTest::testCast with data set #72',
-      68 => 'Tests\\Unit\\CastTest::testCast with data set #73',
-      69 => 'Tests\\Unit\\CastTest::testCast with data set #74',
-      70 => 'Tests\\Unit\\CastTest::testCast with data set #75',
-      71 => 'Tests\\Unit\\CastTest::testCast with data set #76',
-      72 => 'Tests\\Unit\\CastTest::testCast with data set #77',
-      73 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
+      74 => 'Tests\\Unit\\RequestTest::testCast',
     ),
     59 => 
     array (
@@ -1020,8 +955,165 @@ $coverage->setData(array (
       11 => 'Tests\\Unit\\CastTest::testCast with data set #16',
       12 => 'Tests\\Unit\\CastTest::testCast with data set #17',
       13 => 'Tests\\Unit\\CastTest::testCast with data set #18',
+      14 => 'Tests\\Unit\\CastTest::testCast with data set #19',
+      15 => 'Tests\\Unit\\CastTest::testCast with data set #20',
+      16 => 'Tests\\Unit\\CastTest::testCast with data set #21',
+      17 => 'Tests\\Unit\\CastTest::testCast with data set #22',
+      18 => 'Tests\\Unit\\CastTest::testCast with data set #23',
+      19 => 'Tests\\Unit\\CastTest::testCast with data set #24',
+      20 => 'Tests\\Unit\\CastTest::testCast with data set #25',
+      21 => 'Tests\\Unit\\CastTest::testCast with data set #26',
+      22 => 'Tests\\Unit\\CastTest::testCast with data set #27',
+      23 => 'Tests\\Unit\\CastTest::testCast with data set #28',
+      24 => 'Tests\\Unit\\CastTest::testCast with data set #29',
+      25 => 'Tests\\Unit\\CastTest::testCast with data set #30',
+      26 => 'Tests\\Unit\\CastTest::testCast with data set #31',
+      27 => 'Tests\\Unit\\CastTest::testCast with data set #32',
+      28 => 'Tests\\Unit\\CastTest::testCast with data set #33',
+      29 => 'Tests\\Unit\\CastTest::testCast with data set #34',
+      30 => 'Tests\\Unit\\CastTest::testCast with data set #35',
+      31 => 'Tests\\Unit\\CastTest::testCast with data set #36',
+      32 => 'Tests\\Unit\\CastTest::testCast with data set #37',
+      33 => 'Tests\\Unit\\CastTest::testCast with data set #38',
+      34 => 'Tests\\Unit\\CastTest::testCast with data set #39',
+      35 => 'Tests\\Unit\\CastTest::testCast with data set #40',
+      36 => 'Tests\\Unit\\CastTest::testCast with data set #41',
+      37 => 'Tests\\Unit\\CastTest::testCast with data set #42',
+      38 => 'Tests\\Unit\\CastTest::testCast with data set #43',
+      39 => 'Tests\\Unit\\CastTest::testCast with data set #44',
+      40 => 'Tests\\Unit\\CastTest::testCast with data set #45',
+      41 => 'Tests\\Unit\\CastTest::testCast with data set #46',
+      42 => 'Tests\\Unit\\CastTest::testCast with data set #47',
+      43 => 'Tests\\Unit\\CastTest::testCast with data set #48',
+      44 => 'Tests\\Unit\\CastTest::testCast with data set #49',
+      45 => 'Tests\\Unit\\CastTest::testCast with data set #50',
+      46 => 'Tests\\Unit\\CastTest::testCast with data set #51',
+      47 => 'Tests\\Unit\\CastTest::testCast with data set #52',
+      48 => 'Tests\\Unit\\CastTest::testCast with data set #53',
+      49 => 'Tests\\Unit\\CastTest::testCast with data set #54',
+      50 => 'Tests\\Unit\\CastTest::testCast with data set #55',
+      51 => 'Tests\\Unit\\CastTest::testCast with data set #56',
+      52 => 'Tests\\Unit\\CastTest::testCast with data set #57',
+      53 => 'Tests\\Unit\\CastTest::testCast with data set #58',
+      54 => 'Tests\\Unit\\CastTest::testCast with data set #59',
+      55 => 'Tests\\Unit\\CastTest::testCast with data set #60',
+      56 => 'Tests\\Unit\\CastTest::testCast with data set #61',
+      57 => 'Tests\\Unit\\CastTest::testCast with data set #62',
+      58 => 'Tests\\Unit\\CastTest::testCast with data set #63',
+      59 => 'Tests\\Unit\\CastTest::testCast with data set #64',
+      60 => 'Tests\\Unit\\CastTest::testCast with data set #65',
+      61 => 'Tests\\Unit\\CastTest::testCast with data set #66',
+      62 => 'Tests\\Unit\\CastTest::testCast with data set #67',
+      63 => 'Tests\\Unit\\CastTest::testCast with data set #68',
+      64 => 'Tests\\Unit\\CastTest::testCast with data set #69',
+      65 => 'Tests\\Unit\\CastTest::testCast with data set #70',
+      66 => 'Tests\\Unit\\CastTest::testCast with data set #71',
+      67 => 'Tests\\Unit\\CastTest::testCast with data set #72',
+      68 => 'Tests\\Unit\\CastTest::testCast with data set #73',
+      69 => 'Tests\\Unit\\CastTest::testCast with data set #74',
+      70 => 'Tests\\Unit\\CastTest::testCast with data set #75',
+      71 => 'Tests\\Unit\\CastTest::testCast with data set #76',
+      72 => 'Tests\\Unit\\CastTest::testCast with data set #77',
+      73 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
+      74 => 'Tests\\Unit\\RequestTest::testCast',
     ),
     61 => 
+    array (
+      0 => 'Tests\\Unit\\CastTest::testCast with data set #5',
+      1 => 'Tests\\Unit\\CastTest::testCast with data set #6',
+      2 => 'Tests\\Unit\\CastTest::testCast with data set #7',
+      3 => 'Tests\\Unit\\CastTest::testCast with data set #8',
+      4 => 'Tests\\Unit\\CastTest::testCast with data set #9',
+      5 => 'Tests\\Unit\\CastTest::testCast with data set #10',
+      6 => 'Tests\\Unit\\CastTest::testCast with data set #11',
+      7 => 'Tests\\Unit\\CastTest::testCast with data set #12',
+      8 => 'Tests\\Unit\\CastTest::testCast with data set #13',
+      9 => 'Tests\\Unit\\CastTest::testCast with data set #14',
+      10 => 'Tests\\Unit\\CastTest::testCast with data set #15',
+      11 => 'Tests\\Unit\\CastTest::testCast with data set #16',
+      12 => 'Tests\\Unit\\CastTest::testCast with data set #17',
+      13 => 'Tests\\Unit\\CastTest::testCast with data set #18',
+      14 => 'Tests\\Unit\\CastTest::testCast with data set #19',
+      15 => 'Tests\\Unit\\CastTest::testCast with data set #20',
+      16 => 'Tests\\Unit\\CastTest::testCast with data set #21',
+      17 => 'Tests\\Unit\\CastTest::testCast with data set #22',
+      18 => 'Tests\\Unit\\CastTest::testCast with data set #23',
+      19 => 'Tests\\Unit\\CastTest::testCast with data set #24',
+      20 => 'Tests\\Unit\\CastTest::testCast with data set #25',
+      21 => 'Tests\\Unit\\CastTest::testCast with data set #26',
+      22 => 'Tests\\Unit\\CastTest::testCast with data set #27',
+      23 => 'Tests\\Unit\\CastTest::testCast with data set #28',
+      24 => 'Tests\\Unit\\CastTest::testCast with data set #29',
+      25 => 'Tests\\Unit\\CastTest::testCast with data set #30',
+      26 => 'Tests\\Unit\\CastTest::testCast with data set #31',
+      27 => 'Tests\\Unit\\CastTest::testCast with data set #32',
+      28 => 'Tests\\Unit\\CastTest::testCast with data set #33',
+      29 => 'Tests\\Unit\\CastTest::testCast with data set #34',
+      30 => 'Tests\\Unit\\CastTest::testCast with data set #35',
+      31 => 'Tests\\Unit\\CastTest::testCast with data set #36',
+      32 => 'Tests\\Unit\\CastTest::testCast with data set #37',
+      33 => 'Tests\\Unit\\CastTest::testCast with data set #38',
+      34 => 'Tests\\Unit\\CastTest::testCast with data set #39',
+      35 => 'Tests\\Unit\\CastTest::testCast with data set #40',
+      36 => 'Tests\\Unit\\CastTest::testCast with data set #41',
+      37 => 'Tests\\Unit\\CastTest::testCast with data set #42',
+      38 => 'Tests\\Unit\\CastTest::testCast with data set #43',
+      39 => 'Tests\\Unit\\CastTest::testCast with data set #44',
+      40 => 'Tests\\Unit\\CastTest::testCast with data set #45',
+      41 => 'Tests\\Unit\\CastTest::testCast with data set #46',
+      42 => 'Tests\\Unit\\CastTest::testCast with data set #47',
+      43 => 'Tests\\Unit\\CastTest::testCast with data set #48',
+      44 => 'Tests\\Unit\\CastTest::testCast with data set #49',
+      45 => 'Tests\\Unit\\CastTest::testCast with data set #50',
+      46 => 'Tests\\Unit\\CastTest::testCast with data set #51',
+      47 => 'Tests\\Unit\\CastTest::testCast with data set #52',
+      48 => 'Tests\\Unit\\CastTest::testCast with data set #53',
+      49 => 'Tests\\Unit\\CastTest::testCast with data set #54',
+      50 => 'Tests\\Unit\\CastTest::testCast with data set #55',
+      51 => 'Tests\\Unit\\CastTest::testCast with data set #56',
+      52 => 'Tests\\Unit\\CastTest::testCast with data set #57',
+      53 => 'Tests\\Unit\\CastTest::testCast with data set #58',
+      54 => 'Tests\\Unit\\CastTest::testCast with data set #59',
+      55 => 'Tests\\Unit\\CastTest::testCast with data set #60',
+      56 => 'Tests\\Unit\\CastTest::testCast with data set #61',
+      57 => 'Tests\\Unit\\CastTest::testCast with data set #62',
+      58 => 'Tests\\Unit\\CastTest::testCast with data set #63',
+      59 => 'Tests\\Unit\\CastTest::testCast with data set #64',
+      60 => 'Tests\\Unit\\CastTest::testCast with data set #65',
+      61 => 'Tests\\Unit\\CastTest::testCast with data set #66',
+      62 => 'Tests\\Unit\\CastTest::testCast with data set #67',
+      63 => 'Tests\\Unit\\CastTest::testCast with data set #68',
+      64 => 'Tests\\Unit\\CastTest::testCast with data set #69',
+      65 => 'Tests\\Unit\\CastTest::testCast with data set #70',
+      66 => 'Tests\\Unit\\CastTest::testCast with data set #71',
+      67 => 'Tests\\Unit\\CastTest::testCast with data set #72',
+      68 => 'Tests\\Unit\\CastTest::testCast with data set #73',
+      69 => 'Tests\\Unit\\CastTest::testCast with data set #74',
+      70 => 'Tests\\Unit\\CastTest::testCast with data set #75',
+      71 => 'Tests\\Unit\\CastTest::testCast with data set #76',
+      72 => 'Tests\\Unit\\CastTest::testCast with data set #77',
+      73 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
+      74 => 'Tests\\Unit\\RequestTest::testCast',
+    ),
+    62 => 
+    array (
+      0 => 'Tests\\Unit\\CastTest::testCast with data set #5',
+      1 => 'Tests\\Unit\\CastTest::testCast with data set #6',
+      2 => 'Tests\\Unit\\CastTest::testCast with data set #7',
+      3 => 'Tests\\Unit\\CastTest::testCast with data set #8',
+      4 => 'Tests\\Unit\\CastTest::testCast with data set #9',
+      5 => 'Tests\\Unit\\CastTest::testCast with data set #10',
+      6 => 'Tests\\Unit\\CastTest::testCast with data set #11',
+      7 => 'Tests\\Unit\\CastTest::testCast with data set #12',
+      8 => 'Tests\\Unit\\CastTest::testCast with data set #13',
+      9 => 'Tests\\Unit\\CastTest::testCast with data set #14',
+      10 => 'Tests\\Unit\\CastTest::testCast with data set #15',
+      11 => 'Tests\\Unit\\CastTest::testCast with data set #16',
+      12 => 'Tests\\Unit\\CastTest::testCast with data set #17',
+      13 => 'Tests\\Unit\\CastTest::testCast with data set #18',
+      14 => 'Tests\\Unit\\RequestTest::testCast',
+    ),
+    64 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #19',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #20',
@@ -1083,8 +1175,9 @@ $coverage->setData(array (
       57 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       58 => 'Tests\\Unit\\CastTest::testCast with data set #77',
       59 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
+      60 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    62 => 
+    65 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #19',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #20',
@@ -1100,8 +1193,9 @@ $coverage->setData(array (
       11 => 'Tests\\Unit\\CastTest::testCast with data set #30',
       12 => 'Tests\\Unit\\CastTest::testCast with data set #31',
       13 => 'Tests\\Unit\\CastTest::testCast with data set #32',
+      14 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    64 => 
+    67 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #33',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #34',
@@ -1150,7 +1244,7 @@ $coverage->setData(array (
       44 => 'Tests\\Unit\\CastTest::testCast with data set #77',
       45 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
     ),
-    65 => 
+    68 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #33',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #34',
@@ -1170,7 +1264,7 @@ $coverage->setData(array (
       15 => 'Tests\\Unit\\CastTest::testCast with data set #48',
       16 => 'Tests\\Unit\\CastTest::testCast with data set #49',
     ),
-    67 => 
+    70 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #50',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #51',
@@ -1202,7 +1296,7 @@ $coverage->setData(array (
       27 => 'Tests\\Unit\\CastTest::testCast with data set #77',
       28 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
     ),
-    68 => 
+    71 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #50',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #51',
@@ -1216,7 +1310,7 @@ $coverage->setData(array (
       9 => 'Tests\\Unit\\CastTest::testCast with data set #59',
       10 => 'Tests\\Unit\\CastTest::testCast with data set #60',
     ),
-    70 => 
+    73 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #61',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #62',
@@ -1237,7 +1331,7 @@ $coverage->setData(array (
       16 => 'Tests\\Unit\\CastTest::testCast with data set #77',
       17 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
     ),
-    71 => 
+    74 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #61',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #62',
@@ -1257,12 +1351,12 @@ $coverage->setData(array (
       15 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       16 => 'Tests\\Unit\\CastTest::testCast with data set #77',
     ),
-    74 => 
+    77 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCastInvalidOption',
     ),
-    76 => NULL,
-    80 => 
+    79 => NULL,
+    83 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #5',
@@ -1279,14 +1373,16 @@ $coverage->setData(array (
       12 => 'Tests\\Unit\\CastTest::testCast with data set #16',
       13 => 'Tests\\Unit\\CastTest::testCast with data set #17',
       14 => 'Tests\\Unit\\CastTest::testCast with data set #18',
+      15 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    81 => 
+    84 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #5',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #7',
       2 => 'Tests\\Unit\\CastTest::testCast with data set #8',
+      3 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    84 => 
+    87 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #6',
@@ -1301,13 +1397,13 @@ $coverage->setData(array (
       10 => 'Tests\\Unit\\CastTest::testCast with data set #17',
       11 => 'Tests\\Unit\\CastTest::testCast with data set #18',
     ),
-    85 => 
+    88 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #6',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #9',
       2 => 'Tests\\Unit\\CastTest::testCast with data set #10',
     ),
-    88 => 
+    91 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #0',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #11',
@@ -1319,8 +1415,8 @@ $coverage->setData(array (
       7 => 'Tests\\Unit\\CastTest::testCast with data set #17',
       8 => 'Tests\\Unit\\CastTest::testCast with data set #18',
     ),
-    89 => NULL,
-    93 => 
+    92 => NULL,
+    96 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #1',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #19',
@@ -1337,8 +1433,9 @@ $coverage->setData(array (
       12 => 'Tests\\Unit\\CastTest::testCast with data set #30',
       13 => 'Tests\\Unit\\CastTest::testCast with data set #31',
       14 => 'Tests\\Unit\\CastTest::testCast with data set #32',
+      15 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    94 => 
+    97 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #19',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #20',
@@ -1347,7 +1444,7 @@ $coverage->setData(array (
       4 => 'Tests\\Unit\\CastTest::testCast with data set #23',
       5 => 'Tests\\Unit\\CastTest::testCast with data set #24',
     ),
-    98 => 
+    101 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #1',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #25',
@@ -1358,15 +1455,17 @@ $coverage->setData(array (
       6 => 'Tests\\Unit\\CastTest::testCast with data set #30',
       7 => 'Tests\\Unit\\CastTest::testCast with data set #31',
       8 => 'Tests\\Unit\\CastTest::testCast with data set #32',
+      9 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    99 => 
+    102 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #25',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #26',
       2 => 'Tests\\Unit\\CastTest::testCast with data set #27',
       3 => 'Tests\\Unit\\CastTest::testCast with data set #30',
+      4 => 'Tests\\Unit\\RequestTest::testCast',
     ),
-    102 => 
+    105 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #1',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #28',
@@ -1374,8 +1473,8 @@ $coverage->setData(array (
       3 => 'Tests\\Unit\\CastTest::testCast with data set #31',
       4 => 'Tests\\Unit\\CastTest::testCast with data set #32',
     ),
-    103 => NULL,
-    107 => 
+    106 => NULL,
+    110 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #2',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #33',
@@ -1396,7 +1495,7 @@ $coverage->setData(array (
       16 => 'Tests\\Unit\\CastTest::testCast with data set #48',
       17 => 'Tests\\Unit\\CastTest::testCast with data set #49',
     ),
-    108 => 
+    111 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #33',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #34',
@@ -1407,7 +1506,7 @@ $coverage->setData(array (
       6 => 'Tests\\Unit\\CastTest::testCast with data set #39',
       7 => 'Tests\\Unit\\CastTest::testCast with data set #40',
     ),
-    112 => 
+    115 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #2',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #41',
@@ -1420,7 +1519,7 @@ $coverage->setData(array (
       8 => 'Tests\\Unit\\CastTest::testCast with data set #48',
       9 => 'Tests\\Unit\\CastTest::testCast with data set #49',
     ),
-    113 => 
+    116 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #41',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #42',
@@ -1428,7 +1527,7 @@ $coverage->setData(array (
       3 => 'Tests\\Unit\\CastTest::testCast with data set #46',
       4 => 'Tests\\Unit\\CastTest::testCast with data set #47',
     ),
-    116 => 
+    119 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #2',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #44',
@@ -1436,8 +1535,8 @@ $coverage->setData(array (
       3 => 'Tests\\Unit\\CastTest::testCast with data set #48',
       4 => 'Tests\\Unit\\CastTest::testCast with data set #49',
     ),
-    117 => NULL,
-    121 => 
+    120 => NULL,
+    124 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #3',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #50',
@@ -1452,7 +1551,7 @@ $coverage->setData(array (
       10 => 'Tests\\Unit\\CastTest::testCast with data set #59',
       11 => 'Tests\\Unit\\CastTest::testCast with data set #60',
     ),
-    122 => 
+    125 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #50',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #51',
@@ -1462,7 +1561,7 @@ $coverage->setData(array (
       5 => 'Tests\\Unit\\CastTest::testCast with data set #55',
       6 => 'Tests\\Unit\\CastTest::testCast with data set #56',
     ),
-    125 => 
+    128 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #3',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #57',
@@ -1470,8 +1569,8 @@ $coverage->setData(array (
       3 => 'Tests\\Unit\\CastTest::testCast with data set #59',
       4 => 'Tests\\Unit\\CastTest::testCast with data set #60',
     ),
-    126 => NULL,
-    130 => 
+    129 => NULL,
+    133 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #4',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #61',
@@ -1492,11 +1591,11 @@ $coverage->setData(array (
       16 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       17 => 'Tests\\Unit\\CastTest::testCast with data set #77',
     ),
-    131 => 
+    134 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #4',
     ),
-    134 => 
+    137 => 
     array (
       0 => 'Tests\\Unit\\CastTest::testCast with data set #61',
       1 => 'Tests\\Unit\\CastTest::testCast with data set #62',
@@ -1516,7 +1615,7 @@ $coverage->setData(array (
       15 => 'Tests\\Unit\\CastTest::testCast with data set #76',
       16 => 'Tests\\Unit\\CastTest::testCast with data set #77',
     ),
-    135 => NULL,
+    138 => NULL,
   ),
   '/home/thadbry/www/thadbryson/toolkit/support/src/Clock.php' => 
   array (
@@ -1547,13 +1646,14 @@ $coverage->setData(array (
     30 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
-      7 => 'Tests\\Unit\\Traits\\Collection\\ValidationTraitTest::testValidate',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      8 => 'Tests\\Unit\\Traits\\Collection\\ValidationTraitTest::testValidate',
     ),
     31 => NULL,
     42 => 
@@ -1646,7 +1746,8 @@ $coverage->setData(array (
   array (
     22 => 
     array (
-      0 => 'Tests\\Unit\\Traits\\Collection\\AliasMethodsTraitTest::testAppends',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      1 => 'Tests\\Unit\\Traits\\Collection\\AliasMethodsTraitTest::testAppends',
     ),
     23 => NULL,
     27 => 
@@ -1793,62 +1894,70 @@ $coverage->setData(array (
     37 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     39 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     40 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     52 => 
     array (
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
     ),
     53 => 
     array (
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
     ),
     54 => 
     array (
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
     ),
     55 => NULL,
     66 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     68 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     69 => NULL,
     76 => 
@@ -1927,32 +2036,35 @@ $coverage->setData(array (
     143 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     144 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     146 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      7 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     147 => NULL,
     158 => 
@@ -1975,15 +2087,18 @@ $coverage->setData(array (
     176 => NULL,
     188 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     190 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     191 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
   ),
   '/home/thadbry/www/thadbryson/toolkit/support/src/JsonClient.php' => 
@@ -2245,78 +2360,120 @@ $coverage->setData(array (
     ),
     175 => NULL,
   ),
+  '/home/thadbry/www/thadbryson/toolkit/support/src/Request.php' => 
+  array (
+    22 => 
+    array (
+      0 => 'Tests\\Unit\\RequestTest::testIsMobile with data set #0',
+      1 => 'Tests\\Unit\\RequestTest::testIsMobile with data set #1',
+      2 => 'Tests\\Unit\\RequestTest::testIsMobile with data set #2',
+      3 => 'Tests\\Unit\\RequestTest::testIsMobileAgentFalse',
+    ),
+    23 => NULL,
+    27 => 
+    array (
+      0 => 'Tests\\Unit\\RequestTest::testValidate',
+    ),
+    28 => NULL,
+    32 => 
+    array (
+      0 => 'Tests\\Unit\\RequestTest::testCast',
+    ),
+    33 => NULL,
+    37 => 
+    array (
+      0 => 'Tests\\Unit\\RequestTest::testAssertCsrf',
+    ),
+    38 => 
+    array (
+      0 => 'Tests\\Unit\\RequestTest::testAssertCsrf',
+    ),
+    41 => 
+    array (
+      0 => 'Tests\\Unit\\RequestTest::testAssertCsrf',
+    ),
+    42 => NULL,
+  ),
   '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Str/StaticMakeTrait.php' => 
   array (
     19 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticMake',
-      1 => 'Tests\\Unit\\StrTest::testExplode',
-      2 => 'Tests\\Unit\\StrTest::testStaticRandom',
-      3 => 'Tests\\Unit\\StrTest::testGet',
-      4 => 'Tests\\Unit\\StrTest::testIsEmpty',
-      5 => 'Tests\\Unit\\StrTest::testIsNotEmpty',
-      6 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
-      7 => 'Tests\\Unit\\StrTest::testAfterSubstr',
-      8 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
-      9 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
-      10 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
-      11 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
-      12 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
-      13 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
-      14 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
-      15 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #0',
-      16 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #1',
-      17 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #2',
-      18 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #3',
-      19 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #4',
-      20 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #5',
-      21 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #6',
-      22 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
-      23 => 'Tests\\Unit\\StrTest::testPlural',
-      24 => 'Tests\\Unit\\StrTest::testGetter',
-      25 => 'Tests\\Unit\\StrTest::testSetter',
-      26 => 'Tests\\Unit\\StrTest::testHasser',
-      27 => 'Tests\\Unit\\StrTest::testIsser',
-      28 => 'Tests\\Unit\\StrTest::testHasSubstr',
+      0 => 'Tests\\Unit\\StrTest::testExplode',
+      1 => 'Tests\\Unit\\StrTest::testGet',
+      2 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
+      3 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
+      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
+      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
+      7 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
+      8 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
+      9 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
+      10 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
+      11 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #0',
+      12 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #1',
+      13 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #2',
+      14 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #3',
+      15 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #4',
+      16 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #5',
+      17 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #6',
+      18 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
+      19 => 'Tests\\Unit\\StrTest::testPlural',
+      20 => 'Tests\\Unit\\StrTest::testGetter',
+      21 => 'Tests\\Unit\\StrTest::testSetter',
+      22 => 'Tests\\Unit\\StrTest::testHasser',
+      23 => 'Tests\\Unit\\StrTest::testIsser',
+      24 => 'Tests\\Unit\\StrTest::testMoney',
+      25 => 'Tests\\Unit\\StrTest::testMoneyInternational',
+      26 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsEmpty',
+      27 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNotEmpty',
+      28 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testHasSubstr',
+      29 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsTimezone',
+      30 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumeric',
+      31 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumericInt',
+      32 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumericFloat',
+      33 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticMake',
+      34 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticRandom',
     ),
     20 => NULL,
     24 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticImplode',
+      0 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticImplode',
     ),
     26 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticImplode',
+      0 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticImplode',
     ),
     27 => NULL,
     34 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticUuid',
+      0 => 'Tests\\Unit\\RequestTest::testAssertCsrf',
+      1 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticUuid',
     ),
     36 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticUuid',
+      0 => 'Tests\\Unit\\RequestTest::testAssertCsrf',
+      1 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticUuid',
     ),
     37 => NULL,
     42 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+      0 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticRandom',
     ),
     43 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+      0 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticRandom',
     ),
     45 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+      0 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticRandom',
     ),
     46 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+      0 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticRandom',
     ),
     49 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+      0 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticRandom',
     ),
     50 => NULL,
   ),
@@ -2324,56 +2481,71 @@ $coverage->setData(array (
   array (
     20 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testIsEmpty',
+      0 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsEmpty',
     ),
     21 => NULL,
     25 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testIsNotEmpty',
+      0 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNotEmpty',
     ),
     26 => NULL,
     30 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testHasSubstr',
+      0 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testHasSubstr',
     ),
     32 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testHasSubstr',
+      0 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testHasSubstr',
     ),
     33 => NULL,
     40 => 
     array (
+      0 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsTimezone',
     ),
     41 => NULL,
     48 => 
     array (
+      0 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumeric',
     ),
     49 => NULL,
     56 => 
     array (
+      0 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumericInt',
     ),
     57 => NULL,
+    64 => 
+    array (
+      0 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumericFloat',
+    ),
+    65 => NULL,
   ),
   '/home/thadbry/www/thadbryson/toolkit/support/src/Str.php' => 
   array (
     25 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticMake',
+      0 => 'Tests\\Unit\\RequestTest::testAssertCsrf',
       1 => 'Tests\\Unit\\StrTest::testExplode',
-      2 => 'Tests\\Unit\\StrTest::testStaticImplode',
-      3 => 'Tests\\Unit\\StrTest::testStaticUuid',
-      4 => 'Tests\\Unit\\StrTest::testStaticRandom',
-      5 => 'Tests\\Unit\\StrTest::testGet',
-      6 => 'Tests\\Unit\\StrTest::testIsEmpty',
-      7 => 'Tests\\Unit\\StrTest::testIsNotEmpty',
-      8 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
-      9 => 'Tests\\Unit\\StrTest::testAfterSubstr',
-      10 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
-      11 => 'Tests\\Unit\\StrTest::testPlural',
-      12 => 'Tests\\Unit\\StrTest::testGetter',
-      13 => 'Tests\\Unit\\StrTest::testSetter',
-      14 => 'Tests\\Unit\\StrTest::testHasser',
-      15 => 'Tests\\Unit\\StrTest::testIsser',
+      2 => 'Tests\\Unit\\StrTest::testGet',
+      3 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
+      4 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+      5 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
+      6 => 'Tests\\Unit\\StrTest::testPlural',
+      7 => 'Tests\\Unit\\StrTest::testGetter',
+      8 => 'Tests\\Unit\\StrTest::testSetter',
+      9 => 'Tests\\Unit\\StrTest::testHasser',
+      10 => 'Tests\\Unit\\StrTest::testIsser',
+      11 => 'Tests\\Unit\\StrTest::testMoney',
+      12 => 'Tests\\Unit\\StrTest::testMoneyInternational',
+      13 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsEmpty',
+      14 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNotEmpty',
+      15 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsTimezone',
+      16 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumeric',
+      17 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumericInt',
+      18 => 'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumericFloat',
+      19 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticMake',
+      20 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticImplode',
+      21 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticUuid',
+      22 => 'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticRandom',
     ),
     26 => NULL,
     33 => 
@@ -2550,69 +2722,22 @@ $coverage->setData(array (
     107 => NULL,
     114 => 
     array (
+      0 => 'Tests\\Unit\\StrTest::testMoney',
     ),
     116 => 
     array (
+      0 => 'Tests\\Unit\\StrTest::testMoney',
     ),
     117 => NULL,
     124 => 
     array (
+      0 => 'Tests\\Unit\\StrTest::testMoneyInternational',
     ),
     126 => 
     array (
+      0 => 'Tests\\Unit\\StrTest::testMoneyInternational',
     ),
     127 => NULL,
-  ),
-  '/home/thadbry/www/thadbryson/toolkit/support/src/Request.php' => 
-  array (
-    9 => 
-    array (
-    ),
-    21 => 
-    array (
-    ),
-    22 => 
-    array (
-    ),
-    23 => 
-    array (
-    ),
-    26 => 
-    array (
-    ),
-    27 => 
-    array (
-    ),
-    28 => 
-    array (
-    ),
-    31 => 
-    array (
-    ),
-    32 => 
-    array (
-    ),
-    33 => 
-    array (
-    ),
-    36 => 
-    array (
-    ),
-    37 => 
-    array (
-    ),
-    38 => 
-    array (
-    ),
-    39 => 
-    array (
-    ),
-    41 => 
-    array (
-    ),
-    42 => 
-    array (
-    ),
   ),
   '/home/thadbry/www/thadbryson/toolkit/support/src-functions' => 
   array (
@@ -3139,6 +3264,11 @@ $coverage->setTests(array (
     'size' => 'unknown',
     'status' => 0,
   ),
+  'Tests\\Unit\\Collections\\RestrictedCollectionTest::testMakeType' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
   'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes' => 
   array (
     'size' => 'unknown',
@@ -3229,7 +3359,37 @@ $coverage->setTests(array (
     'size' => 'unknown',
     'status' => 0,
   ),
-  'Tests\\Unit\\StrTest::testStaticMake' => 
+  'Tests\\Unit\\RequestTest::testIsMobile with data set #0' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\RequestTest::testIsMobile with data set #1' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\RequestTest::testIsMobile with data set #2' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\RequestTest::testIsMobileAgentFalse' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\RequestTest::testValidate' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\RequestTest::testCast' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\RequestTest::testAssertCsrf' => 
   array (
     'size' => 'unknown',
     'status' => 0,
@@ -3239,32 +3399,7 @@ $coverage->setTests(array (
     'size' => 'unknown',
     'status' => 0,
   ),
-  'Tests\\Unit\\StrTest::testStaticImplode' => 
-  array (
-    'size' => 'unknown',
-    'status' => 0,
-  ),
-  'Tests\\Unit\\StrTest::testStaticUuid' => 
-  array (
-    'size' => 'unknown',
-    'status' => 0,
-  ),
-  'Tests\\Unit\\StrTest::testStaticRandom' => 
-  array (
-    'size' => 'unknown',
-    'status' => 0,
-  ),
   'Tests\\Unit\\StrTest::testGet' => 
-  array (
-    'size' => 'unknown',
-    'status' => 0,
-  ),
-  'Tests\\Unit\\StrTest::testIsEmpty' => 
-  array (
-    'size' => 'unknown',
-    'status' => 0,
-  ),
-  'Tests\\Unit\\StrTest::testIsNotEmpty' => 
   array (
     'size' => 'unknown',
     'status' => 0,
@@ -3379,7 +3514,12 @@ $coverage->setTests(array (
     'size' => 'unknown',
     'status' => 0,
   ),
-  'Tests\\Unit\\StrTest::testHasSubstr' => 
+  'Tests\\Unit\\StrTest::testMoney' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\StrTest::testMoneyInternational' => 
   array (
     'size' => 'unknown',
     'status' => 0,
@@ -3470,6 +3610,61 @@ $coverage->setTests(array (
     'status' => 0,
   ),
   'Tests\\Unit\\Traits\\Collection\\ValidationTraitTest::testAssertEquals' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsEmpty' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNotEmpty' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testHasSubstr' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsTimezone' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumeric' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumericInt' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\BooleanTraitsTest::testIsNumericFloat' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticMake' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticImplode' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticUuid' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'Tests\\Unit\\Traits\\Str\\StaticMakeTraitTest::testStaticRandom' => 
   array (
     'size' => 'unknown',
     'status' => 0,

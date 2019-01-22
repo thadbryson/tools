@@ -65,11 +65,13 @@ function is_numeric_float($var): bool
  *
  * @return string
  */
-function money($var): string
+function money($var, string $locale = 'en_US', string $encoding = 'UTF-8'): string
 {
     Assert::numeric($var, '$var must be a numeric string, integer, or float.');
 
-    return money_format('%.2n', $var);
+    setlocale(LC_MONETARY, $locale . '.' . $encoding);
+
+    return money_format('%n', (float) $var);
 }
 
 /**
@@ -79,9 +81,11 @@ function money($var): string
  *
  * @return string
  */
-function money_international($var): string
+function money_international($var, string $locale = 'en_US', string $encoding = 'UTF-8'): string
 {
     Assert::numeric($var, '$var must be a numeric string, integer, or float.');
 
-    return money_format('%.2i', $var);
+    setlocale(LC_MONETARY, $locale . '.' . $encoding);
+
+    return money_format('%i', (float) $var);
 }

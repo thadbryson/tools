@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace tool\support;
 
 use Tool\Validation\Assert;
+use function is_float;
 use function is_int;
 use function is_numeric;
 use function is_string;
@@ -42,8 +43,7 @@ function is_numeric_int($var): bool
         return true;
     }
 
-    /** @noinspection TypeUnsafeComparisonInspection */
-    return is_numeric($var) && $var == (int) $var;
+    return is_string($var) && is_numeric($var) && strpos($var, '.') === false;
 }
 
 /**
@@ -51,7 +51,11 @@ function is_numeric_int($var): bool
  */
 function is_numeric_float($var): bool
 {
-    return is_numeric($var) && strpos($var, '.') !== false;
+    if (is_float($var)) {
+        return true;
+    }
+
+    return is_string($var) && is_numeric($var) && strpos($var, '.') !== false;
 }
 
 /**

@@ -7,7 +7,6 @@ namespace Tests\Unit;
 use Tool\Support\Str;
 use UnitTester;
 use function json_encode;
-use function strlen;
 use const JSON_PRETTY_PRINT;
 
 /**
@@ -20,13 +19,6 @@ class StrTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
-    public function testStaticMake(): void
-    {
-        $this->tester
-            ->assertStr(Str::make('', 'ISO-8859-1'), '', 'ISO-8859-1')
-            ->assertStr(Str::make(' '), ' ');
-    }
-
     public function testExplode(): void
     {
         $str = Str::make('test,comma, string');
@@ -37,32 +29,6 @@ class StrTest extends \Codeception\Test\Unit
         $this->assertEquals(['test,comma,', 'string'], $str->explode(' '), 'Delimiter not in string.');
     }
 
-    public function testStaticImplode(): void
-    {
-        $this->tester
-            ->assertStr(Str::implode(',', ['some', 'stuff']), 'some,stuff')
-            ->assertStr(Str::implode('', ['A', 'B', 'C'], 'UTF-16'), 'ABC', 'UTF-16');
-    }
-
-    public function testStaticUuid(): void
-    {
-        $uuid1 = Str::uuid();
-        $uuid2 = Str::uuid();
-
-        $this->assertNotEquals((string) $uuid1, (string) $uuid2, 'All UUIDs should be unique. Never repeat.');
-
-        $this->assertStringContainsString('-', $uuid1->get());
-        $this->assertEquals(36, strlen($uuid1->get()), 'UUID made: ' . $uuid1->get());
-    }
-
-    public function testStaticRandom(): void
-    {
-        $this->tester->assertStr(Str::random(0, 'ISO-8859-1'), '', 'ISO-8859-1');
-
-        $this->assertEquals(1, Str::random(1)->length());
-        $this->assertEquals(1, strlen((string) Str::random(1)));
-    }
-
     public function testGet(): void
     {
         $str = Str::make(' what??? ');
@@ -70,20 +36,6 @@ class StrTest extends \Codeception\Test\Unit
         $this->assertEquals(' what??? ', $str->get());
         $this->assertEquals(' what??? ', $str->__toString());
         $this->assertEquals(' what??? ', (string) $str);
-    }
-
-    public function testIsEmpty(): void
-    {
-        $this->assertTrue(Str::make('')->isEmpty());
-        $this->assertFalse(Str::make(' ')->isEmpty());
-        $this->assertFalse(Str::make('a string here')->isEmpty());
-    }
-
-    public function testIsNotEmpty(): void
-    {
-        $this->assertFalse(Str::make('')->isNotEmpty());
-        $this->assertTrue(Str::make(' ')->isNotEmpty());
-        $this->assertTrue(Str::make('a string here')->isNotEmpty());
     }
 
     public function testBeforeSubstr(): void
@@ -191,19 +143,5 @@ class StrTest extends \Codeception\Test\Unit
             ->assertStr(Str::make('var')->isser('Attr'), 'isVarAttr')
             ->assertStr(Str::make('my_var')->isser(), 'isMyVar')
             ->assertStr(Str::make('my_var')->isser('Attr'), 'isMyVarAttr');
-    }
-
-    public function testHasSubstr(): void
-    {
-        $str = Str::make('abcdef');
-
-        $this->assertTrue($str->hasSubstr('a'));
-        $this->assertFalse($str->hasSubstr('A'));
-
-        $this->assertTrue($str->hasSubstr('a', false));
-        $this->assertTrue($str->hasSubstr('A', false));
-
-        $this->assertFalse($str->hasSubstr(' '));
-        $this->assertFalse($str->hasSubstr('h'));
     }
 }

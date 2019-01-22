@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tool\Support;
 
+use function array_replace_recursive;
 use InvalidArgumentException;
 use function is_float;
 use function is_int;
@@ -25,6 +26,8 @@ class Cast
      */
     public static function all(array $values, array $casts): array
     {
+        $casted = [];
+
         foreach ($casts as $dot => $type) {
 
             $value = Arr::get($values, $dot);
@@ -32,10 +35,10 @@ class Cast
             // Set new casted value.
             $value = static::cast($value, $type);
 
-            Arr::set($values, $dot, $value);
+            Arr::set($casted, $dot, $value);
         }
 
-        return $values;
+        return array_replace_recursive($values, $casted);
     }
 
     /**

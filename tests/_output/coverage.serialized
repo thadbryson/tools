@@ -1820,18 +1820,18 @@ $coverage->setData(array (
       5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
       6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
-    51 => 
+    52 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
     53 => 
     array (
+    ),
+    54 => 
+    array (
+    ),
+    55 => NULL,
+    66 => 
+    array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
       1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
       2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
@@ -1840,138 +1840,148 @@ $coverage->setData(array (
       5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
       6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
-    54 => NULL,
-    61 => 
+    68 => 
+    array (
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+    ),
+    69 => NULL,
+    76 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
       1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
       2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
       3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
     ),
-    62 => NULL,
-    69 => 
+    77 => NULL,
+    84 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
     ),
-    70 => NULL,
-    77 => 
+    85 => NULL,
+    92 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
     ),
-    78 => NULL,
-    85 => 
+    93 => NULL,
+    100 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
     ),
-    87 => 
+    102 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
     ),
-    88 => NULL,
-    95 => 
-    array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-    ),
-    97 => 
-    array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-    ),
-    98 => NULL,
-    107 => 
-    array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-    ),
-    109 => 
-    array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-    ),
+    103 => NULL,
     110 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
     ),
     112 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
     ),
-    114 => 
+    113 => NULL,
+    122 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
       1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
       2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
     ),
-    117 => 
+    124 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
       1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
       2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
     ),
-    118 => NULL,
-    128 => 
+    125 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+    ),
+    127 => 
+    array (
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
     ),
     129 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
     ),
-    131 => 
+    132 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
-      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
-      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
-      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
-      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
-      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
-      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
     ),
-    132 => NULL,
+    133 => NULL,
     143 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
-    145 => 
+    144 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
-    146 => NULL,
+    146 => 
+    array (
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testConstructorAssert',
+      1 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesMessagesCustomAttributes',
+      2 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testSetRulesEach',
+      3 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testAssert',
+      4 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
+      5 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      6 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+    ),
+    147 => NULL,
     158 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
     ),
     160 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testTransform',
     ),
     161 => NULL,
     173 => 
     array (
-      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
     ),
     175 => 
     array (
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testPrepend',
+    ),
+    176 => NULL,
+    188 => 
+    array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
-    176 => 
+    190 => 
+    array (
+      0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
+    ),
+    191 => 
     array (
       0 => 'Tests\\Unit\\Collections\\RestrictedCollectionTest::testOffsetSet',
     ),
@@ -2168,7 +2178,7 @@ $coverage->setData(array (
       0 => 'Tests\\Unit\\JsonClientTest::testSend with data set #5',
     ),
     152 => NULL,
-    156 => 
+    166 => 
     array (
       0 => 'Tests\\Unit\\JsonClientTest::testGetLastUri',
       1 => 'Tests\\Unit\\JsonClientTest::testHasBeenCalled',
@@ -2181,7 +2191,7 @@ $coverage->setData(array (
       8 => 'Tests\\Unit\\JsonClientTest::testSend with data set #5',
       9 => 'Tests\\Unit\\JsonClientTest::testSend with data set #6',
     ),
-    157 => 
+    167 => 
     array (
       0 => 'Tests\\Unit\\JsonClientTest::testGetLastUri',
       1 => 'Tests\\Unit\\JsonClientTest::testHasBeenCalled',
@@ -2194,7 +2204,7 @@ $coverage->setData(array (
       8 => 'Tests\\Unit\\JsonClientTest::testSend with data set #5',
       9 => 'Tests\\Unit\\JsonClientTest::testSend with data set #6',
     ),
-    160 => 
+    170 => 
     array (
       0 => 'Tests\\Unit\\JsonClientTest::testGetLastUri',
       1 => 'Tests\\Unit\\JsonClientTest::testHasBeenCalled',
@@ -2207,7 +2217,7 @@ $coverage->setData(array (
       8 => 'Tests\\Unit\\JsonClientTest::testSend with data set #5',
       9 => 'Tests\\Unit\\JsonClientTest::testSend with data set #6',
     ),
-    162 => 
+    172 => 
     array (
       0 => 'Tests\\Unit\\JsonClientTest::testGetLastUri',
       1 => 'Tests\\Unit\\JsonClientTest::testHasBeenCalled',
@@ -2220,7 +2230,7 @@ $coverage->setData(array (
       8 => 'Tests\\Unit\\JsonClientTest::testSend with data set #5',
       9 => 'Tests\\Unit\\JsonClientTest::testSend with data set #6',
     ),
-    164 => 
+    174 => 
     array (
       0 => 'Tests\\Unit\\JsonClientTest::testGetLastUri',
       1 => 'Tests\\Unit\\JsonClientTest::testHasBeenCalled',
@@ -2233,11 +2243,11 @@ $coverage->setData(array (
       8 => 'Tests\\Unit\\JsonClientTest::testSend with data set #5',
       9 => 'Tests\\Unit\\JsonClientTest::testSend with data set #6',
     ),
-    165 => NULL,
+    175 => NULL,
   ),
-  '/home/thadbry/www/thadbryson/toolkit/support/src/Str.php' => 
+  '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Str/StaticMakeTrait.php' => 
   array (
-    23 => 
+    19 => 
     array (
       0 => 'Tests\\Unit\\StrTest::testStaticMake',
       1 => 'Tests\\Unit\\StrTest::testExplode',
@@ -2269,252 +2279,340 @@ $coverage->setData(array (
       27 => 'Tests\\Unit\\StrTest::testIsser',
       28 => 'Tests\\Unit\\StrTest::testHasSubstr',
     ),
-    24 => NULL,
-    28 => 
+    20 => NULL,
+    24 => 
     array (
       0 => 'Tests\\Unit\\StrTest::testStaticImplode',
     ),
+    26 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testStaticImplode',
+    ),
+    27 => NULL,
+    34 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testStaticUuid',
+    ),
+    36 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testStaticUuid',
+    ),
+    37 => NULL,
+    42 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+    ),
+    43 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+    ),
+    45 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+    ),
+    46 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+    ),
+    49 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
+    ),
+    50 => NULL,
+  ),
+  '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Str/BooleanTraits.php' => 
+  array (
+    20 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testIsEmpty',
+    ),
+    21 => NULL,
+    25 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testIsNotEmpty',
+    ),
+    26 => NULL,
     30 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticImplode',
+      0 => 'Tests\\Unit\\StrTest::testHasSubstr',
     ),
-    31 => NULL,
-    38 => 
+    32 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testExplode',
+      0 => 'Tests\\Unit\\StrTest::testHasSubstr',
     ),
+    33 => NULL,
     40 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testExplode',
     ),
     41 => NULL,
     48 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticUuid',
     ),
     49 => NULL,
-    54 => 
+    56 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
     ),
-    55 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
-    ),
-    57 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
-    ),
-    58 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
-    ),
-    61 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testStaticRandom',
-    ),
-    62 => NULL,
-    66 => 
+    57 => NULL,
+  ),
+  '/home/thadbry/www/thadbryson/toolkit/support/src/Str.php' => 
+  array (
+    25 => 
     array (
       0 => 'Tests\\Unit\\StrTest::testStaticMake',
       1 => 'Tests\\Unit\\StrTest::testExplode',
       2 => 'Tests\\Unit\\StrTest::testStaticImplode',
-      3 => 'Tests\\Unit\\StrTest::testStaticRandom',
-      4 => 'Tests\\Unit\\StrTest::testGet',
-      5 => 'Tests\\Unit\\StrTest::testIsEmpty',
-      6 => 'Tests\\Unit\\StrTest::testIsNotEmpty',
-      7 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
-      8 => 'Tests\\Unit\\StrTest::testAfterSubstr',
-      9 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
-      10 => 'Tests\\Unit\\StrTest::testPlural',
-      11 => 'Tests\\Unit\\StrTest::testGetter',
-      12 => 'Tests\\Unit\\StrTest::testSetter',
-      13 => 'Tests\\Unit\\StrTest::testHasser',
-      14 => 'Tests\\Unit\\StrTest::testIsser',
+      3 => 'Tests\\Unit\\StrTest::testStaticUuid',
+      4 => 'Tests\\Unit\\StrTest::testStaticRandom',
+      5 => 'Tests\\Unit\\StrTest::testGet',
+      6 => 'Tests\\Unit\\StrTest::testIsEmpty',
+      7 => 'Tests\\Unit\\StrTest::testIsNotEmpty',
+      8 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
+      9 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+      10 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
+      11 => 'Tests\\Unit\\StrTest::testPlural',
+      12 => 'Tests\\Unit\\StrTest::testGetter',
+      13 => 'Tests\\Unit\\StrTest::testSetter',
+      14 => 'Tests\\Unit\\StrTest::testHasser',
+      15 => 'Tests\\Unit\\StrTest::testIsser',
+    ),
+    26 => NULL,
+    33 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testExplode',
+    ),
+    35 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testExplode',
+    ),
+    36 => NULL,
+    40 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
+    ),
+    42 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
+    ),
+    43 => NULL,
+    47 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+    ),
+    48 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+    ),
+    50 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+    ),
+    51 => NULL,
+    55 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
+      1 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
+      2 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
+      3 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
+      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
+      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
+      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
+    ),
+    56 => NULL,
+    60 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
+      1 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
+      2 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
+      3 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
+      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
+      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
+      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
+      7 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #0',
+      8 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #1',
+      9 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #2',
+      10 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #3',
+      11 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #4',
+      12 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #5',
+      13 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #6',
+      14 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
+    ),
+    62 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
+      1 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
+      2 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
+      3 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
+      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
+      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
+      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
+      7 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #0',
+      8 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #1',
+      9 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #2',
+      10 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #3',
+      11 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #4',
+      12 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #5',
+      13 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #6',
+      14 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
+    ),
+    63 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
+    ),
+    66 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
+      1 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
+      2 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
+      3 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
+      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
+      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
+      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
+      7 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #0',
+      8 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #1',
+      9 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #2',
+      10 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #3',
+      11 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #4',
+      12 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #5',
+      13 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #6',
     ),
     67 => NULL,
-    71 => 
+    74 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testIsEmpty',
+      0 => 'Tests\\Unit\\StrTest::testPlural',
     ),
-    72 => NULL,
     76 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testIsNotEmpty',
+      0 => 'Tests\\Unit\\StrTest::testPlural',
     ),
     77 => NULL,
     81 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
+      0 => 'Tests\\Unit\\StrTest::testGetter',
+      1 => 'Tests\\Unit\\StrTest::testSetter',
+      2 => 'Tests\\Unit\\StrTest::testHasser',
+      3 => 'Tests\\Unit\\StrTest::testIsser',
+    ),
+    82 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testGetter',
+      1 => 'Tests\\Unit\\StrTest::testSetter',
+      2 => 'Tests\\Unit\\StrTest::testHasser',
+      3 => 'Tests\\Unit\\StrTest::testIsser',
     ),
     83 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testBeforeSubstr',
+      0 => 'Tests\\Unit\\StrTest::testGetter',
+      1 => 'Tests\\Unit\\StrTest::testSetter',
+      2 => 'Tests\\Unit\\StrTest::testHasser',
+      3 => 'Tests\\Unit\\StrTest::testIsser',
     ),
-    84 => NULL,
-    88 => 
+    84 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+      0 => 'Tests\\Unit\\StrTest::testGetter',
+      1 => 'Tests\\Unit\\StrTest::testSetter',
+      2 => 'Tests\\Unit\\StrTest::testHasser',
+      3 => 'Tests\\Unit\\StrTest::testIsser',
     ),
-    89 => 
+    85 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+      0 => 'Tests\\Unit\\StrTest::testGetter',
+      1 => 'Tests\\Unit\\StrTest::testSetter',
+      2 => 'Tests\\Unit\\StrTest::testHasser',
+      3 => 'Tests\\Unit\\StrTest::testIsser',
     ),
+    86 => 
+    array (
+      0 => 'Tests\\Unit\\StrTest::testGetter',
+      1 => 'Tests\\Unit\\StrTest::testSetter',
+      2 => 'Tests\\Unit\\StrTest::testHasser',
+      3 => 'Tests\\Unit\\StrTest::testIsser',
+    ),
+    87 => NULL,
     91 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testAfterSubstr',
+      0 => 'Tests\\Unit\\StrTest::testGetter',
     ),
     92 => NULL,
     96 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
-      1 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
-      2 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
-      3 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
-      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
-      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
-      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
+      0 => 'Tests\\Unit\\StrTest::testSetter',
     ),
     97 => NULL,
     101 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
-      1 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
-      2 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
-      3 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
-      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
-      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
-      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
-      7 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #0',
-      8 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #1',
-      9 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #2',
-      10 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #3',
-      11 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #4',
-      12 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #5',
-      13 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #6',
-      14 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
-    ),
-    103 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
-      1 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
-      2 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
-      3 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
-      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
-      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
-      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
-      7 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #0',
-      8 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #1',
-      9 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #2',
-      10 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #3',
-      11 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #4',
-      12 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #5',
-      13 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #6',
-      14 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
-    ),
-    104 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testJsonDecodeException',
-    ),
-    107 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #0',
-      1 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #1',
-      2 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #2',
-      3 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #3',
-      4 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #4',
-      5 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #5',
-      6 => 'Tests\\Unit\\StrTest::testJsonDecode with data set #6',
-      7 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #0',
-      8 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #1',
-      9 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #2',
-      10 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #3',
-      11 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #4',
-      12 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #5',
-      13 => 'Tests\\Unit\\StrTest::testJsonDecodeOptions with data set #6',
-    ),
-    108 => NULL,
-    115 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testPlural',
-    ),
-    117 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testPlural',
-    ),
-    118 => NULL,
-    122 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testGetter',
-      1 => 'Tests\\Unit\\StrTest::testSetter',
-      2 => 'Tests\\Unit\\StrTest::testHasser',
-      3 => 'Tests\\Unit\\StrTest::testIsser',
-    ),
-    123 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testGetter',
-      1 => 'Tests\\Unit\\StrTest::testSetter',
-      2 => 'Tests\\Unit\\StrTest::testHasser',
-      3 => 'Tests\\Unit\\StrTest::testIsser',
-    ),
-    124 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testGetter',
-      1 => 'Tests\\Unit\\StrTest::testSetter',
-      2 => 'Tests\\Unit\\StrTest::testHasser',
-      3 => 'Tests\\Unit\\StrTest::testIsser',
-    ),
-    125 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testGetter',
-      1 => 'Tests\\Unit\\StrTest::testSetter',
-      2 => 'Tests\\Unit\\StrTest::testHasser',
-      3 => 'Tests\\Unit\\StrTest::testIsser',
-    ),
-    126 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testGetter',
-      1 => 'Tests\\Unit\\StrTest::testSetter',
-      2 => 'Tests\\Unit\\StrTest::testHasser',
-      3 => 'Tests\\Unit\\StrTest::testIsser',
-    ),
-    127 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testGetter',
-      1 => 'Tests\\Unit\\StrTest::testSetter',
-      2 => 'Tests\\Unit\\StrTest::testHasser',
-      3 => 'Tests\\Unit\\StrTest::testIsser',
-    ),
-    128 => NULL,
-    132 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testGetter',
-    ),
-    133 => NULL,
-    137 => 
-    array (
-      0 => 'Tests\\Unit\\StrTest::testSetter',
-    ),
-    138 => NULL,
-    142 => 
-    array (
       0 => 'Tests\\Unit\\StrTest::testHasser',
     ),
-    143 => NULL,
-    147 => 
+    102 => NULL,
+    106 => 
     array (
       0 => 'Tests\\Unit\\StrTest::testIsser',
     ),
-    148 => NULL,
-    152 => 
+    107 => NULL,
+    114 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testHasSubstr',
     ),
-    154 => 
+    116 => 
     array (
-      0 => 'Tests\\Unit\\StrTest::testHasSubstr',
     ),
-    155 => NULL,
+    117 => NULL,
+    124 => 
+    array (
+    ),
+    126 => 
+    array (
+    ),
+    127 => NULL,
+  ),
+  '/home/thadbry/www/thadbryson/toolkit/support/src/Request.php' => 
+  array (
+    9 => 
+    array (
+    ),
+    21 => 
+    array (
+    ),
+    22 => 
+    array (
+    ),
+    23 => 
+    array (
+    ),
+    26 => 
+    array (
+    ),
+    27 => 
+    array (
+    ),
+    28 => 
+    array (
+    ),
+    31 => 
+    array (
+    ),
+    32 => 
+    array (
+    ),
+    33 => 
+    array (
+    ),
+    36 => 
+    array (
+    ),
+    37 => 
+    array (
+    ),
+    38 => 
+    array (
+    ),
+    39 => 
+    array (
+    ),
+    41 => 
+    array (
+    ),
+    42 => 
+    array (
+    ),
   ),
   '/home/thadbry/www/thadbryson/toolkit/support/src-functions' => 
   array (
@@ -3390,6 +3488,8 @@ $filter->setWhitelistedFiles(array (
   '/home/thadbry/www/thadbryson/toolkit/support/src/Arr.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src/Clock.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src/Collections/RestrictedCollection.php' => true,
+  '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Str/BooleanTraits.php' => true,
+  '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Str/StaticMakeTrait.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Arr/AliasMethodsTrait.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Arr/KeyMethodsTrait.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Collection/ValidationTrait.php' => true,
@@ -3397,6 +3497,7 @@ $filter->setWhitelistedFiles(array (
   '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Collection/AliasMethodsTrait.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src/Traits/Collection/KeyMethodsTrait.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src/Cast.php' => true,
+  '/home/thadbry/www/thadbryson/toolkit/support/src/Request.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src/Str.php' => true,
   '/home/thadbry/www/thadbryson/toolkit/support/src-functions' => true,
 ));

@@ -154,8 +154,8 @@ class JsonClient
     /**
      * Send an HTTP Request.
      *
-     * @param string $method
-     * @param string $uri
+     * @param string $method - A valid HTTP method.
+     * @param string $uri    - URI or path.
      * @param array  $options
      *
      * @return array

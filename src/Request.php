@@ -34,7 +34,7 @@ class Request extends \Illuminate\Http\Request
 
     public function assertCsrf(string $key, string $token): self
     {
-        if ($token !== '' && $token !== $this->input($key)) {
+        if (trim($token) === '' || $token !== $this->input($key)) {
             throw new \InvalidArgumentException('Token is invalid.');
         }
 

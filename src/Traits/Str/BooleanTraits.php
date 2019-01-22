@@ -43,6 +43,14 @@ trait BooleanTraits
     /**
      * Is this a numeric string of an integer?
      */
+    public function isNumeric(): bool
+    {
+        return is_numeric($this->get());
+    }
+
+    /**
+     * Is this a numeric string of an integer?
+     */
     public function isNumericInt(): bool
     {
         return support\is_numeric_int($this->get());

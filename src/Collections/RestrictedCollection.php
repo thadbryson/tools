@@ -4,13 +4,12 @@ declare(strict_types = 1);
 
 namespace Tool\Support\Collections;
 
-use Tool\Support\Collection;
 use Tool\Validation\Assert;
 
 /**
  * Class RestrictedCollection
  */
-class RestrictedCollection extends Collection
+class RestrictedCollection extends \Tool\Support\Collection
 {
     /**
      * @var string[]
@@ -51,6 +50,23 @@ class RestrictedCollection extends Collection
     {
         return static::make($items)
                      ->setRules(['*' => $type])
+                     ->assert();
+    }
+
+    /**
+     * Create RestrictedCollection with a certain 'type'.
+     *
+     * @param string $class
+     * @param array  $items
+     *
+     * @return RestrictedCollection
+     */
+    public static function makeObject(string $class, array $items = []): self
+    {
+        Assert::classExists($class, sprintf('Class %s does not exist', $class));
+
+        return static::make($items)
+                     ->setRules(['*' => 'object:' . $class])
                      ->assert();
     }
 

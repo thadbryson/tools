@@ -6,7 +6,6 @@ namespace Tests\Unit\Collections;
 
 use Tests\Support\Stubs\RestrictedCollectionStub;
 use Tool\Exceptions\Error;
-use Tool\Support\Collection;
 use Tool\Support\Collections\RestrictedCollection;
 
 /**
@@ -76,6 +75,19 @@ class RestrictedCollectionTest extends \Codeception\Test\Unit
         $this->tester->expectException(Error::class, function () {
 
             RestrictedCollection::makeType('integer', [1, 2, 3, false]);
+        });
+    }
+
+    public function testMakeObject(): void
+    {
+        $integers = RestrictedCollection::makeObject(\DateTime::class, []);
+
+        $integers->append(new \DateTime);
+        $integers->append(new \DateTime('2015-01-10'));
+
+        $this->tester->expectException(Error::class, function () {
+
+            RestrictedCollection::makeObject(\DateTime::class, [1]);
         });
     }
 

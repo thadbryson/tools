@@ -6,7 +6,7 @@ namespace Tool\Support;
 
 use Tool\Validation\Result;
 use Tool\Validation\Validator;
-use function tool\support\request\is_mobile;
+use function tool\functions\request\is_mobile;
 
 /**
  * Request Class

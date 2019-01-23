@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace Tool\Support\Traits\Str;
 
+use function tool\functions\string\is_numeric_float;
+use function tool\functions\string\is_numeric_int;
+use function tool\functions\string\is_timezone;
 use tool\support;
 use Tool\Support\Str;
 use Tool\Validation\Assert;
@@ -37,7 +40,7 @@ trait BooleanTraits
      */
     public function isTimezone(): bool
     {
-        return support\is_timezone($this->get());
+        return is_timezone($this->get());
     }
 
     /**
@@ -53,7 +56,7 @@ trait BooleanTraits
      */
     public function isNumericInt(): bool
     {
-        return support\is_numeric_int($this->get());
+        return is_numeric_int($this->get());
     }
 
     /**
@@ -61,6 +64,6 @@ trait BooleanTraits
      */
     public function isNumericFloat(): bool
     {
-        return support\is_numeric_float($this->get());
+        return is_numeric_float($this->get());
     }
 }

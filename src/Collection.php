@@ -19,6 +19,7 @@ class Collection extends \Illuminate\Support\Collection
     use CollectionTraits\AliasMethodsTrait,
         CollectionTraits\FromTypesTrait,
         CollectionTraits\KeyMethodsTrait,
+        CollectionTraits\RestrictedTrait,
         CollectionTraits\ValidationTrait;
 
     /**

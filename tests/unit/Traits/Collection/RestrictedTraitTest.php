@@ -2,16 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace Tests\Unit\Collections;
+namespace Tests\Unit\Traits\Collection;
 
-use Tests\Support\Stubs\RestrictedCollectionStub;
 use Tool\Exceptions\Error;
-use Tool\Support\Collections\RestrictedCollection;
+use Tool\Support\Collection;
 
 /**
  * Class RestrictedCollection
  */
-class RestrictedCollectionTest extends \Codeception\Test\Unit
+class RestrictedTraitTest extends \Codeception\Test\Unit
 {
     /**
      * @var \UnitTester
@@ -19,7 +18,7 @@ class RestrictedCollectionTest extends \Codeception\Test\Unit
     protected $tester;
 
     /**
-     * @var RestrictedCollection
+     * @var Collection
      */
     private $coll;
 
@@ -46,7 +45,7 @@ class RestrictedCollectionTest extends \Codeception\Test\Unit
 
     public function _before(): void
     {
-        $this->coll = new RestrictedCollection([
+        $this->coll = new Collection([
             'id'   => 10,
             'what' => 'me'
         ]);
@@ -54,40 +53,29 @@ class RestrictedCollectionTest extends \Codeception\Test\Unit
         $this->coll->setRules($this->rules);
     }
 
-    public function testConstructorAssert(): void
-    {
-        $this->tester->expectException(Error::class, function () {
-
-            new RestrictedCollectionStub([
-                'id'   => 10,
-                'what' => '??'
-            ]);
-        });
-    }
-
     public function testMakeType(): void
     {
-        $integers = RestrictedCollection::makeType('boolean', []);
+        $integers = Collection::makeType('boolean', []);
 
         $integers->append(true);
         $integers->append(false);
 
         $this->tester->expectException(Error::class, function () {
 
-            RestrictedCollection::makeType('integer', [1, 2, 3, false]);
+            Collection::makeType('integer', [1, 2, 3, false]);
         });
     }
 
     public function testMakeObject(): void
     {
-        $integers = RestrictedCollection::makeObject(\DateTime::class, []);
+        $integers = Collection::makeObject(\DateTime::class, []);
 
         $integers->append(new \DateTime);
         $integers->append(new \DateTime('2015-01-10'));
 
         $this->tester->expectException(Error::class, function () {
 
-            RestrictedCollection::makeObject(\DateTime::class, [1]);
+            Collection::makeObject(\DateTime::class, [1]);
         });
     }
 

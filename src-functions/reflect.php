@@ -2,9 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace tool\support;
+namespace tool\functions\reflect;
 
 use ReflectionClass;
+use ReflectionMethod;
+use ReflectionProperty;
+use Tool\Support\Collection;
+use Tool\Validation\Assert;
 
 /**
  * Run ReflectionClass() on class with $className given.
@@ -12,14 +16,13 @@ use ReflectionClass;
  * @param string $className
  *
  * @return array
+ * @throws \InvalidArgumentException
  */
 function reflect_class(string $className): array
 {
-    if (class_exists($className) === false) {
-        return [];
-    }
+    Assert::classExists($className);
 
-    $refl = new \ReflectionClass($className);
+    $refl = new ReflectionClass($className);
 
     return [
         'reflection' => $refl,
@@ -31,8 +34,18 @@ function reflect_class(string $className): array
         'interfaces' => $refl->getInterfaceNames(),
         'extends'    => $refl->getParentClass(),
         'constants'  => $refl->getConstants(),
-        'properties' => array_keys($refl->getProperties()),
-        'methods'    => array_keys($refl->getMethods()),
+        'properties' => Collection::make($refl->getProperties())
+                                  ->map(function (ReflectionProperty $refl) {
+
+                                      return $refl->getName();
+                                  })
+                                  ->all(),
+        'methods'    => Collection::make($refl->getMethods())
+                                  ->map(function (ReflectionMethod $refl) {
+
+                                      return $refl->getName();
+                                  })
+                                  ->all()
     ];
 }
 
@@ -47,27 +60,16 @@ function reflect_class_deep(string $className): array
 {
     $reflect = reflect_class($className);
 
-    // Check for class not found return.
-    if ($reflect === []) {
-        return [];
+    foreach ($reflect['properties'] as $key => $property) {
+        unset($reflect['properties'][$key]);
+
+        $reflect['properties'][$property] = reflect_property($className, $property);
     }
 
-    $reflect['properties'] = [];
-    $reflect['methods']    = [];
+    foreach ($reflect['methods'] as $key => $method) {
+        unset($reflect['methods'][$key]);
 
-    /** @var ReflectionClass $refl */
-    $refl = $reflect['reflection'];
-
-    foreach ($refl->getProperties() as $property) {
-        $name = $property->getName();
-
-        $reflect['properties'][$name] = reflect_property($className, $name);
-    }
-
-    foreach ($refl->getMethods() as $method) {
-        $name = $method->getName();
-
-        $reflect['methods'][$name] = reflect_method($className, $name);
+        $reflect['methods'][$method] = reflect_method($className, $method);
     }
 
     return $reflect;
@@ -83,7 +85,7 @@ function reflect_class_deep(string $className): array
  */
 function reflect_property(string $className, string $propertyName): array
 {
-    $refl = new \ReflectionProperty($className, $propertyName);
+    $refl = new ReflectionProperty($className, $propertyName);
 
     return [
         'name'         => $propertyName,
@@ -105,7 +107,7 @@ function reflect_property(string $className, string $propertyName): array
  */
 function reflect_method(string $className, string $methodName): array
 {
-    $refl       = new \ReflectionMethod($className, $methodName);
+    $refl       = new ReflectionMethod($className, $methodName);
     $parameters = [];
 
     foreach ($refl->getParameters() as $reflParam) {

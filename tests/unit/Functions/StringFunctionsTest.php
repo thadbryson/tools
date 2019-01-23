@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types = 1);
+
+namespace Tests\Unit\Functions;
+
+use function tool\functions\string\is_numeric_float;
+use function tool\functions\string\is_numeric_int;
+use function tool\functions\string\is_timezone;
+use function tool\functions\string\money;
+use function tool\functions\string\money_international;
+
+class StringFunctionsTest extends \Codeception\Test\Unit
+{
+    public function testIsTimezone(): void
+    {
+        $this->assertTrue(is_timezone('America/New_York'));
+        $this->assertTrue(is_timezone('America/New_York '));
+        $this->assertTrue(is_timezone('america/New_York'));
+
+        $this->assertFalse(is_timezone('nope'));
+        $this->assertFalse(is_timezone('America/Davie'));
+
+        $this->assertFalse(is_timezone(1));
+        $this->assertFalse(is_timezone(null));
+        $this->assertFalse(is_timezone(true));
+        $this->assertFalse(is_timezone(false));
+    }
+
+    public function testIsNumericInt(): void
+    {
+        $this->assertTrue(is_numeric_int(0));
+        $this->assertTrue(is_numeric_int(1));
+        $this->assertTrue(is_numeric_int(-1));
+        $this->assertTrue(is_numeric_int(PHP_INT_MIN));
+        $this->assertTrue(is_numeric_int(PHP_INT_MAX));
+
+        $this->assertTrue(is_numeric_int('0'));
+        $this->assertTrue(is_numeric_int('1'));
+        $this->assertTrue(is_numeric_int('-1'));
+        $this->assertTrue(is_numeric_int('' . PHP_INT_MIN));
+        $this->assertTrue(is_numeric_int('' . PHP_INT_MAX));
+
+        $this->assertFalse(is_numeric_int('a'));
+        $this->assertFalse(is_numeric_int('0.0'));
+        $this->assertFalse(is_numeric_int('1.0'));
+        $this->assertFalse(is_numeric_int('-1.0'));
+        $this->assertFalse(is_numeric_int('' . M_PI));
+    }
+
+    public function testIsNumericFloat(): void
+    {
+        $this->assertTrue(is_numeric_float(0.0));
+        $this->assertTrue(is_numeric_float(1.0));
+        $this->assertTrue(is_numeric_float(-1.0));
+        $this->assertTrue(is_numeric_float(M_PI));
+
+        $this->assertTrue(is_numeric_float('0.0'));
+        $this->assertTrue(is_numeric_float('1.0'));
+        $this->assertTrue(is_numeric_float('-1.0'));
+        $this->assertTrue(is_numeric_float('' . M_PI));
+
+        $this->assertFalse(is_numeric_float('a'));
+        $this->assertFalse(is_numeric_float('1'));
+        $this->assertFalse(is_numeric_float('-1'));
+        $this->assertFalse(is_numeric_float('' . PHP_INT_MIN));
+        $this->assertFalse(is_numeric_float('' . PHP_INT_MAX));
+    }
+
+    public function testMoney(): void
+    {
+        setlocale(LC_MONETARY, 'en_US');
+
+        $this->assertEquals(money('1'), '$1.00');
+        $this->assertEquals(money('0'), '$0.00');
+        $this->assertEquals(money('876.53'), '$876.53');
+        $this->assertEquals(money('4876.52213'), '$4,876.52');
+    }
+
+    public function testMoneyInternational(): void
+    {
+        $this->assertEquals(money_international('1'), 'USD 1.00');
+        $this->assertEquals(money_international('0'), 'USD 0.00');
+        $this->assertEquals(money_international('98345.72'), 'USD 98,345.72');
+        $this->assertEquals(money_international('712.832'), 'USD 712.83');;
+    }
+}

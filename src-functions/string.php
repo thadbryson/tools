@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace tool\support;
+namespace tool\functions\string;
 
 use Tool\Validation\Assert;
 use function is_float;

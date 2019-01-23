@@ -15,8 +15,6 @@ use function array_replace_recursive;
  */
 trait FromTypesTrait
 {
-
-
     /**
      * Build Collection from exploded string.
      *
@@ -36,7 +34,7 @@ trait FromTypesTrait
 
         $items = explode(...$args);
 
-        return new static($items);
+        return static::make($items);
     }
 
     /**

@@ -34,12 +34,7 @@ function reflect_class(string $className): array
         'interfaces' => $refl->getInterfaceNames(),
         'extends'    => $refl->getParentClass(),
         'constants'  => $refl->getConstants(),
-        'properties' => Collection::make($refl->getProperties())
-                                  ->map(function (ReflectionProperty $refl) {
-
-                                      return $refl->getName();
-                                  })
-                                  ->all(),
+        'properties' => $refl->getDefaultProperties(),
         'methods'    => Collection::make($refl->getMethods())
                                   ->map(function (ReflectionMethod $refl) {
 
@@ -60,10 +55,9 @@ function reflect_class_deep(string $className): array
 {
     $reflect = reflect_class($className);
 
-    foreach ($reflect['properties'] as $key => $property) {
-        unset($reflect['properties'][$key]);
+    foreach ($reflect['properties'] as $name => $defaultValue) {
 
-        $reflect['properties'][$property] = reflect_property($className, $property);
+        $reflect['properties'][$name] = reflect_property($className, $name);
     }
 
     foreach ($reflect['methods'] as $key => $method) {
@@ -107,7 +101,8 @@ function reflect_property(string $className, string $propertyName): array
  */
 function reflect_method(string $className, string $methodName): array
 {
-    $refl       = new ReflectionMethod($className, $methodName);
+    $refl = new ReflectionMethod($className, $methodName);
+
     $parameters = [];
 
     foreach ($refl->getParameters() as $reflParam) {

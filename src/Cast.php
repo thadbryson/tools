@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Tool\Support;
 
-use function array_replace_recursive;
 use InvalidArgumentException;
+use function array_replace_recursive;
 use function is_float;
 use function is_int;
 use function is_string;

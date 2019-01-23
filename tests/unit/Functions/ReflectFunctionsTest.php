@@ -4,8 +4,12 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Functions;
 
+use Tests\Support\Stubs\ReflectionStub;
+use function realpath;
 use function tool\functions\reflect\reflect_class;
 use function tool\functions\reflect\reflect_class_deep;
+use function tool\functions\reflect\reflect_method;
+use function tool\functions\reflect\reflect_property;
 
 class ReflectFunctionsTest extends \Codeception\Test\Unit
 {
@@ -73,7 +77,7 @@ class ReflectFunctionsTest extends \Codeception\Test\Unit
         ], reflect_class(\DateTime::class));
     }
 
-    function testReflectClassDeep(): void
+    public function testReflectClassDeep(): void
     {
         $this->tester->expectException(new \InvalidArgumentException('Expected an existing class name. Got: ""'),
             function () {
@@ -82,34 +86,33 @@ class ReflectFunctionsTest extends \Codeception\Test\Unit
             });
 
         $this->assertEquals([
-            'reflection' => new \ReflectionClass(\DateInterval::class),
-            'class'      => 'DateInterval',
-            'namespace'  => '',
-            'short_name' => 'DateInterval',
-            'extension'  => 'date',
-            'file'       => false,
+            'reflection' => new \ReflectionClass(ReflectionStub::class),
+            'class'      => ReflectionStub::class,
+            'namespace'  => 'Tests\Support\Stubs',
+            'short_name' => 'ReflectionStub',
+            'extension'  => false,
+            'file'       => realpath(__DIR__ . '/../../_support/Stubs/ReflectionStub.php'),
             'interfaces' => [],
             'extends'    => false,
             'constants'  => [],
             'properties' => [
-                'y'      => [],
-                'm'      => [],
-                'd'      => [],
-                'h'      => [],
-                'i'      => [],
-                's'      => [],
-                'f'      => [],
-                'invert' => [],
-                'days'   => [],
+                'prop' => [
+                    'name'         => 'prop',
+                    'is_default'   => true,
+                    'is_static'    => false,
+                    'is_public'    => true,
+                    'is_private'   => false,
+                    'is_protected' => false
+                ]
             ],
             'methods'    => [
-                '__construct'          => [
-                    'name'           => '__construct',
+                'method' => [
+                    'name'           => 'method',
                     'parameters'     => [
-                        'interval_spec' => [
-                            'name'         => 'interval_spec',
+                        'arg' => [
+                            'name'         => 'arg',
                             'position'     => 0,
-                            'type'         => null,
+                            'type'         => new \ReflectionNamedType,
                             'is_nullable'  => false,
                             'is_array'     => false,
                             'is_callable'  => false,
@@ -119,122 +122,59 @@ class ReflectFunctionsTest extends \Codeception\Test\Unit
                             'default'      => null,
                         ]
                     ],
-                    'return_type'    => null,
+                    'return_type'    => new \ReflectionNamedType,
                     'is_static'      => false,
                     'is_public'      => true,
                     'is_private'     => false,
                     'is_protected'   => false,
                     'is_final'       => false,
                     'is_variadic'    => false,
-                    'is_constructor' => true,
+                    'is_constructor' => false,
                     'is_destructor'  => false,
-                ],
-                'createFromDateString' => [
-                    'name'           => 'createFromDateString',
-                    'parameters'     => [
-                        'time' => [
-                            'name'         => 'time',
-                            'position'     => 0,
-                            'type'         => null,
-                            'is_nullable'  => false,
-                            'is_array'     => false,
-                            'is_callable'  => false,
-                            'is_optional'  => false,
-                            'is_reference' => false,
-                            'has_default'  => false,
-                            'default'      => null
-                        ]
-                    ],
-                    'return_type'    => null,
-                    'is_static'      => true,
-                    'is_public'      => true,
-                    'is_private'     => false,
-                    'is_protected'   => false,
-                    'is_final'       => false,
-                    'is_variadic'    => false,
-                    'is_constructor' => false,
-                    'is_destructor'  => false
-                ],
-                '__wakeup'             => [
-                    'name'           => '__wakeup',
-                    'parameters'     => [],
-                    'return_type'    => null,
-                    'is_static'      => false,
-                    'is_public'      => true,
-                    'is_private'     => false,
-                    'is_protected'   => false,
-                    'is_final'       => false,
-                    'is_variadic'    => false,
-                    'is_constructor' => false,
-                    'is_destructor'  => false
-                ],
-                '__set_state'          => [
-                    'name'           => '__set_state',
-                    'parameters'     => [
-                        'array' => [
-                            'name'         => 'array',
-                            'position'     => 0,
-                            'type'         => new \ReflectionNamedType,
-                            'is_nullable'  => false,
-                            'is_array'     => true,
-                            'is_callable'  => false,
-                            'is_optional'  => false,
-                            'is_reference' => false,
-                            'has_default'  => false,
-                            'default'      => null
-                        ]
-                    ],
-                    'return_type'    => null,
-                    'is_static'      => true,
-                    'is_public'      => true,
-                    'is_private'     => false,
-                    'is_protected'   => false,
-                    'is_final'       => false,
-                    'is_variadic'    => false,
-                    'is_constructor' => false,
-                    'is_destructor'  => false
-                ],
-                'format'               => [
-                    'name'           => 'format',
-                    'parameters'     => [
-                        'format' => [
-                            'name'         => 'format',
-                            'position'     => 0,
-                            'type'         => null,
-                            'is_nullable'  => false,
-                            'is_array'     => false,
-                            'is_callable'  => false,
-                            'is_optional'  => false,
-                            'is_reference' => false,
-                            'has_default'  => false,
-                            'default'      => null
-                        ]
-                    ],
-                    'return_type'    => null,
-                    'is_static'      => false,
-                    'is_public'      => true,
-                    'is_private'     => false,
-                    'is_protected'   => false,
-                    'is_final'       => false,
-                    'is_variadic'    => false,
-                    'is_constructor' => false,
-                    'is_destructor'  => false
-                ],
-
+                ]
             ]
-        ], reflect_class_deep(\DateInterval::class));
+        ], reflect_class_deep(ReflectionStub::class));
     }
 
-    function testReflectProperty(): void
+    public function testReflectProperty(): void
     {
-
+        $this->assertEquals([
+            'name'         => 'prop',
+            'is_default'   => true,
+            'is_static'    => false,
+            'is_public'    => true,
+            'is_private'   => false,
+            'is_protected' => false,
+        ], reflect_property(ReflectionStub::class, 'prop'));
     }
 
-    function testReflectMethod(): void
+    public function testReflectMethod(): void
     {
-
+        $this->assertEquals([
+            'name'           => 'format',
+            'parameters'     => [
+                'format' => [
+                    'name'         => 'format',
+                    'position'     => 0,
+                    'type'         => null,
+                    'is_nullable'  => false,
+                    'is_array'     => false,
+                    'is_callable'  => false,
+                    'is_optional'  => false,
+                    'is_reference' => false,
+                    'has_default'  => false,
+                    'default'      => null
+                ]
+            ],
+            'return_type'    => null,
+            'is_static'      => false,
+            'is_public'      => true,
+            'is_private'     => false,
+            'is_protected'   => false,
+            'is_final'       => false,
+            'is_variadic'    => false,
+            'is_constructor' => false,
+            'is_destructor'  => false
+        ], reflect_method(\DateInterval::class, 'format'));
     }
 }
-
-
-

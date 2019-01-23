@@ -19,6 +19,7 @@
         "illuminate/support": "^5.7",
         "ramsey/uuid": "3.7.*",
         "danielstjules/stringy": "3.1.*",
+        "twig/twig": "2.6.*",
         "thadbryson/toolkit-exceptions": "*",
         "thadbryson/toolkit-validation": "*"
     },

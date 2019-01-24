@@ -5,9 +5,9 @@ declare(strict_types = 1);
 namespace Tool\Support\Traits\Collection;
 
 use Tool\Support\Collection;
-use Tool\Validation\Assert;
-use Tool\Validation\Result;
-use Tool\Validation\Validator;
+use Tool\Support\Validation\Assert;
+use Tool\Support\Validation\Result;
+use Tool\Support\Validation\Validator;
 
 /**
  * Class ValidationTrait

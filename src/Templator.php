@@ -4,54 +4,53 @@ declare(strict_types = 1);
 
 namespace Tool\Support;
 
-use Tool\Validation\Assert;
+use Tool\Support\Validation\Assert;
 use Twig_Environment;
 use Twig_Loader_Array;
 use function file_get_contents;
-use function file_put_contents;
 
 /**
- * Build strings or files with Twig template strings/files.
+ * Build strings or files with a templating engine (default is Twig).
  *
  */
 class Templator
 {
     /**
-     * Global Twig_Environment object.
+     * Global Template object - default is \Twig_Environment
      *
-     * @var Twig_Environment
+     * @var mixed
      */
-    protected static $twig;
+    protected static $engine;
 
     /**
      * Get global Twig_Environment object.
      */
-    public static function getTwig(): Twig_Environment
+    public static function getEngine(): Twig_Environment
     {
         // Create and set Twig if it's not already.
-        if (static::$twig === null) {
+        if (static::$engine === null) {
             $loader = new Twig_Loader_Array([]);
 
-            static::setTwig(new Twig_Environment($loader));
+            static::setEngine(new Twig_Environment($loader));
         }
 
-        return static::$twig;
+        return static::$engine;
     }
 
     /**
-     * Set global Twig_Environment object to be used
+     * Set global templating engine object to be used
      */
-    public static function setTwig(Twig_Environment $twig): void
+    public static function setEngine($engine): void
     {
-        static::$twig = $twig;
+        static::$engine = $engine;
     }
 
     /**
-     * Clear Twig_Environment object. Set it to null so the default object will be used.
+     * Clear template engine object. Set it to null so the default object will be used.
      */
-    public static function clearTwig(): void
+    public static function clearEngine(): void
     {
-        static::$twig = null;
+        static::$engine = null;
     }
 
     /**
@@ -59,7 +58,7 @@ class Templator
      */
     public static function make(string $template, array $vars): string
     {
-        return static::getTwig()
+        return static::getEngine()
                      ->createTemplate($template)
                      ->render($vars);
     }
@@ -79,8 +78,6 @@ class Templator
     {
         $contents = file_get_contents($templateFilepath);
 
-        Assert::string($contents, sprintf('Could not read template file %s.', $templateFilepath));
-
-        return $contents;
+        return Assert::string($contents, sprintf('Could not read template file %s.', $templateFilepath));
     }
 }

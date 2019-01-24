@@ -8,7 +8,7 @@ use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
 use Tool\Support\Collection;
-use Tool\Validation\Assert;
+use Tool\Support\Validation\Assert;
 
 /**
  * Run ReflectionClass() on class with $className given.

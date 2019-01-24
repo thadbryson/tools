@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83872132d54c2fbce08a5a07174688f2",
+    "content-hash": "a1afa0e4255a4130667fa2cafe7e046e",
     "packages": [
         {
             "name": "danielstjules/stringy",
@@ -1571,51 +1571,6 @@
                     "_generated\\": "tests/_support/_generated/",
                     "_support\\": "tests/_support/",
                     "Tests\\Unit\\": "tests/unit/"
-                }
-            },
-            "license": [
-                "proprietary"
-            ]
-        },
-        {
-            "name": "thadbryson/toolkit-validation",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "../validation",
-                "reference": "ee8f2bae827e5a1cfb4ec70f88c93373e76ec1c1",
-                "shasum": null
-            },
-            "require": {
-                "giggsey/libphonenumber-for-php": "8.*",
-                "illuminate/support": "^5.7",
-                "illuminate/validation": "^5.7",
-                "php": ">=7.2",
-                "thadbryson/toolkit-exceptions": "*",
-                "thadbryson/toolkit-support": "*",
-                "webmozart/assert": "1.3.*"
-            },
-            "require-dev": {
-                "codeception/codeception": "^2.3",
-                "roave/security-advisories": "dev-master"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-community": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Tool\\Validation\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "_generated\\": "tests/_support/_generated",
-                    "_support\\": "tests/_support",
-                    "Tests\\Unit\\": "tests/unit",
-                    "Tests\\Support\\": "tests/_support"
                 }
             },
             "license": [

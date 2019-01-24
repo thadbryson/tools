@@ -13,7 +13,7 @@ class TemplatorTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
-    protected $twig;
+    protected $engine;
 
     public function _before(): void
     {
@@ -21,28 +21,28 @@ class TemplatorTest extends \Codeception\Test\Unit
             'template' => 'some'
         ]);
 
-        $this->twig = new \Twig_Environment($loader);
+        $this->engine = new \Twig_Environment($loader);
     }
 
-    public function testGetTwig(): void
+    public function testGetEngin(): void
     {
-        $this->assertInstanceOf(\Twig_Loader_Array::class, Templator::getTwig()->getLoader());
+        $this->assertInstanceOf(\Twig_Loader_Array::class, Templator::getEngine()->getLoader());
     }
 
-    public function testSetTwig(): void
+    public function testSetEngin(): void
     {
-        Templator::setTwig($this->twig);
+        Templator::setEngine($this->engine);
 
-        $this->assertTrue(Templator::getTwig()->getLoader()->exists('template'));
+        $this->assertTrue(Templator::getEngine()->getLoader()->exists('template'));
     }
 
-    public function testClearTwig(): void
+    public function testClear(): void
     {
-        Templator::setTwig($this->twig);
-        $this->assertTrue(Templator::getTwig()->getLoader()->exists('template'));
+        Templator::setEngine($this->engine);
+        $this->assertTrue(Templator::getEngine()->getLoader()->exists('template'));
 
-        Templator::clearTwig();
-        $this->assertFalse(Templator::getTwig()->getLoader()->exists('template'));
+        Templator::clearEngine();
+        $this->assertFalse(Templator::getEngine()->getLoader()->exists('template'));
     }
 
     public function testMake(): void

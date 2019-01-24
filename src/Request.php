@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Tool\Support;
 
-use Tool\Validation\Result;
-use Tool\Validation\Validator;
+use Tool\Support\Validation\Result;
+use Tool\Support\Validation\Validator;
 use function tool\functions\request\is_mobile;
 
 /**

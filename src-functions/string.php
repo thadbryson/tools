@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace tool\functions\string;
 
-use Tool\Validation\Assert;
+use Tool\Support\Validation\Assert;
 use function is_float;
 use function is_int;
 use function is_numeric;

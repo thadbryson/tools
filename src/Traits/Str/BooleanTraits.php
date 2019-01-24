@@ -9,7 +9,7 @@ use function tool\functions\string\is_numeric_int;
 use function tool\functions\string\is_timezone;
 use tool\support;
 use Tool\Support\Str;
-use Tool\Validation\Assert;
+use Tool\Support\Validation\Assert;
 
 /**
  * Trait BooleanTraits

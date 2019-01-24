@@ -6,6 +6,7 @@ use _generated\UnitTesterActions;
 use Tool\Support\Clock;
 use Tool\Support\Collection;
 use Tool\Support\Str;
+use Tool\Support\Validation\Result;
 
 /**
  * Inherited Methods
@@ -71,6 +72,28 @@ class UnitTester extends \Codeception\Actor
     public function assertClock(DateTime $datetime, Clock $clock, string $message = ''): self
     {
         $this->assertEquals($datetime->format('Y-m-d H:i:s'), $clock->format('Y-m-d H:i:s'), $message);
+
+        return $this;
+    }
+
+    public function testValidationResult(Result $result, array $expectedErrors, string $message = ''): self
+    {
+        $this->assertEquals($expectedErrors, $result->getErrors(),
+            'Expected errors: ' . json_encode($result->getErrors()) . ' ' . $message);
+
+        $this->assertEquals($expectedErrors === [], $result->isSuccess(), 'Has errors isSuccess() should be TRUE');
+        $this->assertEquals($expectedErrors !== [], $result->isFailure(), 'Has errors isSuccess() should be TRUE');
+
+        return $this;
+    }
+
+    public function testValidationSuccess(Result $result, string $message = ''): self
+    {
+        $this->assertEquals([], $result->getErrors(),
+            'Expected errors: ' . json_encode($result->getErrors()) . ' ' . $message);
+
+        $this->assertTrue($result->isSuccess(), 'Has errors isSuccess() should be TRUE');
+        $this->assertFalse($result->isFailure(), 'Has errors isSuccess() should be TRUE');
 
         return $this;
     }

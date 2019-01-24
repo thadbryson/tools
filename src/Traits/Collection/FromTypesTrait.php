@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support\Traits\Collection;
+namespace Tool\Traits\Collection;
 
 use Illuminate\Http\Request;
-use Tool\Support\Collection;
+use Tool\Collection;
 use function array_replace_recursive;
 
 /**

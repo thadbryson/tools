@@ -3,10 +3,10 @@
 declare(strict_types = 1);
 
 use _generated\UnitTesterActions;
-use Tool\Support\Clock;
-use Tool\Support\Collection;
-use Tool\Support\Str;
-use Tool\Support\Validation\Result;
+use Tool\Clock;
+use Tool\Collection;
+use Tool\Str;
+use Tool\Validation\Result;
 
 /**
  * Inherited Methods

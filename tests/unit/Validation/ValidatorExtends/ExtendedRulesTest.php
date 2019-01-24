@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Tests\Unit\Validation\ValidatorExtends;
 
 use Tests\Support\Stubs\UserStub;
-use Tool\Support\Validation\Validator;
+use Tool\Validation\Validator;
 
 class ExtendedRulesTest extends \Codeception\Test\Unit
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support\Traits\Str;
+namespace Tool\Traits\Str;
 
 use Ramsey\Uuid\Uuid;
-use Tool\Support\Str;
+use Tool\Str;
 
 /**
  * Trait StaticMakeTrait

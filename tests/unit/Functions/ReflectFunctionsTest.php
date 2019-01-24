@@ -6,10 +6,10 @@ namespace Tests\Unit\Functions;
 
 use Tests\Support\Stubs\ReflectionStub;
 use function realpath;
-use function tool\functions\reflect\reflect_class;
-use function tool\functions\reflect\reflect_class_deep;
-use function tool\functions\reflect\reflect_method;
-use function tool\functions\reflect\reflect_property;
+use function Tool\Functions\Reflect\reflect_class;
+use function Tool\Functions\Reflect\reflect_class_deep;
+use function Tool\Functions\Reflect\reflect_method;
+use function Tool\Functions\Reflect\reflect_property;
 
 class ReflectFunctionsTest extends \Codeception\Test\Unit
 {

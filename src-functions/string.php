@@ -2,14 +2,29 @@
 
 declare(strict_types = 1);
 
-namespace tool\functions\string;
+namespace Tool\Functions\String;
 
-use Tool\Support\Validation\Assert;
+use Tool\Validation\Assert;
 use function is_float;
 use function is_int;
 use function is_numeric;
 use function is_string;
+use function json_decode;
+use function json_last_error;
 use function strpos;
+use const JSON_ERROR_NONE;
+
+function is_json($var): bool
+{
+    if (is_string($var)) {
+
+        json_decode($var);
+
+        return json_last_error() === JSON_ERROR_NONE;
+    }
+
+    return false;
+}
 
 /**
  * Is variable given a valid DateTimeZone string?

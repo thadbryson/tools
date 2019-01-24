@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support\Validation;
+namespace Tool\Validation;
 
 use BadMethodCallException;
 use Closure;

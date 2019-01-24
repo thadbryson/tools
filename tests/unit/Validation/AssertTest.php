@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Validation;
 
-use Tool\Support\Validation\Assert;
+use Tool\Validation\Assert;
 use function get_class;
 
 /**

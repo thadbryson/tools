@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Traits\Str;
 
-use Tool\Support\Str;
+use Tool\Str;
 
 class StaticMakeTraitTest extends \Codeception\Test\Unit
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support;
+namespace Tool;
 
-use Tool\Support\Traits\Arr as ArrTraits;
+use Tool\Traits\Arr as ArrTraits;
 use function array_replace_recursive;
 use function array_walk_recursive;
 use function is_string;

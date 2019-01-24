@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support;
+namespace Tool;
 
-use Tool\Support\Traits\Collection as CollectionTraits;
+use Tool\Traits\Collection as CollectionTraits;
 use function array_walk_recursive;
 
 /**

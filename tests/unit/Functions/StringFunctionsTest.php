@@ -4,14 +4,29 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Functions;
 
-use function tool\functions\string\is_numeric_float;
-use function tool\functions\string\is_numeric_int;
-use function tool\functions\string\is_timezone;
-use function tool\functions\string\money;
-use function tool\functions\string\money_international;
+use function Tool\Functions\String\is_json;
+use function Tool\Functions\String\is_numeric_float;
+use function Tool\Functions\String\is_numeric_int;
+use function Tool\Functions\String\is_timezone;
+use function Tool\Functions\String\money;
+use function Tool\Functions\String\money_international;
 
 class StringFunctionsTest extends \Codeception\Test\Unit
 {
+    public function testIsJson(): void
+    {
+        $this->assertTrue(is_json('[]'));
+        $this->assertTrue(is_json('{}'));
+        $this->assertTrue(is_json('{"glossary":{"title":"example glossary","GlossDiv":{"title":"S","GlossList":' .
+            '{"GlossEntry":{"ID":"SGML","SortAs":"SGML","GlossTerm":"Standard Generalized Markup Language",' .
+            '"Acronym":"SGML","Abbrev":"ISO 8879:1986","GlossDef":{"para":"A meta-markup language, ' .
+            'used to create markup languages such as DocBook.","GlossSeeAlso":["GML","XML"]},' .
+            '"GlossSee":"markup"}}}}}'));
+
+        $this->assertFalse(is_json(''));
+        $this->assertFalse(is_json('~'));
+    }
+
     public function testIsTimezone(): void
     {
         $this->assertTrue(is_timezone('America/New_York'));

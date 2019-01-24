@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support\Traits\Collection;
+namespace Tool\Traits\Collection;
 
-use Tool\Support\Collection;
-use Tool\Support\Validation\Assert;
+use Tool\Collection;
+use Tool\Validation\Assert;
 
 /**
  * Class RestrictedCollection

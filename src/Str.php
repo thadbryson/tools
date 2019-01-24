@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support;
+namespace Tool;
 
 use Illuminate\Support\Pluralizer;
-use Tool\Support\Traits\Str as StrTraits;
-use Tool\Support\Validation\Assert;
+use Tool\Traits\Str as StrTraits;
+use Tool\Validation\Assert;
 use function json_decode;
 use function json_last_error;
 use function strlen;

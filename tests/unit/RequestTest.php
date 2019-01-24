@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
-use Tool\Support\Request;
-use Tool\Support\Str;
+use Tool\Request;
+use Tool\Str;
 use function json_encode;
 
 class RequestTest extends \Codeception\Test\Unit

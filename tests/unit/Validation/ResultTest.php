@@ -6,7 +6,7 @@ namespace Tests\Unit\Validation;
 
 use Illuminate\Support\MessageBag;
 use Tool\Exceptions\Error;
-use Tool\Support\Validation\Result;
+use Tool\Validation\Result;
 
 /**
  * Result Class

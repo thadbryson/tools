@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Tests\Unit\Traits\Collection;
 
 use Tool\Exceptions\Error;
-use Tool\Support\Collection;
+use Tool\Collection;
 
 /**
  * Class RestrictedCollection

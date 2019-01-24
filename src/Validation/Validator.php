@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support\Validation;
+namespace Tool\Validation;
 
 use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
-use Tool\Support\Arr;
+use Tool\Arr;
 use function is_object;
 
 /**

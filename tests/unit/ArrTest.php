@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
-use Tool\Support\Arr;
+use Tool\Arr;
 
 class ArrTest extends \Codeception\Test\Unit
 {

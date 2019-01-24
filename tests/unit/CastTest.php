@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
-use Tool\Support\Cast;
+use Tool\Cast;
 use function strtolower;
 use function ucfirst;
 use const M_PI;

@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support\Traits\Arr;
+namespace Tool\Traits\Arr;
 
-use Tool\Support\Arr;
+use Tool\Arr;
 
 /**
  * Class KeyMethodsTrait

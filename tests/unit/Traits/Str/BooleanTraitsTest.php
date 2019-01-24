@@ -7,7 +7,7 @@ namespace Tests\Unit\Traits\Str;
 use const M_PI;
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
-use Tool\Support\Str;
+use Tool\Str;
 use UnitTester;
 
 class BooleanTraitsTest extends \Codeception\Test\Unit
@@ -99,5 +99,19 @@ class BooleanTraitsTest extends \Codeception\Test\Unit
         $this->assertFalse(Str::make('-1')->isNumericFloat());
         $this->assertFalse(Str::make('' . PHP_INT_MIN)->isNumericFloat());
         $this->assertFalse(Str::make('' . PHP_INT_MAX)->isNumericFloat());
+    }
+
+    public function testIsJson(): void
+    {
+        $this->assertTrue(Str::make('[]')->isJson());
+        $this->assertTrue(Str::make('{}')->isJson());
+        $this->assertTrue(Str::make('{"glossary":{"title":"example glossary","GlossDiv":{"title":"S","GlossList":' .
+            '{"GlossEntry":{"ID":"SGML","SortAs":"SGML","GlossTerm":"Standard Generalized Markup Language",' .
+            '"Acronym":"SGML","Abbrev":"ISO 8879:1986","GlossDef":{"para":"A meta-markup language, ' .
+            'used to create markup languages such as DocBook.","GlossSeeAlso":["GML","XML"]},' .
+            '"GlossSee":"markup"}}}}}')->isJson());
+
+        $this->assertFalse(Str::make('')->isJson());
+        $this->assertFalse(Str::make('~')->isJson());
     }
 }

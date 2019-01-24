@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support;
+namespace Tool;
 
-use Tool\Support\Validation\Assert;
+use Tool\Validation\Assert;
 use Twig_Environment;
 use Twig_Loader_Array;
 use function file_get_contents;

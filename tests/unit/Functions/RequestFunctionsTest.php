@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Functions;
 
-use function tool\functions\request\is_current_mobile;
-use function tool\functions\request\is_mobile;
+use function Tool\Functions\Request\is_current_mobile;
+use function Tool\Functions\Request\is_mobile;
 
 class RequestFunctionsTest extends \Codeception\Test\Unit
 {

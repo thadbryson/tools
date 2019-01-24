@@ -6,7 +6,7 @@ namespace Tests\Unit;
 
 use GuzzleHttp\Psr7\Response;
 use Tests\Support\Stubs\JsonClientStub;
-use Tool\Support\JsonClient;
+use Tool\JsonClient;
 use function json_encode;
 use function strtolower;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support;
+namespace Tool;
 
 use InvalidArgumentException;
 use function array_replace_recursive;

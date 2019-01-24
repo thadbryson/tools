@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
-use Tool\Support\Collection;
+use Tool\Collection;
 
 class CollectionTest extends \Codeception\Test\Unit
 {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1afa0e4255a4130667fa2cafe7e046e",
+    "content-hash": "e09b104b982081281a3444a536ad9a1c",
     "packages": [
         {
             "name": "danielstjules/stringy",
@@ -1537,45 +1537,6 @@
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
             "time": "2019-01-03T09:07:35+00:00"
-        },
-        {
-            "name": "thadbryson/toolkit-exceptions",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "../exceptions",
-                "reference": "86a04580554d9a7b00dac9cd7a91d725f3d0ce94",
-                "shasum": null
-            },
-            "require": {
-                "illuminate/support": "^5.6",
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "codeception/codeception": "^2.3",
-                "roave/security-advisories": "dev-master"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-community": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Tool\\Exceptions\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "_generated\\": "tests/_support/_generated/",
-                    "_support\\": "tests/_support/",
-                    "Tests\\Unit\\": "tests/unit/"
-                }
-            },
-            "license": [
-                "proprietary"
-            ]
         },
         {
             "name": "twig/twig",

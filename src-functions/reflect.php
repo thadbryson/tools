@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace tool\functions\reflect;
+namespace Tool\Functions\Reflect;
 
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
-use Tool\Support\Collection;
-use Tool\Support\Validation\Assert;
+use Tool\Collection;
+use Tool\Validation\Assert;
 
 /**
  * Run ReflectionClass() on class with $className given.

@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
-use Tool\Support\Str;
+use Tool\Str;
 use UnitTester;
 use function json_encode;
 use const JSON_PRETTY_PRINT;

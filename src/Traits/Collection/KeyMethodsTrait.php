@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support\Traits\Collection;
+namespace Tool\Traits\Collection;
 
-use Tool\Support\Arr;
-use Tool\Support\Collection;
+use Tool\Arr;
+use Tool\Collection;
 
 /**
  * Class KeyMethodsTrait

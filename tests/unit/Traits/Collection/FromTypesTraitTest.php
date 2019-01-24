@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Tests\Unit\Traits\Collection;
 
 use Illuminate\Http\Request;
-use Tool\Support\Collection;
+use Tool\Collection;
 
 /**
  * Trait FromTypesTraitTest

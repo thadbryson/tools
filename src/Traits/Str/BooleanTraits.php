@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Support\Traits\Str;
+namespace Tool\Traits\Str;
 
+use Tool\Str;
+use Tool\Validation\Assert;
+use function tool\functions\string\is_json;
 use function tool\functions\string\is_numeric_float;
 use function tool\functions\string\is_numeric_int;
 use function tool\functions\string\is_timezone;
-use tool\support;
-use Tool\Support\Str;
-use Tool\Support\Validation\Assert;
 
 /**
  * Trait BooleanTraits
@@ -18,6 +18,11 @@ use Tool\Support\Validation\Assert;
  */
 trait BooleanTraits
 {
+    public function isJson(): bool
+    {
+        return is_json($this->get());
+    }
+
     public function isEmpty(): bool
     {
         return $this->get() === '';

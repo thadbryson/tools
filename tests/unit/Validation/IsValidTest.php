@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Validation;
 
-use Tool\Support\Validation\IsValid;
+use Tool\Validation\IsValid;
 use function array_shift;
 
 /**

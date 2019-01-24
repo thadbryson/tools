@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
-use Tool\Support\Clock;
+use Tool\Clock;
 
 class ClockTest extends \Codeception\Test\Unit
 {

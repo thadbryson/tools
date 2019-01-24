@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Traits\Arr;
 
-use Tool\Support\Arr;
+use Tool\Arr;
 
 class ArrAliasMethodsTest extends \Codeception\Test\Unit
 {

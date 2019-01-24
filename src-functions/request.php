@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tool\functions\request;
+namespace Tool\Functions\Request;
 
 /**
  * Is the current Request coming from a mobile device?

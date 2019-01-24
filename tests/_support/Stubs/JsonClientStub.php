@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Support\Stubs;
 
-use Tool\Support\JsonClient;
+use Tool\JsonClient;
 
 /**
  * Class JsonClientStub

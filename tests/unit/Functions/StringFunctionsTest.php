@@ -35,11 +35,6 @@ class StringFunctionsTest extends \Codeception\Test\Unit
 
         $this->assertFalse(is_timezone('nope'));
         $this->assertFalse(is_timezone('America/Davie'));
-
-        $this->assertFalse(is_timezone(1));
-        $this->assertFalse(is_timezone(null));
-        $this->assertFalse(is_timezone(true));
-        $this->assertFalse(is_timezone(false));
     }
 
     public function testIsNumericInt(): void
@@ -65,10 +60,10 @@ class StringFunctionsTest extends \Codeception\Test\Unit
 
     public function testIsNumericFloat(): void
     {
+        $this->assertTrue(is_numeric_float(M_PI));
         $this->assertTrue(is_numeric_float(0.0));
         $this->assertTrue(is_numeric_float(1.0));
         $this->assertTrue(is_numeric_float(-1.0));
-        $this->assertTrue(is_numeric_float(M_PI));
 
         $this->assertTrue(is_numeric_float('0.0'));
         $this->assertTrue(is_numeric_float('1.0'));

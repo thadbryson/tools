@@ -278,12 +278,6 @@ class Assert
 
     /**
      * Value is of type of class in array $type.
-     *
-     * @param array    $values
-     * @param string[] $types
-     * @param string   $message
-     *
-     * @return mixed
      */
     protected static function _oneOfAType($value, array $types, string $message = '')
     {

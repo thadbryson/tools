@@ -1,12 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Tool\Functions\String;
 
 use Tool\Validation\Assert;
 use function is_float;
-use function is_int;
 use function is_numeric;
 use function is_string;
 use function json_decode;
@@ -14,10 +13,12 @@ use function json_last_error;
 use function strpos;
 use const JSON_ERROR_NONE;
 
+/**
+ * Is this a string?
+ */
 function is_json($var): bool
 {
     if (is_string($var)) {
-
         json_decode($var);
 
         return json_last_error() === JSON_ERROR_NONE;
@@ -27,20 +28,11 @@ function is_json($var): bool
 }
 
 /**
- * Is variable given a valid DateTimeZone string?
- *
- * @param mixed $var
- *
- * @return bool
+ * Is this a timezone?
  */
-function is_timezone($var): bool
+function is_timezone(string $var): bool
 {
     try {
-
-        if (is_string($var) === false) {
-            return false;
-        }
-
         new \DateTimeZone($var);
 
         return true;
@@ -50,7 +42,7 @@ function is_timezone($var): bool
 }
 
 /**
- * Is this a numeric string of an integer?
+ * Is this a numeric string or an integer?
  */
 function is_numeric_int($var): bool
 {
@@ -74,33 +66,25 @@ function is_numeric_float($var): bool
 }
 
 /**
- * Get monetery string format.
- *
- * @param string|int|float $str
- *
- * @return string
+ * Get money format of numeric $var.
  */
-function money($var, string $locale = 'en_US', string $encoding = 'UTF-8'): string
+function money(string $var, string $locale = 'en_US', string $encoding = 'UTF-8'): string
 {
     Assert::numeric($var, '$var must be a numeric string, integer, or float.');
 
     setlocale(LC_MONETARY, $locale . '.' . $encoding);
 
-    return money_format('%n', (float) $var);
+    return money_format('%n', (float)$var);
 }
 
 /**
- * Get international monetery format.
- *
- * @param string|int|float $str
- *
- * @return string
+ * Get international money format of numeric $var.
  */
-function money_international($var, string $locale = 'en_US', string $encoding = 'UTF-8'): string
+function money_international(string $var, string $locale = 'en_US', string $encoding = 'UTF-8'): string
 {
     Assert::numeric($var, '$var must be a numeric string, integer, or float.');
 
     setlocale(LC_MONETARY, $locale . '.' . $encoding);
 
-    return money_format('%i', (float) $var);
+    return money_format('%i', (float)$var);
 }

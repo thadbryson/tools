@@ -5,6 +5,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.3",
+        "ext-json": "*",
         "illuminate/http": "^5.7",
         "illuminate/support": "^5.7",
         "illuminate/validation": "^5.7",
@@ -23,7 +24,6 @@
             "Tool\\": "src/"
         },
         "files": [
-            "src-functions/reflect.php",
             "src-functions/request.php",
             "src-functions/string.php"
         ]

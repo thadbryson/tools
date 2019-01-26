@@ -6,10 +6,10 @@ namespace Tool\Traits\Str;
 
 use Tool\Str;
 use Tool\Validation\Assert;
-use function tool\functions\string\is_json;
-use function tool\functions\string\is_numeric_float;
-use function tool\functions\string\is_numeric_int;
-use function tool\functions\string\is_timezone;
+use function Tool\Functions\String\is_json;
+use function Tool\Functions\String\is_numeric_float;
+use function Tool\Functions\String\is_numeric_int;
+use function Tool\Functions\String\is_timezone;
 
 /**
  * Trait BooleanTraits

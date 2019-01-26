@@ -201,25 +201,35 @@ class AssertRules extends BaseAssertion
     /**
      * Determines that the named method is defined in the provided object.
      *
-     * @param string               $value
+     * @param mixed                $method
      * @param mixed                $object
-     * @param string|callable|null $message
-     * @param string|null          $propertyPath
+     * @param string|callable|null $message = null
+     * @param string|null          $propertyPath = null
      *
      * @return bool
      */
-    public static function methodExists($value, $object, $message = null, $propertyPath = null)
+    public static function methodExists($method, $object, $message = null, $propertyPath = null)
     {
-        if (is_object($object) || is_string($object) && method_exists($object, $value)) {
-            return true;
+        if (is_object($object)) {
+            return parent::methodExists($method, $object, $message, $propertyPath);
         }
 
-        $message = \sprintf(
-            static::generateMessage($message ?: 'Expected "%s" does not exist in provided object.'),
-            static::stringify($value)
-        );
+        // Has to be a class string.
+        static::classExists($object, $message, $propertyPath);
 
-        throw static::createException($value, $message, static::INVALID_METHOD, $propertyPath,
-            ['object' => \get_class($object)]);
+        // is_callable() handles magic __call() methods.
+        if (is_callable([$object, $method]) === false) {
+
+            $message = \sprintf(
+                static::generateMessage($message ?: 'Expected method "%s()" does not exist on object %s.'),
+                $method,
+                static::typeString($object)
+            );
+
+            throw static::createException($method, $message, static::INVALID_METHOD, $propertyPath,
+                ['object' => static::typeString($object)]);
+        }
+
+        return true;
     }
 }

@@ -101,7 +101,6 @@ class AssertTest extends \Codeception\Test\Unit
             ['notDotKeyExists', 'id', [1, 2, 3]],
             ['classOrObject', \DateTime::class],
             ['methodExists', 'format', new \DateTime],
-            ['methodExists', 'format', \DateTime::class],
             ['classOrObject', new \DateTime('2015-01-20')],
         ];
     }
@@ -140,6 +139,8 @@ class AssertTest extends \Codeception\Test\Unit
             ['notDotKeyExists', '0', [1, 2, 3]],
             ['classOrObject', '\\NotAClass'],
             ['classOrObject', 1],
+            ['methodExists', 'format ', \DateTime::class],
+            ['methodExists', 1, \DateTime::class . 'nah'],
         ];
     }
 

@@ -58,8 +58,8 @@ class ValidationTraitTest extends \Codeception\Test\Unit
             ]
         ], $result);
 
-        $this->tester->expectException(
-            new \InvalidArgumentException('Value \'1\' is not what is expected for key: id.'),
+        $this->tester->expectThrowable(
+            \InvalidArgumentException::class,
             function () {
                 $this->coll->assertEquals(['id' => '10']);
             }

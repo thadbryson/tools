@@ -8,10 +8,10 @@ use Tool\Validation\Assert;
 use function get_class;
 
 /**
- * Test Assert and IsValid classes. IsValid will call the
+ * Test Assert and AssertRules classes. AssertRules will call the
  * corresponding Assert method.
  *
- * Here we call the IsValid and test for the boolean return.
+ * Here we call the AssertRules and test for the boolean return.
  */
 class AssertTest extends \Codeception\Test\Unit
 {
@@ -24,15 +24,12 @@ class AssertTest extends \Codeception\Test\Unit
      * @dataProvider data
      *
      * @param string $method
-     * @param        $value
      * @param mixed  ...$args
      */
-    public function testNull(string $method, ...$args): void
+    public function testNull(string $method, $value, ...$args): void
     {
-        array_shift($args);
-
         // NULL for these should throw an Exception.
-        $this->tester->expectException(\InvalidArgumentException::class, function () use ($method, $args) {
+        $this->tester->expectThrowable(\InvalidArgumentException::class, function () use ($method, $args) {
 
             Assert::{$method}(null, ...$args);
         });
@@ -69,7 +66,7 @@ class AssertTest extends \Codeception\Test\Unit
      */
     public function testInvalid(string $method, $value, ...$args): void
     {
-        $this->tester->expectException(\InvalidArgumentException::class, function () use ($method, $value, $args) {
+        $this->tester->expectThrowable(\InvalidArgumentException::class, function () use ($method, $value, $args) {
 
             Assert::{$method}($value, ...$args);
         });
@@ -79,7 +76,7 @@ class AssertTest extends \Codeception\Test\Unit
     {
         return [
             ['string', ''],
-            ['stringNotEmpty', ' '],
+            ['notEmpty', ' '],
             ['integer', 0],
             ['integerish', 0],
             ['float', 0.0],
@@ -96,8 +93,8 @@ class AssertTest extends \Codeception\Test\Unit
     {
         return [
             ['equals', '', ''],
-            ['oneOfAType', 1, ['integer', 'string', 'bool']],
-            ['allOfAnyType', [1.0, 'string'], ['integer', 'double', 'string', 'array']],
+            ['oneOfAType', 1, ['int', 'string', 'bool']],
+            ['allOfAnyType', [1.0, 'string'], ['int', 'float', 'string', 'array']],
             ['inArray', '', [1, 2, true, null, false, '']],
             ['notInArray', '', [1, 2, 3, null]],
             ['dotKeyExists', '0.2', [[1, 2, 3], 'a', 'b', 'c']],
@@ -111,7 +108,7 @@ class AssertTest extends \Codeception\Test\Unit
     {
         return [
             ['string', false],
-            ['stringNotEmpty', ''],
+            ['notEmpty', ''],
             ['integer', '7a'],
             ['integerish', '123a'],
             ['float', 5],

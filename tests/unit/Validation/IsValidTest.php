@@ -5,25 +5,18 @@ declare(strict_types = 1);
 namespace Tests\Unit\Validation;
 
 use Tool\Validation\IsValid;
-use function array_shift;
 
 /**
- * Test IsValid class, wraps Assert class.
+ * Test AssertRules class, wraps Assert class.
  */
 class IsValidTest extends AssertTest
 {
     /**
      * @dataProvider data
-     *
-     * @param string $method
-     * @param        $value
-     * @param mixed  ...$args
      */
-    public function testNull(string $method, ...$args): void
+    public function testNull(string $method, $value, ...$args): void
     {
-        array_shift($args);
-
-        $this->assertFalse(IsValid::{$method}(null, ...$args), 'IsValid with NULL should be invalid: ' . $method);
+        $this->assertFalse(IsValid::{$method}(null, ...$args), 'AssertRules with NULL should be invalid: ' . $method);
     }
 
     /**
@@ -36,7 +29,7 @@ class IsValidTest extends AssertTest
      */
     public function testValid(string $method, $value, ...$args): void
     {
-        $this->assertTrue(IsValid::{$method}($value, ...$args), 'Method IsValid should be true: ' . $method);
+        $this->assertTrue(IsValid::{$method}($value, ...$args), 'Method AssertRules should be true: ' . $method);
     }
 
     /**
@@ -49,6 +42,6 @@ class IsValidTest extends AssertTest
      */
     public function testInvalid(string $method, $value, ...$args): void
     {
-        $this->assertFalse(IsValid::{$method}($value, ...$args), 'Method IsValid should be true: ' . $method);
+        $this->assertFalse(IsValid::{$method}($value, ...$args), 'Method AssertRules should be true: ' . $method);
     }
 }

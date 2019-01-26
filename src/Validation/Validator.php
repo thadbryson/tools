@@ -80,16 +80,16 @@ class Validator
 
     private static function attachRules(Factory $factory): Factory
     {
-        $factory->extend('class_exists', function (string $_, $class): bool {
+        $factory->extend('class_exists', function (string $_, string $class): bool {
 
-            return IsValid::classExists($class);
+            return class_exists($class);
         });
 
-        $factory->extend('method_exists', function (string $_, $method, array $parameters): bool {
+        $factory->extend('method_exists', function (string $_, string $method, array $parameters): bool {
 
             $class = $parameters[0] ?? null;
 
-            return IsValid::methodExists($class, $method);
+            return method_exists($class, $method);
         });
 
         $factory->extend('object', function (string $_, $object, array $parameters): bool {

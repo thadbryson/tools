@@ -4,457 +4,281 @@ declare(strict_types = 1);
 
 namespace Tool\Validation;
 
-use BadMethodCallException;
-use Closure;
-use Countable;
-use Illuminate\Support\Arr;
-use Webmozart\Assert\Assert as BaseAssert;
-use function implode;
-use function in_array;
-use function is_object;
-use function is_string;
-use function method_exists;
-
 /**
- * Wrap Webmozart Assert class  in this.
- * - Returns value passed in for testing if successful.
+ * Class Assert
  *
- * @method static string string($value, $message = '')
- * @method static string stringNotEmpty($value, $message = '')
- * @method static int integer($value, $message = '')
- * @method static int|string integerish($value, $message = '')
- * @method static int float($value, $message = '')
- * @method static int|float|string numeric($value, $message = '')
- * @method static int|float natural($value, $message = '')
- * @method static bool boolean($value, $message = '')
- * @method static bool|int|float scalar($value, $message = '')
- * @method static object object($value, $message = '')
- * @method static resource resource($value, $type = null, $message = '')
- * @method static callable isCallable($value, $message = '')
- * @method static array isArray($value, $message = '')
- * @method static iterable isTraversable($value, $message = '')
- * @method static array|\ArrayAccess isArrayAccessible($value, $message = '')
- * @method static Countable|array isCountable($value, $message = '')
- * @method static iterable isIterable($value, $message = '')
- * @method static object isInstanceOf($value, $class, $message = '')
- * @method static object notInstanceOf($value, $class, $message = '')
- * @method static object isInstanceOfAny($value, array $classes, $message = '')
- * @method static mixed isEmpty($value, $message = '')
- * @method static mixed notEmpty($value, $message = '')
- * @method static null null($value, $message = '')
- * @method static mixed notNull($value, $message = '')
- * @method static true true($value, $message = '')
- * @method static false false($value, $message = '')
- * @method static int|float|string eq($value, $value2, $message = '')
- * @method static int|float|string notEq($value, $value2, $message = '')
- * @method static mixed same($value, $value2, $message = '')
- * @method static mixed notSame($value, $value2, $message = '')
- * @method static int|float|string greaterThan($value, $limit, $message = '')
- * @method static int|float|string greaterThanEq($value, $limit, $message = '')
- * @method static int|float|string lessThan($value, $limit, $message = '')
- * @method static int|float|string lessThanEq($value, $limit, $message = '')
- * @method static int|float|string range($value, $min, $max, $message = '')
- * @method static mixed oneOf($value, array $values, $message = '')
- * @method static string contains($value, $subString, $message = '')
- * @method static string notContains($value, $subString, $message = '')
- * @method static string notWhitespaceOnly($value, $message = '')
- * @method static string startsWith($value, $prefix, $message = '')
- * @method static string startsWithLetter($value, $message = '')
- * @method static string endsWith($value, $suffix, $message = '')
- * @method static string regex($value, $pattern, $message = '')
- * @method static string alpha($value, $message = '')
- * @method static string digits($value, $message = '')
- * @method static string alnum($value, $message = '')
- * @method static string lower($value, $message = '')
- * @method static string upper($value, $message = '')
- * @method static string length($value, $length, $message = '')
- * @method static string minLength($value, $min, $message = '')
- * @method static string maxLength($value, $max, $message = '')
- * @method static string lengthBetween($value, $min, $max, $message = '')
- * @method static string fileExists($value, $message = '')
- * @method static string file($value, $message = '')
- * @method static string directory($value, $message = '')
- * @method static string readable($value, $message = '')
- * @method static string writable($value, $message = '')
- * @method static string classExists($value, $message = '')
- * @method static string subclassOf($value, $class, $message = '')
- * @method static string implementsInterface($value, $interface, $message = '')
- * @method static string propertyExists($classOrObject, $property, $message = '')
- * @method static string propertyNotExists($classOrObject, $property, $message = '')
- * @method static string methodExists($classOrObject, $method, $message = '')
- * @method static string methodNotExists($classOrObject, $method, $message = '')
- * @method static array keyExists($array, $key, $message = '')
- * @method static array keyNotExists($array, $key, $message = '')
- * @method static array count($array, $number, $message = '')
- * @method static array minCount($array, $min, $message = '')
- * @method static array maxCount($array, $max, $message = '')
- * @method static int|float|string countBetween($array, $min, $max, $message = '')
- * @method static string uuid($value, $message = '')
- * @method static Closure throws(Closure $expression, $class = 'Exception', $message = '')
- * @method static null|string nullOrString($value, $message = '')
- * @method static null|string nullOrStringNotEmpty($value, $message = '')
- * @method static null|int nullOrInteger($value, $message = '')
- * @method static null|int|string nullOrIntegerish($value, $message = '')
- * @method static null|float nullOrFloat($value, $message = '')
- * @method static null|string|int|float nullOrNumeric($value, $message = '')
- * @method static null|bool nullOrBoolean($value, $message = '')
- * @method static null|bool|int|float nullOrScalar($value, $message = '')
- * @method static null|object nullOrObject($value, $message = '')
- * @method static null|object nullOrResource($value, $type = null, $message = '')
- * @method static null|object nullOrIsCallable($value, $message = '')
- * @method static null|object nullOrIsArray($value, $message = '')
- * @method static null|object nullOrIsTraversable($value, $message = '')
- * @method static null|object nullOrIsArrayAccessible($value, $message = '')
- * @method static null|object nullOrIsCountable($value, $message = '')
- * @method static null|object nullOrIsInstanceOf($value, $class, $message = '')
- * @method static null|object nullOrNotInstanceOf($value, $class, $message = '')
- * @method static null|object nullOrIsInstanceOfAny($value, $classes, $message = '')
- * @method static null|mixed nullOrIsEmpty($value, $message = '')
- * @method static null|mixed nullOrNotEmpty($value, $message = '')
- * @method static null|true nullOrTrue($value, $message = '')
- * @method static null|false nullOrFalse($value, $message = '')
- * @method static null|mixed nullOrEq($value, $value2, $message = '')
- * @method static null|mixed nullOrNotEq($value, $value2, $message = '')
- * @method static null|mixed nullOrSame($value, $value2, $message = '')
- * @method static null|int nullOrNotSame($value, $value2, $message = '')
- * @method static null|int nullOrGreaterThan($value, $value2, $message = '')
- * @method static null|int nullOrGreaterThanEq($value, $value2, $message = '')
- * @method static null|int nullOrLessThan($value, $value2, $message = '')
- * @method static null|int nullOrLessThanEq($value, $value2, $message = '')
- * @method static null|int nullOrRange($value, $min, $max, $message = '')
- * @method static null|mixed nullOrOneOf($value, $values, $message = '')
- * @method static null|string nullOrContains($value, $subString, $message = '')
- * @method static null|string nullOrNotContains($value, $subString, $message = '')
- * @method static null|string nullOrNotWhitespaceOnly($value, $message = '')
- * @method static null|string nullOrStartsWith($value, $prefix, $message = '')
- * @method static null|string nullOrStartsWithLetter($value, $message = '')
- * @method static null|string nullOrEndsWith($value, $suffix, $message = '')
- * @method static null|string nullOrRegex($value, $pattern, $message = '')
- * @method static null|string nullOrAlpha($value, $message = '')
- * @method static null|string nullOrDigits($value, $message = '')
- * @method static null|string nullOrAlnum($value, $message = '')
- * @method static null|int nullOrLower($value, $message = '')
- * @method static null|int nullOrUpper($value, $message = '')
- * @method static null|int nullOrLength($value, $length, $message = '')
- * @method static null|int nullOrMinLength($value, $min, $message = '')
- * @method static null|int nullOrMaxLength($value, $max, $message = '')
- * @method static null|int nullOrLengthBetween($value, $min, $max, $message = '')
- * @method static null|string nullOrFileExists($value, $message = '')
- * @method static null|string nullOrFile($value, $message = '')
- * @method static null|string nullOrDirectory($value, $message = '')
- * @method static null|string nullOrReadable($value, $message = '')
- * @method static null|string nullOrWritable($value, $message = '')
- * @method static null|string nullOrClassExists($value, $message = '')
- * @method static null|string nullOrSubclassOf($value, $class, $message = '')
- * @method static null|string nullOrImplementsInterface($value, $interface, $message = '')
- * @method static null|string nullOrPropertyExists($value, $property, $message = '')
- * @method static null|string nullOrPropertyNotExists($value, $property, $message = '')
- * @method static null|string nullOrMethodExists($value, $method, $message = '')
- * @method static string|null nullOrMethodNotExists($value, $method, $message = '')
- * @method static int|null|string nullOrKeyExists($value, $key, $message = '')
- * @method static int|null|string nullOrKeyNotExists($value, $key, $message = '')
- * @method static int|null nullOrCount($value, $key, $message = '')
- * @method static int|null nullOrMinCount($value, $min, $message = '')
- * @method static int|null nullOrMaxCount($value, $max, $message = '')
- * @method static int|null nullCountBetween($value, $min, $max, $message = '')
- * @method static array nullOrUuid($values, $message = '')
- * @method static array allString($values, $message = '')
- * @method static array allStringNotEmpty($values, $message = '')
- * @method static array allInteger($values, $message = '')
- * @method static array allIntegerish($values, $message = '')
- * @method static array allFloat($values, $message = '')
- * @method static array allNumeric($values, $message = '')
- * @method static array allBoolean($values, $message = '')
- * @method static array allScalar($values, $message = '')
- * @method static array allObject($values, $message = '')
- * @method static array allResource($values, $type = null, $message = '')
- * @method static array allIsCallable($values, $message = '')
- * @method static array allIsArray($values, $message = '')
- * @method static array allIsTraversable($values, $message = '')
- * @method static array allIsArrayAccessible($values, $message = '')
- * @method static array allIsCountable($values, $message = '')
- * @method static array allIsInstanceOf($values, $class, $message = '')
- * @method static array allNotInstanceOf($values, $class, $message = '')
- * @method static array allIsInstanceOfAny($values, $classes, $message = '')
- * @method static array allNull($values, $message = '')
- * @method static array allNotNull($values, $message = '')
- * @method static array allIsEmpty($values, $message = '')
- * @method static array allNotEmpty($values, $message = '')
- * @method static array allTrue($values, $message = '')
- * @method static array allFalse($values, $message = '')
- * @method static array allEq($values, $value2, $message = '')
- * @method static array allNotEq($values, $value2, $message = '')
- * @method static array allSame($values, $value2, $message = '')
- * @method static array allNotSame($values, $value2, $message = '')
- * @method static array allGreaterThan($values, $value2, $message = '')
- * @method static array allGreaterThanEq($values, $value2, $message = '')
- * @method static array allLessThan($values, $value2, $message = '')
- * @method static array allLessThanEq($values, $value2, $message = '')
- * @method static array allRange($values, $min, $max, $message = '')
- * @method static array allOneOf($values, $values, $message = '')
- * @method static array allContains($values, $subString, $message = '')
- * @method static array allNotContains($values, $subString, $message = '')
- * @method static array allNotWhitespaceOnly($values, $message = '')
- * @method static array allStartsWith($values, $prefix, $message = '')
- * @method static array allStartsWithLetter($values, $message = '')
- * @method static array allEndsWith($values, $suffix, $message = '')
- * @method static array allRegex($values, $pattern, $message = '')
- * @method static array allAlpha($values, $message = '')
- * @method static array allDigits($values, $message = '')
- * @method static array allAlnum($values, $message = '')
- * @method static array allLower($values, $message = '')
- * @method static array allUpper($values, $message = '')
- * @method static array allLength($values, $length, $message = '')
- * @method static array allMinLength($values, $min, $message = '')
- * @method static array allMaxLength($values, $max, $message = '')
- * @method static array allLengthBetween($values, $min, $max, $message = '')
- * @method static array allFileExists($values, $message = '')
- * @method static array allFile($values, $message = '')
- * @method static array allDirectory($values, $message = '')
- * @method static array allReadable($values, $message = '')
- * @method static array allWritable($values, $message = '')
- * @method static array allClassExists($values, $message = '')
- * @method static array allSubclassOf($values, $class, $message = '')
- * @method static array allImplementsInterface($values, $interface, $message = '')
- * @method static array allPropertyExists($values, $property, $message = '')
- * @method static array allPropertyNotExists($values, $property, $message = '')
- * @method static array allMethodExists($values, $method, $message = '')
- * @method static array allMethodNotExists($values, $method, $message = '')
- * @method static array allKeyExists($values, $key, $message = '')
- * @method static array allKeyNotExists($values, $key, $message = '')
- * @method static array allCount($values, $key, $message = '')
- * @method static array allMinCount($values, $min, $message = '')
- * @method static array allMaxCount($values, $max, $message = '')
- * @method static array allCountBetween($values, $min, $max, $message = '')
- * @method static array allUuid($values, $message = '')
- * @method static mixed equals($value, $equals, string $message = '')
- * @method static mixed oneOfAType($value, array $types, string $message = '')
- * @method static array allOfAnyType(array $values, array $types, string $message = ''): array
- * @method static mixed inArray($value, array $array, string $message = '')
- * @method static mixed notInArray($value, array $array, string $message = '')
- * @method static string dotKeyExists($key, array $array, string $message = ''): array
- * @method static array notDotKeyExists($keys, array $array, string $message = ''): array
- * @method static string|object classOrObject($value, string $message = '')
+ * Call assertion rule, return value if the value is valid.
+ * If not valid - throw \InvalidArgumentException
+ *
+ * @method static mixed equals($value, $value2, $message = null, $propertyPath = null)
+ * @method static mixed eq($value, $value2, string $message = null, string $propertyPath = null)
+ * @method static mixed same($value, $value2, string $message = null, string $propertyPath = null)
+ * @method static mixed notEq($value1, $value2, string $message = null, string $propertyPath = null)
+ * @method static mixed notSame($value1, $value2, string $message = null, string $propertyPath = null)
+ * @method static mixed notInArray($value, array $choices, string $message = null, string $propertyPath = null)
+ * @method static int integer($value, string $message = null, string $propertyPath = null)
+ * @method static float float($value, string $message = null, string $propertyPath = null)
+ * @method static int digit($value, string $message = null, string $propertyPath = null)
+ * @method static int|string integerish($value, string $message = null, string $propertyPath = null)
+ * @method static bool boolean($value, string $message = null, string $propertyPath = null)
+ * @method static mixed scalar($value, string $message = null, string $propertyPath = null)
+ * @method static mixed notEmpty($value, string $message = null, string $propertyPath = null)
+ * @method static string noContent($value, string $message = null, string $propertyPath = null)
+ * @method static null null($value, string $message = null, string $propertyPath = null)
+ * @method static mixed notNull($value, string $message = null, string $propertyPath = null)
+ * @method static string string($value, string $message = null, string $propertyPath = null)
+ * @method static string regex($value, $pattern, string $message = null, string $propertyPath = null)
+ * @method static mixed notRegex($value, $pattern, string $message = null, string $propertyPath = null)
+ * @method static string length($value, $length, string $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string minLength($value, $minLength, string $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string maxLength($value, $maxLength, string $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string betweenLength($value, $minLength, $maxLength, string $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string startsWith($string, $needle, string $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string endsWith($string, $needle, string $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string contains($string, $needle, string $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string notContains($string, $needle, string $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static mixed choice($value, array $choices, string $message = null, string $propertyPath = null)
+ * @method static mixed inArray($value, array $choices, string $message = null, string $propertyPath = null)
+ * @method static string|int numeric($value, string $message = null, string $propertyPath = null)
+ * @method static resource isResource($value, string $message = null, string $propertyPath = null)
+ * @method static array isArray($value, string $message = null, string $propertyPath = null)
+ * @method static iterable isTraversable($value, string $message = null, string $propertyPath = null)
+ * @method static array|\ArrayAccess isArrayAccessible($value, string $message = null, string $propertyPath = null)
+ * @method static array isCountable($value, string $message = null, string $propertyPath = null)
+ * @method static string|int keyExists($value, $key, string $message = null, string $propertyPath = null)
+ * @method static string|int keyNotExists($value, $key, string $message = null, string $propertyPath = null)
+ * @method static string|int keyIsset($value, $key, string $message = null, string $propertyPath = null)
+ * @method static mixed notEmptyKey($value, $key, string $message = null, string $propertyPath = null)
+ * @method static string notBlank($value, string $message = null, string $propertyPath = null)
+ * @method static object isInstanceOf($value, $className, string $message = null, string $propertyPath = null)
+ * @method static object notIsInstanceOf($value, $className, string $message = null, string $propertyPath = null)
+ * @method static object subclassOf($value, $className, string $message = null, string $propertyPath = null)
+ * @method static int|float range($value, $minValue, $maxValue, string $message = null, string $propertyPath = null)
+ * @method static int|float min($value, $minValue, string $message = null, string $propertyPath = null)
+ * @method static int|float max($value, $maxValue, string $message = null, string $propertyPath = null)
+ * @method static string file($value, string $message = null, string $propertyPath = null)
+ * @method static string directory($value, string $message = null, string $propertyPath = null)
+ * @method static string readable($value, string $message = null, string $propertyPath = null)
+ * @method static string writeable($value, string $message = null, string $propertyPath = null)
+ * @method static string email($value, string $message = null, string $propertyPath = null)
+ * @method static string url($value, string $message = null, string $propertyPath = null)
+ * @method static string alnum($value, string $message = null, string $propertyPath = null)
+ * @method static true true($value, string $message = null, string $propertyPath = null)
+ * @method static false false($value, string $message = null, string $propertyPath = null)
+ * @method static string classExists($value, string $message = null, string $propertyPath = null)
+ * @method static string interfaceExists($value, string $message = null, string $propertyPath = null)
+ * @method static string implementsInterface($class, $interfaceName, string $message = null, string $propertyPath = null)
+ * @method static string isJsonString($value, string $message = null, string $propertyPath = null)
+ * @method static string uuid($value, string $message = null, string $propertyPath = null)
+ * @method static string e164($value, string $message = null, string $propertyPath = null)
+ * @method static \Countable|array count($countable, $count, string $message = null, string $propertyPath = null)
+ * @method static \Countable|array minCount($countable, $count, string $message = null, string $propertyPath = null)
+ * @method static \Countable|array maxCount($countable, $count, string $message = null, string $propertyPath = null)
+ * @method static array choicesNotEmpty(array $values, array $choices, string $message = null, string $propertyPath = null)
+ * @method static string methodExists($value, $object, string $message = null, string $propertyPath = null)
+ * @method static object isObject($value, string $message = null, string $propertyPath = null)
+ * @method static int|float lessThan($value, $limit, string $message = null, string $propertyPath = null)
+ * @method static int|float lessOrEqualThan($value, $limit, string $message = null, string $propertyPath = null)
+ * @method static int|float greaterThan($value, $limit, string $message = null, string $propertyPath = null)
+ * @method static int|float greaterOrEqualThan($value, $limit, string $message = null, string $propertyPath = null)
+ * @method static int|float between($value, $lowerLimit, $upperLimit, string $message = null, string $propertyPath = null)
+ * @method static int|float betweenExclusive($value, $lowerLimit, $upperLimit, string $message = null, string $propertyPath = null)
+ * @method static string extensionLoaded($value, string $message = null, string $propertyPath = null)
+ * @method static string|\DateTime date($value, $format, string $message = null, string $propertyPath = null)
+ * @method static object|class objectOrClass($value, string $message = null, string $propertyPath = null)
+ * @method static string propertyExists($value, $property, string $message = null, string $propertyPath = null)
+ * @method static string[] propertiesExist($value, array $properties, string $message = null, string $propertyPath = null)
+ * @method static string version($version1, $operator, $version2, string $message = null, string $propertyPath = null)
+ * @method static string phpVersion($operator, $version, string $message = null, string $propertyPath = null)
+ * @method static string extensionVersion($extension, $operator, $version, string $message = null, string $propertyPath = null)
+ * @method static callable isCallable($value, string $message = null, string $propertyPath = null)
+ * @method static callable satisfy($value, $callback, string $message = null, string $propertyPath = null)
+ * @method static string ip($value, $flag = null, string $message = null, string $propertyPath = null)
+ * @method static string ipv4($value, $flag = null, string $message = null, string $propertyPath = null)
+ * @method static string ipv6($value, $flag = null, string $message = null, string $propertyPath = null)
+ * @method static string defined($constant, string $message = null, string $propertyPath = null)
+ * @method static string base64($value, string $message = null, string $propertyPath = null)
+ * @method static string[] allAlnum(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allBase64(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allBetween(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allBetweenExclusive(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)
+ * @method static string[] allBetweenLength(mixed $value, int $minLength, int $maxLength, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static bool[] allBoolean(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static mixed[] allChoice(mixed $value, array $choices, string|callable $message = null, string $propertyPath = null)
+ * @method static array[] allChoicesNotEmpty(array $values, array $choices, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allClassExists(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allContains(mixed $string, string $needle, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static array|\Countable[] allCount(array|\Countable|\ResourceBundle|\SimpleXMLElement $countable, int $count, string $message = null, string $propertyPath = null)
+ * @method static string[]|\DateTime[] allDate(string $value, string $format, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allDefined(mixed $constant, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allDigit(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allDirectory(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allE164(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allEmail(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allEndsWith(mixed $string, string $needle, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static array allEq(mixed $value, mixed $value2, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allExtensionLoaded(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allExtensionVersion(string $extension, string $operator, mixed $version, string|callable $message = null, string $propertyPath = null)
+ * @method static false[] allFalse(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allFile(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static float[] allFloat(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allGreaterOrEqualThan(mixed $value, mixed $limit, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allGreaterThan(mixed $value, mixed $limit, string|callable $message = null, string $propertyPath = null)
+ * @method static object[] allImplementsInterface(mixed $class, string $interfaceName, string|callable $message = null, string $propertyPath = null)
+ * @method static array allInArray(mixed $value, array $choices, string|callable $message = null, string $propertyPath = null)
+ * @method static int[] allInteger(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|string[] allIntegerish(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allInterfaceExists(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allIp(string $value, int $flag = null, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allIpv4(string $value, int $flag = null, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allIpv6(string $value, int $flag = null, string|callable $message = null, string $propertyPath = null)
+ * @method static array[] allIsArray(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static array[]|\ArrayAccess[] allIsArrayAccessible(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static callable[] allIsCallable(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static array[]|\Countable[] allIsCountable(array|\Countable|\ResourceBundle|\SimpleXMLElement $value, string|callable $message = null, string $propertyPath = null)
+ * @method static object[] allIsInstanceOf(mixed $value, string $className, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allIsJsonString(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static object[] allIsObject(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static resource[] allIsResource(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static array[] allIsTraversable(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[]|int[] allKeyExists(mixed $value, string|int $key, string|callable $message = null, string$propertyPath = null)
+ * @method static string[]|int[] allKeyIsset(mixed $value, string|int $key, string|callable $message = null, string $propertyPath = null)
+ * @method static string[]|int[] allKeyNotExists(mixed $value, string|int $key, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allLength(mixed $value, int $length, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static int[]|float[] allLessOrEqualThan(mixed $value, mixed $limit, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allLessThan(mixed $value, mixed $limit, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allMax(mixed $value, mixed $maxValue, string|callable $message = null, string $propertyPath = null)
+ * @method static array[] allMaxCount(array|\Countable|\ResourceBundle|\SimpleXMLElement $countable, int $count, string $message = null, string $propertyPath = null)
+ * @method static string[] allMaxLength(mixed $value, int $maxLength, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string[] allMethodExists(string $value, mixed $object, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allMin(mixed $value, mixed $minValue, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allMinCount(array|\Countable|\ResourceBundle|\SimpleXMLElement $countable, int $count, string $message = null, string $propertyPath = null)
+ * @method static string[] allMinLength(mixed $value, int $minLength, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string[] allNoContent(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allNotBlank(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allNotContains(mixed $string, string $needle, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static mixed allNotEmpty(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static array[] allNotEmptyKey(mixed $value, string|int $key, string|callable $message = null, string $propertyPath = null)
+ * @method static array allNotEq(mixed $value1, mixed $value2, string|callable $message = null, string $propertyPath = null)
+ * @method static array allNotInArray(mixed $value, array $choices, string|callable $message = null, string $propertyPath = null)
+ * @method static object[] allNotIsInstanceOf(mixed $value, string $className, string|callable $message = null, string $propertyPath = null)
+ * @method static array allNotNull(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allNotRegex(mixed $value, string $pattern, string|callable $message = null, string $propertyPath = null)
+ * @method static array allNotSame(mixed $value1, mixed $value2, string|callable $message = null, string $propertyPath = null)
+ * @method static array allNull(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[]|int[] allNumeric(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static object[]|string[] allObjectOrClass(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allPhpVersion(string $operator, mixed $version, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allPropertiesExist(mixed $value, array $properties, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allPropertyExists(mixed $value, string $property, string|callable $message = null, string $propertyPath = null)
+ * @method static int[]|float[] allRange(mixed $value, mixed $minValue, mixed $maxValue, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allReadable(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allRegex(mixed $value, string $pattern, string|callable $message = null, string $propertyPath = null)
+ * @method static array allSame(mixed $value, mixed $value2, string|callable $message = null, string $propertyPath = null)
+ * @method static array allSatisfy(mixed $value, callable $callback, string|callable $message = null, string $propertyPath = null)
+ * @method static array allScalar(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allStartsWith(mixed $string, string $needle, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static string[] allString(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static object[] allSubclassOf(mixed $value, string $className, string|callable $message = null, string $propertyPath = null)
+ * @method static true[] allTrue(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allUrl(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allUuid(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allVersion(string $version1, string $operator, string $version2, string|callable $message = null, string $propertyPath = null)
+ * @method static string[] allWriteable(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrAlnum(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrBase64(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrBetween(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)
+ * @method static bool nullOrBetweenExclusive(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)
+ * @method static bool nullOrBetweenLength(mixed $value, int $minLength, int $maxLength, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static null|bool nullOrBoolean(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrChoice(mixed $value, array $choices, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrChoicesNotEmpty(array $values, array $choices, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrClassExists(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrContains(mixed $string, string $needle, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static bool nullOrCount(array|\Countable|\ResourceBundle|\SimpleXMLElement $countable, int $count, string $message = null, string $propertyPath = null)
+ * @method static bool nullOrDate(string $value, string $format, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrDefined(mixed $constant, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrDigit(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrDirectory(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrE164(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrEmail(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrEndsWith(mixed $string, string $needle, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static bool nullOrEq(mixed $value, mixed $value2, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrExtensionLoaded(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrExtensionVersion(string $extension, string $operator, mixed $version, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrFalse(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrFile(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrFloat(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrGreaterOrEqualThan(mixed $value, mixed $limit, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrGreaterThan(mixed $value, mixed $limit, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrImplementsInterface(mixed $class, string $interfaceName, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrInArray(mixed $value, array $choices, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrInteger(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIntegerish(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrInterfaceExists(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIp(string $value, int $flag = null, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIpv4(string $value, int $flag = null, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIpv6(string $value, int $flag = null, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsArray(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsArrayAccessible(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsCallable(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsCountable(array|\Countable|\ResourceBundle|\SimpleXMLElement $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsInstanceOf(mixed $value, string $className, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsJsonString(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsObject(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsResource(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrIsTraversable(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrKeyExists(mixed $value, string|int $key, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrKeyIsset(mixed $value, string|int $key, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrKeyNotExists(mixed $value, string|int $key, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrLength(mixed $value, int $length, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static bool nullOrLessOrEqualThan(mixed $value, mixed $limit, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrLessThan(mixed $value, mixed $limit, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrMax(mixed $value, mixed $maxValue, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrMaxCount(array|\Countable|\ResourceBundle|\SimpleXMLElement $countable, int $count, string $message = null, string $propertyPath = null)
+ * @method static bool nullOrMaxLength(mixed $value, int $maxLength, string|callable $message = null, string$propertyPath = null, string $encoding = 'utf8')
+ * @method static bool nullOrMethodExists(string $value, mixed $object, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrMin(mixed $value, mixed $minValue, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrMinCount(array|\Countable|\ResourceBundle|\SimpleXMLElement $countable, int $count, string $message = null, string $propertyPath = null)
+ * @method static bool nullOrMinLength(mixed $value, int $minLength, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static bool nullOrNoContent(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNotBlank(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNotContains(mixed $string, string $needle, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static bool nullOrNotEmpty(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNotEmptyKey(mixed $value, string|int $key, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNotEq(mixed $value1, mixed $value2, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNotInArray(mixed $value, array $choices, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNotIsInstanceOf(mixed $value, string $className, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNotNull(mixed $value, string|callable $message = null, string $propertyPath = null) Assert
+ * @method static bool nullOrNotRegex(mixed $value, string $pattern, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNotSame(mixed $value1, mixed $value2, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrNumeric(mixed $value, string|callable $message = null, string $propertyPath = null) Assert
+ * @method static bool nullOrObjectOrClass(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static null|string nullOrPhpVersion(string $operator, mixed $version, string|callable $message = null, string $propertyPath = null)
+ * @method static null|string nullOrPropertiesExist(mixed $value, array $properties, string|callable $message = null, string $propertyPath = null)
+ * @method static null|string nullOrPropertyExists(mixed $value, string $property, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrRange(mixed $value, mixed $minValue, mixed $maxValue, string|callable $message = null,string $propertyPath = null)
+ * @method static null|string nullOrReadable(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrRegex(mixed $value, string $pattern, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrSame(mixed $value, mixed $value2, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrSatisfy(mixed $value, callable $callback, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrScalar(mixed $value, string|callable $message = null, string $propertyPath = null) Assert
+ * @method static null|string nullOrStartsWith(mixed $string, string $needle, string|callable $message = null, string $propertyPath = null, string $encoding = 'utf8')
+ * @method static null|string nullOrString(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrSubclassOf(mixed $value, string $className, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrTrue(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static null|string nullOrUrl(mixed $value, string|callable $message = null, string $propertyPath = null)
+ * @method static null|string nullOrUuid(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static null|string nullOrVersion(string $version1, string $operator, string $version2, string|callable $message = null, string $propertyPath = null)
+ * @method static null|string nullOrWriteable(string $value, string|callable $message = null, string $propertyPath = null)
  */
 class Assert
 {
-    /**
-     * Call Webmozart Assert::* test method. Returns value to test
-     * if it is valid.
-     *
-     * @param string $method
-     * @param array  $arguments
-     *
-     * @return mixed
-     * @throws \InvalidArgumentException
-     * @throws BadMethodCallException
-     */
     public static function __callStatic(string $method, array $arguments)
     {
-        $internalMethod = '_' . $method;
+        AssertRules::{$method}(...$arguments);
 
-        // An internal method?
-        if (method_exists(static::class, $internalMethod) === true) {
-            static::{$internalMethod}(...$arguments);
-        }
-        // One of the base methods?
-        else {
-            BaseAssert::{$method}(...$arguments);
-        }
-
-        return $arguments[0];
-    }
-
-    /**
-     * Value equals (strict) second value given.
-     */
-    protected static function _equals($value, $equals, string $message = '')
-    {
-        BaseAssert::true($value === $equals, $message ?: sprintf('%s does not equal %s',
-            static::valueToString($value), static::valueToString($equals)));
-
-        return $value;
-    }
-
-    /**
-     * Value is of type of class in array $type.
-     */
-    protected static function _oneOfAType($value, array $types, string $message = '')
-    {
-        $valueType = static::typeToString($value);
-
-        if (in_array($valueType, $types, false) === false) {
-
-            static::reportInvalidArgument(sprintf(
-                $message ?: 'Expected one of any type "%s", got: %s',
-                implode(', ', $types),
-                static::typeToString($value)
-            ));
-        }
-
-        return $value;
-    }
-
-    /**
-     * Value is of type of class in array $type.
-     *
-     * @param array    $values
-     * @param string[] $types
-     * @param string   $message
-     *
-     * @return array
-     */
-    protected static function _allOfAnyType(array $values, array $types, string $message = ''): array
-    {
-        foreach ($values as $value) {
-            static::_oneOfAType($value, $types, $message);
-        }
-
-        return $values;
-    }
-
-    /**
-     * Value is in $array.
-     *
-     * @param mixed  $value
-     * @param array  $array
-     * @param string $message = ''
-     *
-     * @return mixed
-     */
-    protected static function _inArray($value, array $array, string $message = '')
-    {
-        if (in_array($value, $array, true) === false) {
-
-            static::reportInvalidArgument(
-                sprintf($message ?: 'Value %s was not found.', static::typeToString($value))
-            );
-        }
-
-        return $value;
-    }
-
-    /**
-     * Value is not in $array.
-     *
-     * @param mixed  $value
-     * @param array  $array
-     * @param string $message = ''
-     *
-     * @return mixed
-     */
-    protected static function _notInArray($value, array $array, string $message = '')
-    {
-        if (in_array($value, $array, true) === true) {
-
-            static::reportInvalidArgument(
-                sprintf($message ?: 'Value %s is not allowed.', static::typeToString($value))
-            );
-        }
-
-        return $value;
-    }
-
-    /**
-     * Value is in $array.
-     *
-     * @param string|string[] $keys
-     * @param array           $array
-     * @param string          $message = ''
-     *
-     * @return array
-     */
-    protected static function _dotKeyExists($keys, array $array, string $message = ''): array
-    {
-        if (Arr::has($array, $keys) === false) {
-
-            static::reportInvalidArgument(
-                sprintf($message ?: 'Keys %s are not allowed.', static::valueToString($keys))
-            );
-        }
-
-        return $array;
-    }
-
-    /**
-     * Value is not in $array.
-     *
-     * @param string|string[] $keys
-     * @param array           $array
-     * @param string          $message = ''
-     *
-     * @return array
-     */
-    protected static function _notDotKeyExists($keys, array $array, string $message = ''): array
-    {
-        if (Arr::has($array, $keys)) {
-
-            static::reportInvalidArgument(
-                sprintf($message ?: 'Keys %s are not allowed.', static::valueToString($keys))
-            );
-        }
-
-        return $array;
-    }
-
-    /**
-     * Value is not in $array.
-     *
-     * @param mixed  $classOrObject
-     * @param string $message = ''
-     *
-     * @return object|string
-     */
-    protected static function _classOrObject($value, string $message = '')
-    {
-        if (is_object($value)) {
-            return $value;
-        }
-
-        Assert::string($value, sprintf('Expected an object or class string. It is not a string, given %s',
-            static::valueToString($value)));
-
-        Assert::classExists($value, sprintf('%s is not an existing class.', $value));
-
-        return $value;
-    }
-
-    protected static function valueToString($value): string
-    {
-        if (null === $value) {
-            return 'null';
-        }
-
-        if (true === $value) {
-            return 'true';
-        }
-
-        if (false === $value) {
-            return 'false';
-        }
-
-        if (is_array($value)) {
-            return 'array';
-        }
-
-        if (is_object($value)) {
-            return get_class($value);
-        }
-
-        if (is_string($value)) {
-            return '"' . $value . '"';
-        }
-
-        return (string) $value;
-    }
-
-    protected static function typeToString($value): string
-    {
-        return is_object($value) ? get_class($value) : gettype($value);
-    }
-
-    protected static function reportInvalidArgument(string $message): void
-    {
-        throw new \InvalidArgumentException($message);
+        // Return passed in value.
+        return array_shift($arguments);
     }
 }

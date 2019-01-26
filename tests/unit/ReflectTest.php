@@ -17,7 +17,7 @@ class ReflectTest extends \Codeception\Test\Unit
 
     function testReflectClass(): void
     {
-        $this->tester->expectException(new \InvalidArgumentException('Expected an existing class name. Got: ""'),
+        $this->tester->expectThrowable(\InvalidArgumentException::class,
             function () {
                 Reflect::class('');
             });
@@ -75,7 +75,7 @@ class ReflectTest extends \Codeception\Test\Unit
 
     public function testReflectClassDeep(): void
     {
-        $this->tester->expectException(new \InvalidArgumentException('Expected an existing class name. Got: ""'),
+        $this->tester->expectThrowable(\InvalidArgumentException::class,
             function () {
                 Reflect::classDeep('');
             });

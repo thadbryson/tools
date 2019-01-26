@@ -43,7 +43,7 @@ trait ValidationTrait
 
             Assert::true($this->hasDot($dot), "Key does not exist: {$dot}");
 
-            Assert::eq($this->getDot($dot), $expected, "Value '%s' is not what is expected for key: {$dot}.");
+            Assert::equals($this->getDot($dot), $expected, "Value '%s' is not what is expected for key: {$dot}.");
         }
 
         return $this;

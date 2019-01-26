@@ -38,33 +38,13 @@ class JsonClient
      * JsonClient constructor.
      *
      * @param string $baseUri = '' - Base URI for all API calls.
-     * @param array  $config  = [] - Client configuration.
+     * @param array  $config = [] - Client configuration.
      */
     public function __construct(string $baseUri = '', array $config = [])
     {
         $config['base_uri'] = $baseUri;
 
         $this->client = new Client($config);
-    }
-
-    /**
-     * Get the base URI on this client (if any).
-     *
-     * @return string
-     */
-    public function getBaseUri(): string
-    {
-        return $this->client->getConfig()['base_uri'] ?? '';
-    }
-
-    /**
-     * Get last URI called by Client.
-     *
-     * @return string
-     */
-    public function getLastUri(): string
-    {
-        return $this->lastUri;
     }
 
     /**
@@ -75,6 +55,16 @@ class JsonClient
     public function isUsed(): bool
     {
         return $this->getLastUri() !== '';
+    }
+
+    /**
+     * Get last URI called by Client.
+     *
+     * @return string
+     */
+    public function getLastUri(): string
+    {
+        return $this->lastUri;
     }
 
     /**
@@ -91,6 +81,34 @@ class JsonClient
         return $this;
     }
 
+    public function get(string $uri, array $options = []): array
+    {
+        return $this->send('GET', $uri, $options);
+    }
+
+    /**
+     * Send an HTTP Request.
+     *
+     * @param string $method - A valid HTTP method.
+     * @param string $uri - URI or path.
+     * @param array  $options
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function send(string $method, string $uri = '', array $options = []): array
+    {
+        if ($this->getGlobalQueryParameters() !== []) {
+            $uri = trim($uri, '?& ') . '?' . http_build_query($this->globalParams);
+        }
+
+        $this->lastUri = trim($this->getBaseUri(), '/') . '/' . trim($uri, '/');
+
+        $response = $this->client->request($method, $uri, $options);
+
+        return static::jsonDecode($response);
+    }
+
     /**
      * Get the global query Parameters for all URIs.
      *
@@ -99,6 +117,16 @@ class JsonClient
     public function getGlobalQueryParameters(): array
     {
         return $this->globalParams;
+    }
+
+    /**
+     * Get the base URI on this client (if any).
+     *
+     * @return string
+     */
+    public function getBaseUri(): string
+    {
+        return $this->client->getConfig()['base_uri'] ?? '';
     }
 
     /**
@@ -114,11 +142,6 @@ class JsonClient
         $contents = $response->getBody()->getContents();
 
         return json_decode($contents, true, 512, $options);
-    }
-
-    public function get(string $uri, array $options = []): array
-    {
-        return $this->send('GET', $uri, $options);
     }
 
     public function post(string $uri, array $options = []): array
@@ -149,28 +172,5 @@ class JsonClient
     public function head(string $uri, array $options = []): array
     {
         return $this->send('HEAD', $uri, $options);
-    }
-
-    /**
-     * Send an HTTP Request.
-     *
-     * @param string $method - A valid HTTP method.
-     * @param string $uri    - URI or path.
-     * @param array  $options
-     *
-     * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function send(string $method, string $uri = '', array $options = []): array
-    {
-        if ($this->getGlobalQueryParameters() !== []) {
-            $uri = trim($uri, '?& ') . '?' . http_build_query($this->globalParams);
-        }
-
-        $this->lastUri = trim($this->getBaseUri(), '/') . '/' . trim($uri, '/');
-
-        $response = $this->client->request($method, $uri, $options);
-
-        return static::jsonDecode($response);
     }
 }

@@ -37,6 +37,16 @@ class Collection extends \Illuminate\Support\Collection
     }
 
     /**
+     * Remove all items.
+     *
+     * @return Collection
+     */
+    public function clear(): Collection
+    {
+        return $this->reset([]);
+    }
+
+    /**
      * Set Collection items to what is passed in.
      *
      * @param array $items
@@ -48,16 +58,6 @@ class Collection extends \Illuminate\Support\Collection
         $this->items = $items;
 
         return $this;
-    }
-
-    /**
-     * Remove all items.
-     *
-     * @return Collection
-     */
-    public function clear(): Collection
-    {
-        return $this->reset([]);
     }
 
     /**

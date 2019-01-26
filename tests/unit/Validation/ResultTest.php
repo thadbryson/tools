@@ -40,7 +40,7 @@ class ResultTest extends \Codeception\Test\Unit
         $this->failureMessages = [
             'id'    => ['id is necessary'],
             'name'  => ['name must be a string with at least 25 characters'],
-            'other' => ['other cannot be true']
+            'other' => ['other cannot be true'],
         ];
 
         $this->failure = new Result(new MessageBag($this->failureMessages));
@@ -88,7 +88,7 @@ class ResultTest extends \Codeception\Test\Unit
         $this->assertEquals([
             'id is necessary',
             'name must be a string with at least 25 characters',
-            'other cannot be true'
+            'other cannot be true',
         ], $this->failure->getErrorsFlat());
     }
 

@@ -21,10 +21,10 @@ class ArrTest extends \Codeception\Test\Unit
             'id'    => 1, 'name' => '',
             'other' => [
                 'addr' => '101 Main',
-                'zip'  => '10000'
-            ]
+                'zip'  => '10000',
+            ],
         ],
-        [true, false, null]
+        [true, false, null],
     ];
 
     public function testMap(): void
@@ -33,7 +33,7 @@ class ArrTest extends \Codeception\Test\Unit
             '3.id' => 'id',
             '0.3'  => 'number.3',
             '0.5'  => 'number.5',
-            '2'    => '2'
+            '2'    => '2',
         ]);
 
         $this->tester->assertArr([
@@ -44,16 +44,16 @@ class ArrTest extends \Codeception\Test\Unit
                 'id'    => 1, 'name' => '',
                 'other' => [
                     'addr' => '101 Main',
-                    'zip'  => '10000'
-                ]
+                    'zip'  => '10000',
+                ],
             ],
             [true, false, null],
             'id'     => 1,
             'number' => [
                 3 => 3,
-                5 => 5
+                5 => 5,
             ],
-            2        => []
+            2        => [],
         ], $map);
     }
 
@@ -63,7 +63,7 @@ class ArrTest extends \Codeception\Test\Unit
             '3.id' => 'id',
             '0.3'  => 'number.3',
             '0.5'  => 'number.5',
-            '2'    => '2'
+            '2'    => '2',
         ]);
 
         $this->tester->assertArr([
@@ -72,7 +72,7 @@ class ArrTest extends \Codeception\Test\Unit
                 3 => 3,
                 5 => 5,
             ],
-            2        => []
+            2        => [],
         ], $map);
     }
 
@@ -84,8 +84,8 @@ class ArrTest extends \Codeception\Test\Unit
         $this->tester->assertArr([
             'empty' => [],
             'some'  => [
-                'false' => false
-            ]
+                'false' => false,
+            ],
         ], $dest);
     }
 
@@ -97,8 +97,8 @@ class ArrTest extends \Codeception\Test\Unit
         $this->tester->assertArr([
             'empty' => [],
             'some'  => [
-                'false' => false
-            ]
+                'false' => false,
+            ],
         ], $dest);
 
         $this->tester->assertArr([
@@ -108,10 +108,10 @@ class ArrTest extends \Codeception\Test\Unit
                 'id'    => 1, 'name' => '',
                 'other' => [
                     'addr' => '101 Main',
-                    'zip'  => '10000'
-                ]
+                    'zip'  => '10000',
+                ],
             ],
-            4 => [0 => true, 2 => null]
+            4 => [0 => true, 2 => null],
         ], $this->asset);
     }
 
@@ -132,8 +132,8 @@ class ArrTest extends \Codeception\Test\Unit
             'code' => null,
             'some' => [
                 'addr'  => 101,
-                'state' => 'NC'
-            ]
+                'state' => 'NC',
+            ],
         ];
 
         $actual = $defaults;
@@ -147,8 +147,8 @@ class ArrTest extends \Codeception\Test\Unit
             ->assertArr($actual, Arr::defaults([
                 'code' => 'ABC',
                 'some' => [
-                    'state' => 'PA'
-                ]
+                    'state' => 'PA',
+                ],
             ], $defaults));
     }
 

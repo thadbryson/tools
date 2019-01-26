@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Tool\Exceptions\Errors\NotImplemented;
 
-use \Exception;
+use Exception;
 
 /**
  * Error 500 Exception

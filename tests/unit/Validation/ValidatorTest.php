@@ -24,7 +24,7 @@ class ValidatorTest extends \Codeception\Test\Unit
         'id'        => 1,
         'name'      => 'Test',
         'is_active' => true,
-        'friends'   => ['Tom', 'Jerry', 'Ren', 'Stimpy']
+        'friends'   => ['Tom', 'Jerry', 'Ren', 'Stimpy'],
     ];
 
     private $rules = [
@@ -35,17 +35,17 @@ class ValidatorTest extends \Codeception\Test\Unit
         'name'      => 'string',
         'code'      => 'string',
         'is_active' => 'required|boolean',
-        'friends.*' => 'string|min:3'
+        'friends.*' => 'string|min:3',
     ];
 
     private $messages = [
         'required' => ':attribute is always necessary.',
-        'string'   => ':attribute must be a valid UTF-8 string.'
+        'string'   => ':attribute must be a valid UTF-8 string.',
     ];
 
     private $customAttributes = [
         'is_active' => 'Active',
-        'type'      => 'User Class'
+        'type'      => 'User Class',
     ];
 
     public function _before(): void
@@ -59,7 +59,7 @@ class ValidatorTest extends \Codeception\Test\Unit
         $result = Validator::single(null, 'required|integer|min:5', $this->messages);
 
         $this->tester->testValidationResult($result, [
-            'data' => ['Data is always necessary.']
+            'data' => ['Data is always necessary.'],
         ]);
 
         $result = Validator::single(10, 'required|integer|min:5:max10', $this->messages);
@@ -85,7 +85,7 @@ class ValidatorTest extends \Codeception\Test\Unit
 
         $this->tester->testValidationResult($result, [
             'id'        => ['id must be a valid UTF-8 string.'],
-            'is_active' => ['Active is always necessary.']
+            'is_active' => ['Active is always necessary.'],
         ]);
     }
 }

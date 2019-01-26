@@ -18,7 +18,7 @@ class TemplatorTest extends \Codeception\Test\Unit
     public function _before(): void
     {
         $loader = new \Twig_Loader_Array([
-            'template' => 'some'
+            'template' => 'some',
         ]);
 
         $this->engine = new \Twig_Environment($loader);
@@ -48,11 +48,11 @@ class TemplatorTest extends \Codeception\Test\Unit
     public function testMake(): void
     {
         $this->assertEquals('Some good person.', Templator::make('Some {{ type }} person.', [
-            'type' => 'good'
+            'type' => 'good',
         ]));
 
         $this->assertEquals('Some GOOD person.', Templator::make('Some {{ type|upper }} person.', [
-            'type' => 'good'
+            'type' => 'good',
         ]));
     }
 
@@ -61,7 +61,7 @@ class TemplatorTest extends \Codeception\Test\Unit
         $output = Templator::fromFile(__DIR__ . '/../_support/Stubs/template_file.twig', [
             'type'   => 'GOOD',
             'quote'  => 'Life is good.',
-            'author' => 'me'
+            'author' => 'me',
         ]);
 
         $expected = <<<EOT

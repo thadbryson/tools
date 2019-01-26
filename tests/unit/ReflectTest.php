@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Tests\Unit;
 
 use Tests\Support\Stubs\ReflectionStub;
-use function realpath;
 use Tool\Reflect;
+use function realpath;
 
 class ReflectTest extends \Codeception\Test\Unit
 {

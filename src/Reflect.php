@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tool;
 
@@ -16,6 +16,28 @@ use Tool\Validation\Assert;
  */
 class Reflect
 {
+    /**
+     * Run ReflectionClass() on class with $className given and run Reflection on properties and methods.
+     *
+     * @throws \ReflectionException
+     */
+    public static function classDeep(string $className): array
+    {
+        $reflect = static::class($className);
+
+        foreach ($reflect['properties'] as $name => $defaultValue) {
+            $reflect['properties'][$name] = static::property($className, $name);
+        }
+
+        foreach ($reflect['methods'] as $key => $method) {
+            unset($reflect['methods'][$key]);
+
+            $reflect['methods'][$method] = static::method($className, $method);
+        }
+
+        return $reflect;
+    }
+
     /**
      * Run ReflectionClass() on class with $className given.
      *
@@ -45,28 +67,6 @@ class Reflect
                 })
                 ->all(),
         ];
-    }
-
-    /**
-     * Run ReflectionClass() on class with $className given and run Reflection on properties and methods.
-     *
-     * @throws \ReflectionException
-     */
-    public static function classDeep(string $className): array
-    {
-        $reflect = static::class($className);
-
-        foreach ($reflect['properties'] as $name => $defaultValue) {
-            $reflect['properties'][$name] = static::property($className, $name);
-        }
-
-        foreach ($reflect['methods'] as $key => $method) {
-            unset($reflect['methods'][$key]);
-
-            $reflect['methods'][$method] = static::method($className, $method);
-        }
-
-        return $reflect;
     }
 
     /**

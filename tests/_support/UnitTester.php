@@ -45,6 +45,15 @@ class UnitTester extends \Codeception\Actor
         return $this;
     }
 
+    public function assertRestrictedCollection($expected, Collection $coll, string $message = ''): self
+    {
+        $this->assertArr($expected, $coll, $message);
+
+        $coll->assert();
+
+        return $this;
+    }
+
     public function assertArr($expected, $result, string $message = ''): self
     {
         if (is_object($expected) && method_exists($expected, 'toArray')) {
@@ -56,15 +65,6 @@ class UnitTester extends \Codeception\Actor
         }
 
         $this->assertEquals($expected, $result, sprintf('%s, with array: %s', $message, json_encode($result)));
-
-        return $this;
-    }
-
-    public function assertRestrictedCollection($expected, Collection $coll, string $message = ''): self
-    {
-        $this->assertArr($expected, $coll, $message);
-
-        $coll->assert();
 
         return $this;
     }

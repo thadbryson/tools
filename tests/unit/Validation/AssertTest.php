@@ -85,7 +85,7 @@ class AssertTest extends \Codeception\Test\Unit
             ['boolean', false],
             ['true', true],
             ['false', false],
-            ['eq', 100, 100]
+            ['eq', 100, 100],
         ];
     }
 
@@ -100,6 +100,8 @@ class AssertTest extends \Codeception\Test\Unit
             ['dotKeyExists', '0.2', [[1, 2, 3], 'a', 'b', 'c']],
             ['notDotKeyExists', 'id', [1, 2, 3]],
             ['classOrObject', \DateTime::class],
+            ['methodExists', 'format', new \DateTime],
+            ['methodExists', 'format', \DateTime::class],
             ['classOrObject', new \DateTime('2015-01-20')],
         ];
     }
@@ -118,7 +120,7 @@ class AssertTest extends \Codeception\Test\Unit
             ['notEmpty', ''],
             ['true', false],
             ['false', true],
-            ['eq', 100, 101]
+            ['eq', 100, 101],
         ];
     }
 
@@ -138,6 +140,37 @@ class AssertTest extends \Codeception\Test\Unit
             ['notDotKeyExists', '0', [1, 2, 3]],
             ['classOrObject', '\\NotAClass'],
             ['classOrObject', 1],
+        ];
+    }
+
+    /**
+     * @dataProvider dataTypeStrings
+     */
+    public function testTypeToString($value, string $expected): void
+    {
+        $refl = (new \ReflectionClass(\Tool\Validation\AssertRules::class))->getMethod('typeString');
+        $refl->setAccessible(true);
+
+        $this->assertEquals($expected, $refl->invoke(null, $value));
+    }
+
+    public function dataTypeStrings(): array
+    {
+        return [
+            [null, 'null'],
+            [true, 'bool'],
+            [false, 'bool'],
+            [0, 'int'],
+            [1, 'int'],
+            [-1, 'int'],
+            [0.0, 'float'],
+            [1.0, 'float'],
+            [-1.0, 'float'],
+            [[], 'array'],
+            [\DateTime::class, '\DateTime'],
+            [new \DateTime, '\DateTime'],
+            ['', 'string'],
+            ['test-string', 'string'],
         ];
     }
 }

@@ -68,7 +68,8 @@ class Error extends \Exception
     {
         if ($dot === null) {
             $this->items[] = $value;
-        } else {
+        }
+        else {
             Arr::set($this->items, $dot, $value);
         }
     }

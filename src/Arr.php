@@ -18,6 +18,19 @@ class Arr extends \Illuminate\Support\Arr
         ArrTraits\KeyMethodsTrait;
 
     /**
+     * Change keys / values in $mappings (from DOT => to DOT).
+     *
+     * @param array    $array
+     * @param string[] $mappings
+     *
+     * @return array
+     */
+    public static function map(array $array, array $mappings): array
+    {
+        return static::mapInternal($array, $mappings, false);
+    }
+
+    /**
      * Handles map() and mapOnly() methods internally.
      *
      * @param array    $array
@@ -38,16 +51,22 @@ class Arr extends \Illuminate\Support\Arr
     }
 
     /**
-     * Change keys / values in $mappings (from DOT => to DOT).
+     * Move a value from $array to $destination.
      *
-     * @param array    $array
-     * @param string[] $mappings
+     * @param array       &$array
+     * @param array        $destination
+     * @param string       $fromDot - DOT key in $array to copy
+     * @param string|null  $toDot - DOT key to copy to, if NULL will use same DOT as $fromDOT
      *
      * @return array
      */
-    public static function map(array $array, array $mappings): array
+    public static function move(array &$array, array $destination, string $fromDot, string $toDot = null): array
     {
-        return static::mapInternal($array, $mappings, false);
+        $value = static::pull($array, $fromDot);
+
+        static::set($destination, $toDot ?? $fromDot, $value);
+
+        return $destination;
     }
 
     /**
@@ -69,32 +88,13 @@ class Arr extends \Illuminate\Support\Arr
      * @param array       $array
      * @param array       $destination
      * @param string      $fromDot - DOT key in $array to copy
-     * @param string|null $toDot   - DOT key to copy to, if NULL will use same DOT as $fromDOT
+     * @param string|null $toDot - DOT key to copy to, if NULL will use same DOT as $fromDOT
      *
      * @return array
      */
     public static function copy(array $array, array $destination, string $fromDot, string $toDot = null): array
     {
         $value = static::get($array, $fromDot);
-
-        static::set($destination, $toDot ?? $fromDot, $value);
-
-        return $destination;
-    }
-
-    /**
-     * Move a value from $array to $destination.
-     *
-     * @param array       &$array
-     * @param array        $destination
-     * @param string       $fromDot - DOT key in $array to copy
-     * @param string|null  $toDot   - DOT key to copy to, if NULL will use same DOT as $fromDOT
-     *
-     * @return array
-     */
-    public static function move(array &$array, array $destination, string $fromDot, string $toDot = null): array
-    {
-        $value = static::pull($array, $fromDot);
 
         static::set($destination, $toDot ?? $fromDot, $value);
 
@@ -176,6 +176,16 @@ class Arr extends \Illuminate\Support\Arr
     }
 
     /**
+     * Determine if all arrays are not empty.
+     *
+     * @param array ...$arrays
+     */
+    public static function isNotEmpty(array ...$arrays): bool
+    {
+        return static::isEmpty(...$arrays) === false;
+    }
+
+    /**
      * Determine if all arrays are empty,
      *
      * @param array ...$arrays
@@ -190,16 +200,6 @@ class Arr extends \Illuminate\Support\Arr
         }
 
         return true;
-    }
-
-    /**
-     * Determine if all arrays are not empty.
-     *
-     * @param array ...$arrays
-     */
-    public static function isNotEmpty(array ...$arrays): bool
-    {
-        return static::isEmpty(...$arrays) === false;
     }
 
     /**

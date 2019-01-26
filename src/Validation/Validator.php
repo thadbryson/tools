@@ -23,7 +23,8 @@ class Validator
     private static $factory;
 
     // Disable instances. Only create statically.
-    /** @codeCoverageIgnore  */
+
+    /** @codeCoverageIgnore */
     private function __construct()
     {
     }
@@ -37,7 +38,7 @@ class Validator
     }
 
     public static function validate(array $data, array $rules, array $messages = [],
-                                    array $customAttributes = []): Result
+        array $customAttributes = []): Result
     {
         if ($rules === []) {
             return Result::success();
@@ -49,6 +50,15 @@ class Validator
         $validator->passes();
 
         return new Result($validator->messages());
+    }
+
+    private static function getFactory(): Factory
+    {
+        if (static::$factory === null) {
+            static::setFactory();
+        }
+
+        return static::$factory;
     }
 
     public static function setFactory(string $directory = __DIR__ . '/../../lang', string $language = 'en'): void
@@ -67,15 +77,6 @@ class Validator
         $factory = new Factory($translator, new Container);
 
         static::$factory = static::attachRules($factory);
-    }
-
-    private static function getFactory(): Factory
-    {
-        if (static::$factory === null) {
-            static::setFactory();
-        }
-
-        return static::$factory;
     }
 
     private static function attachRules(Factory $factory): Factory

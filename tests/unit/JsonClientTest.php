@@ -30,7 +30,7 @@ class JsonClientTest extends \Codeception\Test\Unit
         $this->client = new JsonClientStub('https://example.co');
         $this->client->setGlobalQueryParameters([
             'id'    => 1,
-            'other' => 'some'
+            'other' => 'some',
         ]);
     }
 
@@ -62,12 +62,12 @@ class JsonClientTest extends \Codeception\Test\Unit
     {
         $this->client->setGlobalQueryParameters([
             'id'   => 4,
-            'some' => 'mess'
+            'some' => 'mess',
         ]);
 
         $this->tester->assertArr([
             'id'   => 4,
-            'some' => 'mess'
+            'some' => 'mess',
         ], $this->client->getGlobalQueryParameters());
 
         $this->client->send('PUT', 'yo');
@@ -79,7 +79,7 @@ class JsonClientTest extends \Codeception\Test\Unit
     {
         $data = [
             'some'  => 'data',
-            'stuff' => [2, 4, 6, 8]
+            'stuff' => [2, 4, 6, 8],
         ];
 
         $responsee = new Response(200, [], json_encode($data));
@@ -123,7 +123,7 @@ class JsonClientTest extends \Codeception\Test\Unit
             ['PUT', 'some', []],
             ['DELETE', 'some', []],
             ['HEAD', 'some', ['stuff' => null, 'what' => '???']],
-            ['OPTIONS', 'some', []]
+            ['OPTIONS', 'some', []],
         ];
     }
 }

@@ -31,7 +31,7 @@ class RequestTest extends \Codeception\Test\Unit
         return [
             ['Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1'],
             ['Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; SCH-I535 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'],
-            ['Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36']
+            ['Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36'],
         ];
     }
 
@@ -46,12 +46,12 @@ class RequestTest extends \Codeception\Test\Unit
         $request = Request::create('/', 'POST', [
             'name'      => 'test',
             'id'        => '1',
-            'is_active' => '1'
+            'is_active' => '1',
         ]);
 
         $result = $request->validate([
             'is_active' => 'string|in:2,3,4,5',
-            'nah'       => 'required'
+            'nah'       => 'required',
         ]);
 
         $this->assertFalse($result->isSuccess());
@@ -59,7 +59,7 @@ class RequestTest extends \Codeception\Test\Unit
 
         $this->assertEquals([
             'is_active' => ['The selected is active is invalid.'],
-            'nah'       => ['The nah field is required.']
+            'nah'       => ['The nah field is required.'],
         ], $result->getErrors());
     }
 
@@ -68,18 +68,18 @@ class RequestTest extends \Codeception\Test\Unit
         $request = Request::create('/', 'POST', [
             'name'      => 'test',
             'id'        => '1',
-            'is_active' => '1'
+            'is_active' => '1',
         ]);
 
         $casted = $request->cast([
             'id'        => 'int',
-            'is_active' => 'bool'
+            'is_active' => 'bool',
         ]);
 
         $this->assertEquals([
             'name'      => 'test',
             'id'        => 1,
-            'is_active' => true
+            'is_active' => true,
         ], $casted);
     }
 

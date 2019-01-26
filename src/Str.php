@@ -22,11 +22,6 @@ class Str extends \Stringy\Stringy
     use StrTraits\BooleanTraits,
         StrTraits\StaticMakeTrait;
 
-    public function get(): string
-    {
-        return $this->__toString();
-    }
-
     /**
      * Explode string into an array.
      */
@@ -35,6 +30,11 @@ class Str extends \Stringy\Stringy
         Assert::stringNotEmpty($delimeter, '$delimeter cannot be an empty string.');
 
         return explode($delimeter, $this->get());
+    }
+
+    public function get(): string
+    {
+        return $this->__toString();
     }
 
     public function beforeSubstr(string $substr, int $offset = 0): self
@@ -78,19 +78,19 @@ class Str extends \Stringy\Stringy
         return $this;
     }
 
-    private function getAsMethod(string $prepend, string $append): self
-    {
-        return $this->replace('_', ' ')
-                    ->prepend($prepend . ' ')
-                    ->append(' ' . $append)
-                    ->titleize()
-                    ->lowerCaseFirst()
-                    ->replace(' ', '');
-    }
-
     public function getter(string $append = ''): self
     {
         return $this->getAsMethod('get', $append);
+    }
+
+    private function getAsMethod(string $prepend, string $append): self
+    {
+        return $this->replace('_', ' ')
+            ->prepend($prepend . ' ')
+            ->append(' ' . $append)
+            ->titleize()
+            ->lowerCaseFirst()
+            ->replace(' ', '');
     }
 
     public function setter(string $append = ''): self

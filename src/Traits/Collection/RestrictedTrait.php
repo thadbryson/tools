@@ -42,6 +42,20 @@ trait RestrictedTrait
     }
 
     /**
+     * Validate Collection, throw InvalidArgumentException if any data is invalid.
+     *
+     * @return RestrictedTrait
+     * @throws \InvalidArgumentException
+     */
+    public function assert(): Collection
+    {
+        $this->validate($this->rules, $this->messages, $this->customAttributes)
+            ->assert();
+
+        return $this;
+    }
+
+    /**
      * Create RestrictedCollection with a certain 'type'.
      *
      * @param string $type
@@ -52,8 +66,8 @@ trait RestrictedTrait
     public static function makeType(string $type, array $items = []): Collection
     {
         return static::make($items)
-                     ->setRules(['*' => $type])
-                     ->assert();
+            ->setRules(['*' => $type])
+            ->assert();
     }
 
     /**
@@ -69,30 +83,8 @@ trait RestrictedTrait
         Assert::classExists($class, sprintf('Class %s does not exist', $class));
 
         return static::make($items)
-                     ->setRules(['*' => 'object:' . $class])
-                     ->assert();
-    }
-
-    /**
-     * Set rules on entire Collection as a whole.
-     *
-     * @param array $rules
-     *
-     * @return RestrictedTrait
-     */
-    public function setRules(array $rules): Collection
-    {
-        $this->rules = Assert::allString($rules, '$rules must all be strings.');
-
-        return $this;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getRules(): array
-    {
-        return $this->rules;
+            ->setRules(['*' => 'object:' . $class])
+            ->assert();
     }
 
     /**
@@ -104,14 +96,6 @@ trait RestrictedTrait
     }
 
     /**
-     * @return string[]
-     */
-    public function getCustomAttributes(): array
-    {
-        return $this->customAttributes;
-    }
-
-    /**
      * @return RestrictedTrait
      */
     public function setMessages(array $messages): Collection
@@ -119,6 +103,14 @@ trait RestrictedTrait
         $this->messages = $messages;
 
         return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getCustomAttributes(): array
+    {
+        return $this->customAttributes;
     }
 
     /**
@@ -152,15 +144,23 @@ trait RestrictedTrait
     }
 
     /**
-     * Validate Collection, throw InvalidArgumentException if any data is invalid.
+     * @return string[]
+     */
+    public function getRules(): array
+    {
+        return $this->rules;
+    }
+
+    /**
+     * Set rules on entire Collection as a whole.
+     *
+     * @param array $rules
      *
      * @return RestrictedTrait
-     * @throws \InvalidArgumentException
      */
-    public function assert(): Collection
+    public function setRules(array $rules): Collection
     {
-        $this->validate($this->rules, $this->messages, $this->customAttributes)
-             ->assert();
+        $this->rules = Assert::allString($rules, '$rules must all be strings.');
 
         return $this;
     }

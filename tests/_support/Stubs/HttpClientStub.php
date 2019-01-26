@@ -42,7 +42,7 @@ final class HttpClientStub
     public function getConfig(): array
     {
         return [
-            'base_uri' => $this->baseUri
+            'base_uri' => $this->baseUri,
         ];
     }
 

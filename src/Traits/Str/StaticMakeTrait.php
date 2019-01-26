@@ -14,11 +14,6 @@ use Tool\Str;
  */
 trait StaticMakeTrait
 {
-    public static function make(string $str, string $encoding = null): self
-    {
-        return static::create($str, $encoding);
-    }
-
     public static function implode(string $glue, array $parts, string $encoding = null): self
     {
         $str = implode($glue, $parts);
@@ -42,10 +37,15 @@ trait StaticMakeTrait
         $random      = '';
         $charsLength = mb_strlen($chars, '8bit') - 1;
 
-        for ($i = 0;$i < $length;$i++) {
+        for ($i = 0; $i < $length; $i++) {
             $random .= $chars[random_int(0, $charsLength)];
         }
 
         return static::make($random, $encoding)->shuffle();
+    }
+
+    public static function make(string $str, string $encoding = null): self
+    {
+        return static::create($str, $encoding);
     }
 }

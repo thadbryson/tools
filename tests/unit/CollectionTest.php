@@ -33,10 +33,10 @@ class CollectionTest extends \Codeception\Test\Unit
                 'id'    => 1, 'name' => '',
                 'other' => [
                     'addr' => '101 Main',
-                    'zip'  => '10000'
-                ]
+                    'zip'  => '10000',
+                ],
             ],
-            [true, false, null]
+            [true, false, null],
         ]);
 
         $this->col2 = new Collection([
@@ -45,8 +45,8 @@ class CollectionTest extends \Codeception\Test\Unit
             'some' => [
                 'addr'    => 101,
                 'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny']
-            ]
+                'friends' => ['Tom', 'Tina', 'Jenny'],
+            ],
         ]);
     }
 
@@ -61,9 +61,9 @@ class CollectionTest extends \Codeception\Test\Unit
                     'addr'    => 101,
                     'zip'     => 20000,
                     'friends' => ['Tom', 'Tina', 'Jenny'],
-                    'zip2'    => 4
+                    'zip2'    => 4,
                 ],
-                'other' => 3
+                'other' => 3,
             ], $this->col2->defaults(['other' => 3, 'some.zip2' => 4]));
     }
 
@@ -85,7 +85,7 @@ class CollectionTest extends \Codeception\Test\Unit
             'id'        => 1,
             'other'     => null,
             'code'      => 'abc',
-            'some.addr' => 101
+            'some.addr' => 101,
         ], $this->col2->getMany('id', 'other', 'code', 'some.addr'));
     }
 
@@ -96,13 +96,13 @@ class CollectionTest extends \Codeception\Test\Unit
             'other'     => 'place',
             'my'        => null,
             'code'      => 'abc',
-            'some.addr' => 101
+            'some.addr' => 101,
         ], $this->col2->getManyOrDefault([
             'id'        => 1,
             'other'     => 'place',
             'my'        => null,
             'code'      => 'abc',
-            'some.addr' => 101
+            'some.addr' => 101,
         ]));
     }
 
@@ -115,7 +115,7 @@ class CollectionTest extends \Codeception\Test\Unit
 
         $this->tester->assertArr($expected, $this->col2->setMany([
             'some.state' => 'NC',
-            5            => 6
+            5            => 6,
         ]));
     }
 
@@ -127,8 +127,8 @@ class CollectionTest extends \Codeception\Test\Unit
             'some' => [
                 'addr'    => 1,
                 'zip'     => 1,
-                'friends' => [1, 1, 1]
-            ]
+                'friends' => [1, 1, 1],
+            ],
         ], $this->col2->actOnAll(function () {
             return 1;
         }));
@@ -142,8 +142,8 @@ class CollectionTest extends \Codeception\Test\Unit
             'some' => [
                 'addr'    => 101,
                 'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny']
-            ]
+                'friends' => ['Tom', 'Tina', 'Jenny'],
+            ],
         ], $this->col2->actOnAllIf(
             function () {
                 return 100;

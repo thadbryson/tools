@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tool\Functions\String;
 
@@ -36,7 +36,8 @@ function is_timezone(string $var): bool
         new \DateTimeZone($var);
 
         return true;
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
         return false;
     }
 }
@@ -74,7 +75,7 @@ function money(string $var, string $locale = 'en_US', string $encoding = 'UTF-8'
 
     setlocale(LC_MONETARY, $locale . '.' . $encoding);
 
-    return money_format('%n', (float)$var);
+    return money_format('%n', (float) $var);
 }
 
 /**
@@ -86,5 +87,5 @@ function money_international(string $var, string $locale = 'en_US', string $enco
 
     setlocale(LC_MONETARY, $locale . '.' . $encoding);
 
-    return money_format('%i', (float)$var);
+    return money_format('%i', (float) $var);
 }

@@ -25,6 +25,13 @@ class StringFunctionsTest extends \Codeception\Test\Unit
 
         $this->assertFalse(is_json(''));
         $this->assertFalse(is_json('~'));
+
+        $this->assertFalse(is_json(null));
+        $this->assertFalse(is_json(true));
+        $this->assertFalse(is_json(false));
+        $this->assertFalse(is_json(0));
+        $this->assertFalse(is_json(1));
+        $this->assertFalse(is_json(new \DateTime));
     }
 
     public function testIsTimezone(): void

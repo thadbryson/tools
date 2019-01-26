@@ -28,6 +28,11 @@ class Result
         $this->errors = $errors;
     }
 
+    public static function success(): self
+    {
+        return static::fromArray([]);
+    }
+
     /**
      * Make Result from array of error messages.
      *
@@ -42,16 +47,11 @@ class Result
         );
     }
 
-    public static function success(): self
-    {
-        return static::fromArray([]);
-    }
-
     /**
      * Throw an Exception if there are errors. Otherwise return the data that was validated.
      *
      * @param string $message = null - Exception message to throw if any.
-     * @param int    $code    = 400  - Exception code to throw if any.
+     * @param int    $code = 400  - Exception code to throw if any.
      *
      * @return bool
      * @throws Error
@@ -67,7 +67,7 @@ class Result
 
     /**
      * @param string $message = null
-     * @param int    $code    = 400
+     * @param int    $code = 400
      *
      * @return void
      * @throws Error
@@ -110,6 +110,16 @@ class Result
     }
 
     /**
+     * Is there at least 1 error?
+     *
+     * @return bool
+     */
+    public function isFailure(): bool
+    {
+        return $this->isSuccess() === false;
+    }
+
+    /**
      * Are there no errors?
      *
      * @return bool
@@ -118,15 +128,5 @@ class Result
     {
         // Use object MessageBag because someone may add more messages to the bag.
         return $this->errors->count() === 0;
-    }
-
-    /**
-     * Is there at least 1 error?
-     *
-     * @return bool
-     */
-    public function isFailure(): bool
-    {
-        return $this->isSuccess() === false;
     }
 }

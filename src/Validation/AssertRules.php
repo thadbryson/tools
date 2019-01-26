@@ -34,7 +34,7 @@ class AssertRules extends BaseAssertion
      */
     public static function stringNotEmpty($value, string $message = null, string $propertyPath = null): bool
     {
-        static::string($value);
+        static::string($value, null, $propertyPath);
 
         return parent::notEmpty($value, $message, $propertyPath);
     }
@@ -57,7 +57,9 @@ class AssertRules extends BaseAssertion
                 static::stringify($value),
                 static::stringify($choices)
             );
-            throw static::createException($value, $message, static::INVALID_VALUE_IN_ARRAY, $propertyPath, ['choices' => $choices]);
+
+            throw static::createException($value, $message, static::INVALID_VALUE_IN_ARRAY, $propertyPath,
+                ['choices' => $choices]);
         }
 
         return true;
@@ -68,14 +70,16 @@ class AssertRules extends BaseAssertion
      *
      * @param array    $values
      * @param string[] $types
-     * @param string   $message
+     * @param string   $message = null
+     * @param string   $propertyPath = null
      *
      * @return bool
      */
-    public static function allOfAnyType(array $values, array $types, string $message = null, string $propertyPath = null): bool
+    public static function allOfAnyType(array $values, array $types, string $message = null,
+        string $propertyPath = null): bool
     {
         foreach ($values as $value) {
-            static::oneOfAType($value, $types, $message);
+            static::oneOfAType($value, $types, $message, $propertyPath);
         }
 
         return true;
@@ -99,6 +103,35 @@ class AssertRules extends BaseAssertion
         ), 400, $propertyPath);
     }
 
+    protected static function typeString($value): string
+    {
+        if (is_object($value)) {
+            return '\\' . get_class($value);
+        }
+        elseif (is_string($value) && class_exists($value)) {
+            return '\\' . trim($value, '\\');
+        }
+
+        $type = strtolower(gettype($value));
+
+        switch ($type) {
+            case 'bool':
+            case 'boolean':
+                return 'bool';
+
+            case 'integer':
+            case 'int':
+                return 'int';
+
+            case 'float':
+            case 'double':
+                return 'float';
+
+            default:
+                return $type;
+        }
+    }
+
     /**
      * Value is in $array.
      *
@@ -111,6 +144,7 @@ class AssertRules extends BaseAssertion
     public static function dotKeyExists($keys, array $array, string $message = null, string $propertyPath = null): bool
     {
         if (Arr::has($array, $keys) === false) {
+
             throw static::createException($keys, sprintf(
                 $message ?: 'Keys %s are not allowed.', static::stringify($keys)
             ), 400, $propertyPath);
@@ -128,12 +162,14 @@ class AssertRules extends BaseAssertion
      *
      * @return bool
      */
-    public static function notDotKeyExists($keys, array $array, string $message = null, string $propertyPath = null): bool
+    public static function notDotKeyExists($keys, array $array, string $message = null,
+        string $propertyPath = null): bool
     {
         if (Arr::has($array, $keys)) {
+
             throw static::createException($keys, sprintf(
                 $message ?: 'Keys %s are not allowed.', static::stringify($keys)
-            ), 400);
+            ), 400, $propertyPath);
         }
 
         return true;
@@ -155,7 +191,7 @@ class AssertRules extends BaseAssertion
         }
 
         static::string($value, sprintf($message ?: 'Expected an object or class string. It is not a string, given %s',
-            static::stringify($value)));
+            static::stringify($value)), $propertyPath);
 
         static::classExists($value, sprintf($message ?: '%s is not an existing class.', $value));
 
@@ -183,33 +219,7 @@ class AssertRules extends BaseAssertion
             static::stringify($value)
         );
 
-        throw static::createException($value, $message, static::INVALID_METHOD, $propertyPath, ['object' => \get_class($object)]);
-    }
-
-    protected static function typeString($value): string
-    {
-        if (is_object($value)) {
-            return '\\' . get_class($value);
-        }
-
-        $type = gettype($value);
-
-        switch ($type) {
-
-            case 'bool':
-            case 'boolean':
-                return 'bool';
-
-            case 'integer':
-            case 'int':
-                return 'int';
-
-            case 'float':
-            case 'double':
-                return 'float';
-
-            default:
-                return $type;
-        }
+        throw static::createException($value, $message, static::INVALID_METHOD, $propertyPath,
+            ['object' => \get_class($object)]);
     }
 }

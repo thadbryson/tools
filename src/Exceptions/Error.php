@@ -68,8 +68,7 @@ class Error extends \Exception
     {
         if ($dot === null) {
             $this->items[] = $value;
-        }
-        else {
+        } else {
             Arr::set($this->items, $dot, $value);
         }
     }
@@ -129,14 +128,6 @@ class Error extends \Exception
     }
 
     /**
-     * Throw $this Exception
-     */
-    public function throw(): void
-    {
-        throw $this;
-    }
-
-    /**
      * Throw Exception ($this Exception) if there is a failure.
      *
      * @return array
@@ -151,6 +142,11 @@ class Error extends \Exception
         return $this->items;
     }
 
+    public function isFailure(): bool
+    {
+        return $this->isSuccessful() === false;
+    }
+
     /**
      * Is successful if there are no sub Exception messages.
      *
@@ -161,9 +157,12 @@ class Error extends \Exception
         return count($this->items) === 0;
     }
 
-    public function isFailure(): bool
+    /**
+     * Throw $this Exception
+     */
+    public function throw(): void
     {
-        return $this->isSuccessful() === false;
+        throw $this;
     }
 
     /**

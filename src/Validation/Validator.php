@@ -37,7 +37,7 @@ class Validator
     }
 
     public static function validate(array $data, array $rules, array $messages = [],
-        array $customAttributes = []): Result
+                                    array $customAttributes = []): Result
     {
         if ($rules === []) {
             return Result::success();

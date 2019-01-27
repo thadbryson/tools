@@ -131,7 +131,7 @@ class CastTest extends \Codeception\Test\Unit
 
     public function testCastInvalidOption(): void
     {
-        $this->tester->expectException(new \InvalidArgumentException('Invalid cast type given: nah'), function () {
+        $this->tester->expectThrowable(new \InvalidArgumentException('Invalid cast type given: nah'), function () {
 
             Cast::cast('some', 'nah');
         });

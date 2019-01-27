@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Tool\Validation;
+namespace Tool\Validation\Helper;
 
 use Assert\Assertion as BaseAssertion;
 use Illuminate\Support\Arr;

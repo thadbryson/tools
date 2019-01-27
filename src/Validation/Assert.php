@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Tool\Validation;
 
+use Tool\Validation\Helper;
+
 /**
  * Class Assert
  *
@@ -400,7 +402,7 @@ class Assert
 {
     public static function __callStatic(string $method, array $arguments)
     {
-        AssertRules::{$method}(...$arguments);
+        Helper\AssertRules::{$method}(...$arguments);
 
         // Return passed in value.
         return array_shift($arguments);

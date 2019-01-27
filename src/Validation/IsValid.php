@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Tool\Validation;
 
+use Tool\Validation\Helper;
+
 /**
  * Class IsValid
  *
@@ -277,7 +279,7 @@ class IsValid
     public static function __callStatic(string $method, array $arguments)
     {
         try {
-            AssertRules::{$method}(...$arguments);
+            Helper\AssertRules::{$method}(...$arguments);
         }
         catch (\InvalidArgumentException $exception) {
             return false;

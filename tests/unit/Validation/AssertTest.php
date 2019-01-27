@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tests\Unit\Validation;
 
 use Tool\Validation\Assert;
+use Tool\Validation\Helper;
 use function get_class;
 
 /**
@@ -149,7 +150,7 @@ class AssertTest extends \Codeception\Test\Unit
      */
     public function testTypeToString($value, string $expected): void
     {
-        $refl = (new \ReflectionClass(\Tool\Validation\AssertRules::class))->getMethod('typeString');
+        $refl = (new \ReflectionClass(Helper\AssertRules::class))->getMethod('typeString');
         $refl->setAccessible(true);
 
         $this->assertEquals($expected, $refl->invoke(null, $value));

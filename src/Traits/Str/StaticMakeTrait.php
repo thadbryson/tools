@@ -14,6 +14,11 @@ use Tool\Str;
  */
 trait StaticMakeTrait
 {
+    public function clone(): self
+    {
+        return new Str((string) $this, $this->getEncoding());
+    }
+
     public static function implode(string $glue, array $parts, string $encoding = null): self
     {
         $str = implode($glue, $parts);

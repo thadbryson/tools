@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tool\Validation\Helper;
 
 use Assert\Assertion as BaseAssertion;
+use function file_exists;
 use Illuminate\Support\Arr;
 use function implode;
 use function in_array;
@@ -208,7 +209,7 @@ class AssertRules extends BaseAssertion
      *
      * @return bool
      */
-    public static function methodExists($method, $object, $message = null, $propertyPath = null)
+    public static function methodExists($method, $object, $message = null, $propertyPath = null): bool
     {
         if (is_object($object)) {
             return parent::methodExists($method, $object, $message, $propertyPath);
@@ -228,6 +229,31 @@ class AssertRules extends BaseAssertion
 
             throw static::createException($method, $message, static::INVALID_METHOD, $propertyPath,
                 ['object' => static::typeString($object)]);
+        }
+
+        return true;
+    }
+
+    /**
+     * Is $value a valid filepath to an existing file or directory?
+     *
+     * @param             $filepath
+     * @param string|null $message
+     * @param string|null $propertyPath
+     * @return bool
+     */
+    public static function filepath($filepath, string $message = null, string $propertyPath = null): bool
+    {
+        $message = \sprintf(
+            static::generateMessage($message ?: 'Not an existing filepath: %s'),
+            static::typeString($filepath)
+        );
+
+        static::string($filepath, $message, $propertyPath);
+
+        if (file_exists($filepath) === false) {
+
+            throw static::createException($filepath, $message, $propertyPath);
         }
 
         return true;

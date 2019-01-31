@@ -99,6 +99,7 @@ use Tool\Validation\Helper;
  * @method static bool ipv6($value, $flag = null, $message = null, $propertyPath = null)
  * @method static bool defined($constant, $message = null, $propertyPath = null)
  * @method static bool base64($value, $message = null, $propertyPath = null)
+ * @method static bool filepath($value, $message = null, $propertyPath = null)
  * @method static bool allAlnum(mixed $value, string|callable $message = null, string $propertyPath = null)
  * @method static bool allBase64(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static bool allBetween(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)
@@ -186,6 +187,7 @@ use Tool\Validation\Helper;
  * @method static bool allUuid(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static bool allVersion(string $version1, string $operator, string $version2, string|callable $message = null, string $propertyPath = null)
  * @method static bool allWriteable(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool allFilepath($value, $message = null, $propertyPath = null)
  * @method static bool nullOrAlnum(mixed $value, string|callable $message = null, string $propertyPath = null)
  * @method static bool nullOrBase64(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static bool nullOrBetween(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)
@@ -273,6 +275,7 @@ use Tool\Validation\Helper;
  * @method static bool nullOrUuid(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static bool nullOrVersion(string $version1, string $operator, string $version2, string|callable $message = null, string $propertyPath = null)
  * @method static bool nullOrWriteable(string $value, string|callable $message = null, string $propertyPath = null)
+ * @method static bool nullOrFilepath($value, $message = null, $propertyPath = null)
  */
 class IsValid
 {

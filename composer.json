@@ -1,5 +1,5 @@
 {
-    "name": "thadbryson/toolkit-support",
+    "name": "thadbryson/toolkit",
     "license": "proprietary",
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -7,7 +7,7 @@
         "php": ">=7.3",
         "ext-intl": "*",
         "ext-json": "*",
-        "ext-simplexml": "*",,
+        "ext-simplexml": "*",
         "illuminate/http": "^5.7",
         "illuminate/support": "^5.7",
         "illuminate/validation": "^5.7",

@@ -13,7 +13,7 @@ class PathinfoTest extends \Codeception\Test\Unit
         // creates for existing files
     }
 
-    public static function testMake($path): void
+    public static function testMake(): void
     {
         // ::make() with string path
         // ::make() with \SplFileInfo var

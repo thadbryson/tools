@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace Tool\Filesystem;
 
-use AppendIterator;
+use ArrayIterator;
 use Iterator;
-use function iterator_to_array;
 use SplFileInfo;
 use Tool\Validation\Assert;
+use function iterator_to_array;
 
 class Finder extends \Symfony\Component\Finder\Finder
 {
@@ -18,6 +18,8 @@ class Finder extends \Symfony\Component\Finder\Finder
      * @var string
      */
     protected $fileInfoClass = Pathinfo::class;
+
+    protected $searchDirectories = [];
 
     public function __construct()
     {
@@ -34,16 +36,47 @@ class Finder extends \Symfony\Component\Finder\Finder
         return (new static)->in($directories);
     }
 
+    public function in($dirs): self
+    {
+        $resolvedDirs = array();
+
+        foreach ((array) $dirs as $dir) {
+            if (is_dir($dir)) {
+                $resolvedDirs[] = $dir;
+            } elseif ($glob = glob($dir, (\defined('GLOB_BRACE') ? GLOB_BRACE : 0) | GLOB_ONLYDIR)) {
+                $resolvedDirs = array_merge($resolvedDirs, array_map(array($this, 'normalizeDir'), $glob));
+            } else {
+                throw new \InvalidArgumentException(sprintf('The "%s" directory does not exist.', $dir));
+            }
+        }
+
+        $this->searchDirectories = array_merge($this->searchDirectories, $resolvedDirs);
+
+        parent::in($dirs);
+
+        return $this;
+    }
+
+    public function getDirectories(): array
+    {
+        return $this->searchDirectories;
+    }
+
+    public function getFileInfoClass(): string
+    {
+        return $this->fileInfoClass;
+    }
+
     public function setFileInfoClass(string $class): self
     {
-        $this->fileInfoClass = Assert::isInstanceOf($class, SplFileInfo::class);
+        $this->fileInfoClass = Assert::isSubclassOf($class, SplFileInfo::class);
 
         return $this;
     }
 
     public function getIterator(): Iterator
     {
-        $iterator = new AppendIterator;
+        $iterator = new ArrayIterator;
 
         foreach (parent::getIterator() as $fileInfo) {
 

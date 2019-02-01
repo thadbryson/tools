@@ -36,7 +36,7 @@ class FileTest extends \Codeception\Test\Unit
         // could not copy: return null
     }
 
-    public function testDelete(): bool
+    public function testDelete(): void
     {
         // file deleted: return true
         // not deleted: return false

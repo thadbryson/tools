@@ -4,12 +4,20 @@ declare(strict_types = 1);
 
 namespace Tool\Filesystem;
 
+use function array_slice;
 use Tool\Str;
 use Tool\Validation\Assert;
+use function basename;
+use function implode;
 use function substr;
 use const DIRECTORY_SEPARATOR;
 
-class Filesystem extends \Illuminate\Filesystem\Filesystem
+/**
+ * Class Filesystem
+ *
+ * @mixin \Illuminate\Filesystem\Filesystem
+ */
+class Filesystem
 {
     public const DEFAULT_FILE_PERMS = 0644;
 
@@ -17,25 +25,33 @@ class Filesystem extends \Illuminate\Filesystem\Filesystem
 
     public static function __callStatic(string $method, array $arguments)
     {
-        $filesystem = new static;
+        $filesystem = new \Illuminate\Filesystem\Filesystem;
 
-        Assert::methodExists($method, $filesystem, 'Filesystem does not have method: ' . $method);
+        Assert::methodExists($method, $filesystem, sprintf('%s does not have method: %s', static::class, $method));
 
         return $filesystem->{$method}(...$arguments);
     }
 
-    public function setPermissions(string $path, int $mode = null): bool
+    public static function setPermissions(string $path, int $mode = null): ?bool
     {
+        if (static::exists($path) === false) {
+            return null;
+        }
+
         $default = static::isDirectory($path) ?
             static::DEFAULT_DIR_PERMS :
             static::DEFAULT_FILE_PERMS;
 
-        return parent::chmod($path, $mode ?? $default);
+        return static::chmod($path, $mode ?? $default);
     }
 
-    public function getPermissionsDescription(string $path): ?string
+    public static function getPermissionsDescription(string $path): ?string
     {
-        $result = parent::chmod($path);
+        if (static::exists($path) === false) {
+            return null;
+        }
+
+        $result = static::chmod($path);
 
         if ($result === false) {
             return null;
@@ -47,49 +63,58 @@ class Filesystem extends \Illuminate\Filesystem\Filesystem
     /**
      * @alias of put()
      */
-    public function save(string $path, string $contents, bool $lock = false): int
+    public static function save(string $path, string $contents, bool $lock = false): int
     {
-        return $this->put($path, $contents, $lock);
+        return static::put($path, $contents, $lock);
     }
 
-    public function ensureFile(string $path, string $contents = '', bool $lock = false): bool
+    public static function ensureFile(string $path, string $contents = '', bool $lock = false): bool
     {
-        if ($this->isFile($path) === false) {
-            return $this->save($path, $contents, $lock) > 0;
+        if (static::isFile($path) === true) {
+            return false;
         }
 
-        return false;
+        static::save($path, $contents, $lock);
+
+        return static::isFile($path);
     }
 
-    public function ensureDirectory(string $path, int $mode = null, bool $recursive = false, bool $force = false): bool
+    public static function ensureDirectory(string $path, int $mode = null): bool
     {
-        if ($this->isDirectory($path) === false) {
-            return $this->makeDirectory($path, $mode ?? static::DEFAULT_DIR_PERMS, $recursive, $force);
+        if (static::isDirectory($path) === true) {
+            return false;
         }
 
-        return false;
+        return static::makeDirectory($path, $mode ?? static::DEFAULT_DIR_PERMS, true, true);
     }
 
-    public function isHidden(string $path): bool
+    public static function isHidden(string $path): bool
     {
-        return substr($path, 0, 1) === '.';
+        $basename = basename($path);
+
+        return substr($basename, 0, 1) === '.';
     }
 
-    public function getShort(string $path, string $parentDirectory): string
+    public static function getShort(string $path, string $parentDirectory): ?string
     {
-        $parentDirectory = trim($parentDirectory, DIRECTORY_SEPARATOR);
+        $path            = explode(DIRECTORY_SEPARATOR, trim($path, DIRECTORY_SEPARATOR));
+        $parentDirectory = explode(DIRECTORY_SEPARATOR, trim($parentDirectory, DIRECTORY_SEPARATOR));
 
-        return (string) Str::make($path)
+        if ($parentDirectory !== array_slice($path, 0, count($parentDirectory))) {
+            return null;
+        }
+
+        return Str::implode(DIRECTORY_SEPARATOR, $path)
+            ->removeLeft(implode(DIRECTORY_SEPARATOR, $parentDirectory))
             ->trim(DIRECTORY_SEPARATOR)
-            ->removeLeft($parentDirectory)
-            ->trim(DIRECTORY_SEPARATOR);
+            ->get();
     }
 
-    public function hasExtension(string $path, string $ext, bool $caseSensitive = true): bool
+    public static function hasExtension(string $path, string $ext, bool $caseSensitive = true): bool
     {
         $infoExt = static::extension($path);
 
-        if ($caseSensitive === true) {
+        if ($caseSensitive === false) {
             $infoExt = strtolower($infoExt);
             $ext     = strtolower($ext);
         }

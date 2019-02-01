@@ -5,11 +5,13 @@ declare(strict_types = 1);
 namespace Tool\Validation\Helper;
 
 use Assert\Assertion as BaseAssertion;
-use function file_exists;
+use function get_class;
 use Illuminate\Support\Arr;
+use function file_exists;
 use function implode;
 use function in_array;
 use function is_object;
+use function is_subclass_of;
 
 /**
  * Wrap Webmozart Assert class  in this.
@@ -67,6 +69,41 @@ class AssertRules extends BaseAssertion
     }
 
     /**
+     * Determines that the named method is defined in the provided object.
+     *
+     * @param mixed                $method
+     * @param mixed                $object
+     * @param string|callable|null $message = null
+     * @param string|null          $propertyPath = null
+     *
+     * @return bool
+     */
+    public static function methodExists($method, $object, $message = null, $propertyPath = null): bool
+    {
+        if (is_object($object)) {
+            return parent::methodExists($method, $object, $message, $propertyPath);
+        }
+
+        // Has to be a class string.
+        static::classExists($object, $message, $propertyPath);
+
+        // is_callable() handles magic __call() methods.
+        if (is_callable([$object, $method]) === false) {
+
+            $message = \sprintf(
+                static::generateMessage($message ?: 'Expected method "%s()" does not exist on object %s.'),
+                $method,
+                static::typeString($object)
+            );
+
+            throw static::createException($method, $message, static::INVALID_METHOD, $propertyPath,
+                ['object' => static::typeString($object)]);
+        }
+
+        return true;
+    }
+
+    /**
      * Value is of type of class in array $type.
      *
      * @param array    $values
@@ -102,35 +139,6 @@ class AssertRules extends BaseAssertion
             implode(', ', $types),
             $valueType
         ), 400, $propertyPath);
-    }
-
-    protected static function typeString($value): string
-    {
-        if (is_object($value)) {
-            return '\\' . get_class($value);
-        }
-        elseif (is_string($value) && class_exists($value)) {
-            return '\\' . trim($value, '\\');
-        }
-
-        $type = strtolower(gettype($value));
-
-        switch ($type) {
-            case 'bool':
-            case 'boolean':
-                return 'bool';
-
-            case 'integer':
-            case 'int':
-                return 'int';
-
-            case 'float':
-            case 'double':
-                return 'float';
-
-            default:
-                return $type;
-        }
     }
 
     /**
@@ -177,6 +185,36 @@ class AssertRules extends BaseAssertion
     }
 
     /**
+     * Is value a class name or object an subclass of $parentClass
+     *
+     * @param mixed  $classOrObject
+     * @param string $parentClass
+     * @param string $message = null
+     * @param string $propertyPath = null
+     *
+     * @return bool
+     */
+    public static function isSubclassOf($value, string $parentClass, string $message = null, string $propertyPath = null): bool
+    {
+        if (is_object($value)) {
+            $value = get_class($value);
+        }
+
+        $message = \sprintf(
+            static::generateMessage($message ?: '%s is not a subclass of %s'),
+            static::typeString($value),
+            static::typeString($parentClass)
+        );
+
+        if ($value !== $parentClass && is_subclass_of($value, $parentClass) === false) {
+
+            throw static::createException($value, $message, 400, $propertyPath);
+        }
+
+        return true;
+    }
+
+    /**
      * Value is not in $array.
      *
      * @param mixed  $classOrObject
@@ -195,41 +233,6 @@ class AssertRules extends BaseAssertion
             static::stringify($value)), $propertyPath);
 
         static::classExists($value, sprintf($message ?: '%s is not an existing class.', $value));
-
-        return true;
-    }
-
-    /**
-     * Determines that the named method is defined in the provided object.
-     *
-     * @param mixed                $method
-     * @param mixed                $object
-     * @param string|callable|null $message = null
-     * @param string|null          $propertyPath = null
-     *
-     * @return bool
-     */
-    public static function methodExists($method, $object, $message = null, $propertyPath = null): bool
-    {
-        if (is_object($object)) {
-            return parent::methodExists($method, $object, $message, $propertyPath);
-        }
-
-        // Has to be a class string.
-        static::classExists($object, $message, $propertyPath);
-
-        // is_callable() handles magic __call() methods.
-        if (is_callable([$object, $method]) === false) {
-
-            $message = \sprintf(
-                static::generateMessage($message ?: 'Expected method "%s()" does not exist on object %s.'),
-                $method,
-                static::typeString($object)
-            );
-
-            throw static::createException($method, $message, static::INVALID_METHOD, $propertyPath,
-                ['object' => static::typeString($object)]);
-        }
 
         return true;
     }
@@ -257,5 +260,52 @@ class AssertRules extends BaseAssertion
         }
 
         return true;
+    }
+
+    protected static function typeString($value): string
+    {
+        if (is_object($value)) {
+            return '\\' . get_class($value);
+        }
+        elseif (is_string($value) && class_exists($value)) {
+            return '\\' . trim($value, '\\');
+        }
+
+        $type = strtolower(gettype($value));
+
+        switch ($type) {
+            case 'bool':
+            case 'boolean':
+                return 'bool';
+
+            case 'integer':
+            case 'int':
+                return 'int';
+
+            case 'float':
+            case 'double':
+                return 'float';
+
+            default:
+                return $type;
+        }
+    }
+
+    /**
+     * Helper method that handles building the assertion failure exceptions.
+     * They are returned from this method so that the stack trace still shows
+     * the assertions method.
+     *
+     * @param mixed           $value
+     * @param string|callable $message
+     * @param int             $code
+     * @param string|null     $propertyPath
+     * @param array           $constraints
+     *
+     * @return mixed
+     */
+    protected static function createException($value, $message, $code, $propertyPath = null, array $constraints = [])
+    {
+        return parent::createException($value, $message, 400, $propertyPath, $constraints);
     }
 }

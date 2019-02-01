@@ -13,7 +13,7 @@ class File extends Pathinfo
         $this->assertFile();
     }
 
-    public static function makeEnsure(string $path, string $contents = '')
+    public static function makeEnsure(string $path, string $contents = ''): self
     {
         Filesystem::ensureFile($path, $contents);
 

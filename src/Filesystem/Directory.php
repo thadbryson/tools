@@ -13,9 +13,9 @@ class Directory extends Pathinfo
         $this->assertDirectory();
     }
 
-    public static function makeEnsure(string $path, int $mode = null, bool $recursive = false, bool $force = false)
+    public static function makeEnsure(string $path, int $mode = null): self
     {
-        Filesystem::ensureDirectory($path, $mode, $recursive, $force);
+        Filesystem::ensureDirectory($path, $mode);
 
         return new static($path);
     }

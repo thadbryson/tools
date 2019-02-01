@@ -53,6 +53,7 @@ use Tool\Validation\Helper;
  * @method static bool notBlank($value, $message = null, $propertyPath = null)
  * @method static bool isInstanceOf($value, $className, $message = null, $propertyPath = null)
  * @method static bool notIsInstanceOf($value, $className, $message = null, $propertyPath = null)
+ * @method static bool isSubclassOf($value, string $className, string $message = null, string $propertyPath = null)
  * @method static bool subclassOf($value, $className, $message = null, $propertyPath = null)
  * @method static bool range($value, $minValue, $maxValue, $message = null, $propertyPath = null)
  * @method static bool min($value, $minValue, $message = null, $propertyPath = null)

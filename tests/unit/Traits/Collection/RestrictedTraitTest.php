@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Traits\Collection;
 
-use Tool\Exceptions\Error;
 use Tool\Collection;
+use Tool\Validation\Exceptions\ValidationException;
 
 /**
  * Class RestrictedCollection
@@ -60,7 +60,7 @@ class RestrictedTraitTest extends \Codeception\Test\Unit
         $integers->append(true);
         $integers->append(false);
 
-        $this->tester->expectException(Error::class, function () {
+        $this->tester->expectThrowable(ValidationException::class, function () {
 
             Collection::makeType('integer', [1, 2, 3, false]);
         });
@@ -73,7 +73,7 @@ class RestrictedTraitTest extends \Codeception\Test\Unit
         $integers->append(new \DateTime);
         $integers->append(new \DateTime('2015-01-10'));
 
-        $this->tester->expectException(Error::class, function () {
+        $this->tester->expectThrowable(ValidationException::class, function () {
 
             Collection::makeObject(\DateTime::class, [1]);
         });
@@ -102,7 +102,7 @@ class RestrictedTraitTest extends \Codeception\Test\Unit
 
     public function testAssert(): void
     {
-        $this->tester->expectException(Error::class, function () {
+        $this->tester->expectThrowable(ValidationException::class, function () {
 
             $this->coll->setRules(['id' => 'string'])
                        ->assert();

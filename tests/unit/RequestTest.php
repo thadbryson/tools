@@ -113,4 +113,31 @@ class RequestTest extends \Codeception\Test\Unit
             $request->assertCsrf('_csrf', '');
         });
     }
+
+    /**
+     * @dataProvider dataMobileAgents
+     */
+    public function testIsCurrentMobile(string $agent): void
+    {
+        $_SERVER['HTTP_USER_AGENT'] = $agent;
+        $this->assertTrue(Request::isCurrentMobile());
+
+        $_SERVER['HTTP_USER_AGENT'] = 'nope';
+        $this->assertFalse(Request::isCurrentMobile());
+    }
+
+    /**
+     * @dataProvider dataMobileAgents
+     *
+     * @param string $agent
+     */
+    public function testIsAgentMobile(string $agent): void
+    {
+        $this->assertTrue(Request::isAgentMobile($agent));
+    }
+
+    public function testIsAgentMobileFalse(): void
+    {
+        $this->assertFalse(Request::isAgentMobile('nah'));
+    }
 }

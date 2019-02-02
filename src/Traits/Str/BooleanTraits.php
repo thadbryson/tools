@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tool\Traits\Str;
 
+use function is_numeric;
 use Tool\Str;
 use Tool\Validation\Assert;
 use function Tool\Functions\String\is_json;
@@ -20,7 +21,13 @@ trait BooleanTraits
 {
     public function isJson(): bool
     {
-        return is_json($this->get());
+        if (is_string($this->get())) {
+            json_decode($this->get());
+
+            return json_last_error() === JSON_ERROR_NONE;
+        }
+
+        return false;
     }
 
     public function isEmpty(): bool
@@ -35,8 +42,6 @@ trait BooleanTraits
 
     public function hasSubstr(string $substr, bool $caseSensitive = true): bool
     {
-        Assert::stringNotEmpty($substr, '$substr cannot be an empty string.');
-
         return $this->contains($substr, $caseSensitive);
     }
 
@@ -45,7 +50,14 @@ trait BooleanTraits
      */
     public function isTimezone(): bool
     {
-        return is_timezone($this->get());
+        try {
+            new \DateTimeZone($this->get());
+
+            return true;
+        }
+        catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -61,7 +73,11 @@ trait BooleanTraits
      */
     public function isNumericInt(): bool
     {
-        return is_numeric_int($this->get());
+        if (is_int($this->get())) {
+            return true;
+        }
+
+        return is_string($this->get()) && is_numeric($this->get()) && strpos($this->get(), '.') === false;
     }
 
     /**
@@ -69,6 +85,10 @@ trait BooleanTraits
      */
     public function isNumericFloat(): bool
     {
-        return is_numeric_float($this->get());
+        if (is_float($this->get())) {
+            return true;
+        }
+
+        return is_string($this->get()) && is_numeric($this->get()) && strpos($this->get(), '.') !== false;
     }
 }

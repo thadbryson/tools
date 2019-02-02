@@ -19,7 +19,7 @@ class FinderTest extends \Codeception\Test\Unit
     {
         $this->directories = [
             dirname(__DIR__) . '/Filesystem',
-            dirname(__DIR__) . '/Functions',
+            dirname(__DIR__) . '/Validation',
         ];
     }
 

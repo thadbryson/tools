@@ -7,6 +7,7 @@ namespace Tool\Validation;
 use Illuminate\Support\MessageBag;
 use Tool\Exceptions\Error;
 use function json_encode;
+use Tool\Validation\Exceptions\ValidationException;
 
 /**
  * Result Class
@@ -42,9 +43,7 @@ class Result
      */
     public static function fromArray(array $errors): self
     {
-        return new static(
-            new MessageBag($errors)
-        );
+        return new static(new MessageBag($errors));
     }
 
     /**
@@ -70,13 +69,11 @@ class Result
      * @param int    $code = 400
      *
      * @return void
-     * @throws Error
+     * @throws ValidationException
      */
     public function throw(string $message = null, int $code = 400): void
     {
-        $errors = $this->getErrors();
-
-        throw Error::make(($message ?? '') . json_encode($errors), $code);
+        throw new ValidationException($this->getErrors(), $message, $code);
     }
 
     /**

@@ -25,11 +25,7 @@
     "autoload": {
         "psr-4": {
             "Tool\\": "src/"
-        },
-        "files": [
-            "src-functions/request.php",
-            "src-functions/string.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

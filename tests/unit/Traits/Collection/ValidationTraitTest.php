@@ -16,6 +16,16 @@ class ValidationTraitTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
+    private $items = [
+        'id'   => 1,
+        'code' => 'abc',
+        'some' => [
+            'addr'    => 101,
+            'zip'     => 20000,
+            'friends' => ['Tom', 'Tina', 'Jenny'],
+        ],
+    ];
+
     /**
      * @var Collection
      */
@@ -23,15 +33,7 @@ class ValidationTraitTest extends \Codeception\Test\Unit
 
     public function _before(): void
     {
-        $this->coll = new Collection([
-            'id'   => 1,
-            'code' => 'abc',
-            'some' => [
-                'addr'    => 101,
-                'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny']
-            ]
-        ]);
+        $this->coll = new Collection($this->items);
     }
 
     public function testValidate(): void
@@ -43,26 +45,34 @@ class ValidationTraitTest extends \Codeception\Test\Unit
 
     public function testAssertEquals(): void
     {
-        $result = $this->coll->assertEquals([
+        $result = $this->coll
+            ->assertEquals('id', 1)
+            ->assertEquals('some.addr', 101);
+
+        $this->tester
+            ->assertArr($this->items, $result)
+            ->expectThrowable(
+                \InvalidArgumentException::class,
+                function () {
+                    $this->coll->assertEquals('id', '10');
+                }
+            );
+    }
+
+    public function testAssertEqualsAll(): void
+    {
+        $result = $this->coll->assertEqualsAll([
             'id'        => 1,
-            'some.addr' => 101
+            'some.addr' => 101,
         ]);
 
-        $this->tester->assertArr([
-            'id'   => 1,
-            'code' => 'abc',
-            'some' => [
-                'addr'    => 101,
-                'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny']
-            ]
-        ], $result);
-
-        $this->tester->expectThrowable(
-            \InvalidArgumentException::class,
-            function () {
-                $this->coll->assertEquals(['id' => '10']);
-            }
-        );
+        $this->tester
+            ->assertArr($this->items, $result)
+            ->expectThrowable(
+                \InvalidArgumentException::class,
+                function () {
+                    $this->coll->assertEqualsAll(['id' => '10']);
+                }
+            );
     }
 }

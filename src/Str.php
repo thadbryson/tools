@@ -23,12 +23,27 @@ class Str extends \Stringy\Stringy
         StrTraits\StaticMakeTrait;
 
     /**
+     * Call any Str method statically.
+     *
+     * @param string $method
+     * @param array  $arguments
+     * @return string
+     */
+    public static function __callStatic(string $method, array $arguments): string
+    {
+        $str = Arr::removeFirst($arguments);
+
+        Assert::string($str, sprintf('%s::%s() expects first argument to ge a string.', static::class, $method));
+        Assert::methodExists($method, static::class);
+
+        return static::make($str)->{$method}(...$arguments);
+    }
+
+    /**
      * Explode string into an array.
      */
     public function explode(string $delimeter): array
     {
-        Assert::stringNotEmpty($delimeter, '$delimeter cannot be an empty string.');
-
         return explode($delimeter, $this->get());
     }
 
@@ -111,9 +126,12 @@ class Str extends \Stringy\Stringy
     /**
      * Get monetery string format.
      */
-    public function money(string $locale = 'en_US'): self
+    public function money(string $locale = 'en_US', string $format = '%n'): self
     {
-        $this->str = money($this->get(), $locale, $this->getEncoding());
+        Assert::numeric($this->get(), '$var must be a numeric string, integer, or float.');
+        setlocale(LC_MONETARY, $locale . '.' . $this->getEncoding());
+
+        $this->str = money_format($format, (float) $this->get());
 
         return $this;
     }
@@ -123,8 +141,6 @@ class Str extends \Stringy\Stringy
      */
     public function moneyInternational(string $locale = 'en_US'): self
     {
-        $this->str = money_international($this->get(), $locale, $this->getEncoding());
-
-        return $this;
+        return $this->money($locale, '%i');
     }
 }

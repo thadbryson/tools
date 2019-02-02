@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Tests\Unit\Validation;
 
 use Illuminate\Support\MessageBag;
-use Tool\Exceptions\Error;
+use Tool\Validation\Exceptions\ValidationException;
 use Tool\Validation\Result;
 
 /**
@@ -66,18 +66,18 @@ class ResultTest extends \Codeception\Test\Unit
     {
         $this->success->assert();
 
-        $this->tester->expectException(Error::class, function () {
+        $this->tester->expectThrowable(ValidationException::class, function () {
             $this->failure->assert('Message here.');
         });
     }
 
     public function testThrow(): void
     {
-        $this->tester->expectException(Error::class, function () {
+        $this->tester->expectThrowable(ValidationException::class, function () {
             $this->success->throw('message success - nope');
         });
 
-        $this->tester->expectException(Error::class, function () {
+        $this->tester->expectThrowable(ValidationException::class, function () {
             $this->failure->throw('err');
         });
     }

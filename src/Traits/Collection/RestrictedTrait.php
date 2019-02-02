@@ -33,6 +33,7 @@ trait RestrictedTrait
      * RestrictedCollection constructor.
      *
      * @param array $items
+     * @throws \Tool\Exceptions\Error
      */
     public function __construct(array $items = [])
     {
@@ -42,26 +43,13 @@ trait RestrictedTrait
     }
 
     /**
-     * Validate Collection, throw InvalidArgumentException if any data is invalid.
-     *
-     * @return RestrictedTrait
-     * @throws \InvalidArgumentException
-     */
-    public function assert(): Collection
-    {
-        $this->validate($this->rules, $this->messages, $this->customAttributes)
-            ->assert();
-
-        return $this;
-    }
-
-    /**
      * Create RestrictedCollection with a certain 'type'.
      *
      * @param string $type
-     * @param array  $items
+     * @param array  $items = []
      *
-     * @return RestrictedTrait
+     * @return Collection
+     * @throws \Tool\Exceptions\Error
      */
     public static function makeType(string $type, array $items = []): Collection
     {
@@ -74,9 +62,10 @@ trait RestrictedTrait
      * Create RestrictedCollection with a certain 'type'.
      *
      * @param string $class
-     * @param array  $items
+     * @param array  $items = []
      *
-     * @return RestrictedTrait
+     * @return Collection
+     * @throws \Tool\Exceptions\Error
      */
     public static function makeObject(string $class, array $items = []): Collection
     {
@@ -88,6 +77,22 @@ trait RestrictedTrait
     }
 
     /**
+     * Validate Collection, throw InvalidArgumentException if any data is invalid.
+     *
+     * @return Collection
+     * @throws \Tool\Exceptions\Error
+     */
+    public function assert(): Collection
+    {
+        $this->validate($this->rules, $this->messages, $this->customAttributes)
+            ->assert();
+
+        return $this;
+    }
+
+    /**
+     * Get validation messages.
+     *
      * @return string[]
      */
     public function getMessages(): array
@@ -96,7 +101,9 @@ trait RestrictedTrait
     }
 
     /**
-     * @return RestrictedTrait
+     * Set validation messages.
+     *
+     * @return Collection
      */
     public function setMessages(array $messages): Collection
     {
@@ -106,6 +113,8 @@ trait RestrictedTrait
     }
 
     /**
+     * Get validation custom attributes.
+     *
      * @return string[]
      */
     public function getCustomAttributes(): array
@@ -114,7 +123,9 @@ trait RestrictedTrait
     }
 
     /**
-     * @return RestrictedTrait
+     * Set validation custom attributes.
+     *
+     * @return Collection
      */
     public function setCustomAttributes(array $customAttributes): Collection
     {
@@ -126,7 +137,7 @@ trait RestrictedTrait
     /**
      * Set rules for each value in the Collection.
      *
-     * @return RestrictedTrait
+     * @return Collection
      */
     public function setRulesToEach(): Collection
     {
@@ -144,6 +155,8 @@ trait RestrictedTrait
     }
 
     /**
+     * Get validation rules.
+     *
      * @return string[]
      */
     public function getRules(): array
@@ -154,9 +167,9 @@ trait RestrictedTrait
     /**
      * Set rules on entire Collection as a whole.
      *
-     * @param array $rules
+     * @param string[] $rules
      *
-     * @return RestrictedTrait
+     * @return Collection
      */
     public function setRules(array $rules): Collection
     {
@@ -166,11 +179,12 @@ trait RestrictedTrait
     }
 
     /**
-     * Transform each item in the collection using a callback.
+     * Transform each item in the collection using a callback with assertion.
      *
      * @param  callable $callback
      *
      * @return $this
+     * @throws \Tool\Exceptions\Error
      */
     public function transform(callable $callback): Collection
     {
@@ -180,12 +194,13 @@ trait RestrictedTrait
     }
 
     /**
-     * Push an item onto the beginning of the collection.
+     * Push an item onto the beginning of the collection with assertion.
      *
      * @param  mixed $value
-     * @param  mixed $key
+     * @param  mixed $key = null
      *
      * @return $this
+     * @throws \Tool\Exceptions\Error
      */
     public function prepend($value, $key = null): Collection
     {
@@ -195,12 +210,13 @@ trait RestrictedTrait
     }
 
     /**
-     * Set the item at a given offset.
+     * Set the item at a given offset with assertion.
      *
      * @param  mixed $key
      * @param  mixed $value
      *
      * @return void
+     * @throws \Tool\Exceptions\Error
      */
     public function offsetSet($key, $value): void
     {

@@ -20,7 +20,7 @@ class Pathinfo extends SplFileInfo
      * @param string|SplFileInfo $path
      * @return Pathinfo
      */
-    public static function make($path): self
+    public static function make($path)
     {
         if ($path instanceof SplFileInfo) {
             $path = $path->getPathname();
@@ -29,11 +29,6 @@ class Pathinfo extends SplFileInfo
         Assert::string($path, '$fileInfo must be a string to a path or an instance of \SplFileInfo');
 
         return new static($path);
-    }
-
-    public function getPermissionDescription(): string
-    {
-        return Filesystem::chmod($this->getPathname());
     }
 
     public function getContents(bool $lock = false): string
@@ -50,7 +45,7 @@ class Pathinfo extends SplFileInfo
         return Filesystem::isHidden($this->getPathname());
     }
 
-    public function getShort(string $parentDirectory): string
+    public function getShort(string $parentDirectory): ?string
     {
         return Filesystem::getShort($this->getPathname(), $parentDirectory);
     }
@@ -76,6 +71,7 @@ class Pathinfo extends SplFileInfo
 
     public function assertDirectory(): self
     {
+        Assert::notFile($this->getPathname());
         Assert::directory($this->getPathname());
 
         return $this;
@@ -83,7 +79,8 @@ class Pathinfo extends SplFileInfo
 
     public function assertFile(): self
     {
-        Assert::filepath($this->getPathname());
+        Assert::notDirectory($this->getPathname());
+        Assert::file($this->getPathname());
 
         return $this;
     }

@@ -4,55 +4,20 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Filesystem;
 
-use function is_file;
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 use Tool\Filesystem\Filesystem;
 use UnitTester;
-use function file_exists;
 use function is_dir;
+use function is_file;
 
 class FilesystemTest extends \Codeception\Test\Unit
 {
+    use VfsStreamTrait;
+
     /**
      * @var UnitTester
      */
     protected $tester;
-
-    /**
-     * @var vfsStreamDirectory
-     */
-    protected $driver;
-
-    public function _before(): void
-    {
-        $this->driver = vfsStream::setup('root', 0777, [
-            'dir1'      => [
-                'dir-1-a' => [],
-                'dir-1-b' => [
-                    '.hidden'   => [
-                        'template1.twig'        => 'text here',
-                        'template-not.not.twig' => 'nope',
-                        'text.txt'              => 'some-text',
-                    ],
-                    'dir-1-b-a' => [
-                        'some'    => 'file',
-                        'another' => 'here',
-                    ],
-                ],
-            ],
-            'dir-2'     => [],
-            'file.txt'  => 'file text',
-            'file.php'  => 'file php content',
-            '.some'     => 'hidden file',
-            'some.twig' => 'Template content',
-        ]);
-    }
-
-    public function _after(): void
-    {
-        $this->driver = null;
-    }
 
     public function testStaticCall(): void
     {
@@ -87,7 +52,6 @@ class FilesystemTest extends \Codeception\Test\Unit
 
         $this->assertEquals(5, Filesystem::save(vfsStream::url('root/file-some.txt'), '12345'));
         $this->assertTrue(is_file(vfsStream::url('root/file-some.txt')), 'file-some.txt should exist now.');
-
         // TODO: test can't be saved
     }
 

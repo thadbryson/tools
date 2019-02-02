@@ -5,12 +5,15 @@ declare(strict_types = 1);
 namespace Tool\Validation\Helper;
 
 use Assert\Assertion as BaseAssertion;
-use function get_class;
 use Illuminate\Support\Arr;
 use function file_exists;
+use function get_class;
 use function implode;
 use function in_array;
+use function is_dir;
+use function is_file;
 use function is_object;
+use function is_string;
 use function is_subclass_of;
 
 /**
@@ -101,6 +104,24 @@ class AssertRules extends BaseAssertion
         }
 
         return true;
+    }
+
+    /**
+     * Helper method that handles building the assertion failure exceptions.
+     * They are returned from this method so that the stack trace still shows
+     * the assertions method.
+     *
+     * @param mixed           $value
+     * @param string|callable $message
+     * @param int             $code
+     * @param string|null     $propertyPath
+     * @param array           $constraints
+     *
+     * @return mixed
+     */
+    protected static function createException($value, $message, $code, $propertyPath = null, array $constraints = [])
+    {
+        return parent::createException($value, $message, 400, $propertyPath, $constraints);
     }
 
     /**
@@ -247,14 +268,58 @@ class AssertRules extends BaseAssertion
      */
     public static function filepath($filepath, string $message = null, string $propertyPath = null): bool
     {
-        $message = \sprintf(
-            static::generateMessage($message ?: 'Not an existing filepath: %s'),
-            static::typeString($filepath)
-        );
+        if (is_string($filepath) === false || file_exists($filepath) === false) {
 
-        static::string($filepath, $message, $propertyPath);
+            $message = \sprintf(
+                static::generateMessage($message ?? 'Not an existing filepath: %s'),
+                $filepath
+            );
 
-        if (file_exists($filepath) === false) {
+            throw static::createException($filepath, $message, $propertyPath);
+        }
+
+        return true;
+    }
+
+    /**
+     * Is $filepath an actual, existing file?
+     *
+     * @param             $filepath
+     * @param string|null $message
+     * @param string|null $propertyPath
+     * @return bool
+     */
+    public static function notFile($filepath, string $message = null, string $propertyPath = null): bool
+    {
+        if (is_string($filepath) === false || is_file($filepath)) {
+
+            $message = \sprintf(
+                static::generateMessage($message ?? 'Filepath %s cannot be a file.'),
+                $filepath
+            );
+
+            throw static::createException($filepath, $message, $propertyPath);
+        }
+
+        return true;
+    }
+
+    /**
+     * Is $filepath an actual, existing file?
+     *
+     * @param             $filepath
+     * @param string|null $message
+     * @param string|null $propertyPath
+     * @return bool
+     */
+    public static function notDirectory($filepath, string $message = null, string $propertyPath = null): bool
+    {
+        if (is_string($filepath) === false || is_dir($filepath)) {
+
+            $message = \sprintf(
+                static::generateMessage($message ?? 'Filepath %s cannot be a directory.'),
+                $filepath
+            );
 
             throw static::createException($filepath, $message, $propertyPath);
         }
@@ -289,23 +354,5 @@ class AssertRules extends BaseAssertion
             default:
                 return $type;
         }
-    }
-
-    /**
-     * Helper method that handles building the assertion failure exceptions.
-     * They are returned from this method so that the stack trace still shows
-     * the assertions method.
-     *
-     * @param mixed           $value
-     * @param string|callable $message
-     * @param int             $code
-     * @param string|null     $propertyPath
-     * @param array           $constraints
-     *
-     * @return mixed
-     */
-    protected static function createException($value, $message, $code, $propertyPath = null, array $constraints = [])
-    {
-        return parent::createException($value, $message, 400, $propertyPath, $constraints);
     }
 }

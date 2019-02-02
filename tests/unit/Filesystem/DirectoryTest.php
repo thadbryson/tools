@@ -4,42 +4,113 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Filesystem;
 
+use InvalidArgumentException;
+use org\bovigo\vfs\vfsStream;
+use Tool\Filesystem\Directory;
+use Tool\Filesystem\Filesystem;
+use function file_exists;
+use function is_dir;
+use function is_file;
+
 class DirectoryTest extends \Codeception\Test\Unit
 {
+    use VfsStreamTrait;
+
     public function testConstruct(): void
     {
-        // assert passes with existing directory
-        // Exception: is a file
-        // Exception: nothing exists
+        $directory = Directory::make(vfsStream::url('root/dir1'));
+
+        $this->assertEquals('vfs://root/dir1', $directory->getPathname());
+    }
+
+    public function testConstructExceptionWasFile(): void
+    {
+        $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/file.txt cannot be a file.', 400));
+
+        Directory::make(vfsStream::url('root/file.txt'));
+    }
+
+    public function testConstructExceptionDirectoryDoesNotExist(): void
+    {
+        $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/no does not exist.', 400));
+
+        Directory::make(vfsStream::url('root/no'));
     }
 
     public function testMakeEnsure(): void
     {
-        // directory exists, nothing happens, Directory object made
-        // directory created
+        $directory = Directory::makeEnsure(vfsStream::url('root/dir-yes'));
+
+        $this->assertInstanceOf(Directory::class, $directory);
+        $this->assertEquals('vfs://root/dir-yes', $directory->getPathname());
+        $this->assertTrue(is_dir(vfsStream::url('root/dir-yes')));
+
+        $directory = Directory::makeEnsure(vfsStream::url('root/dir-perms'), 0777);
+
+        $this->assertEquals('vfs://root/dir-perms', $directory->getPathname());
+        $this->assertTrue(is_dir(vfsStream::url('root/dir-yes')));
+        $this->assertEquals('0777', Filesystem::chmod(vfsStream::url('root/dir-perms')));
     }
 
     public function testCopy(): void
     {
-        // copy directory, given new Directory object
-        // could not copy: return NULL
+        $directory = Directory::make(vfsStream::url('root/dir1/dir-1-b/.hidden'))
+            ->copy(vfsStream::url('root/was-hidden'));
+
+        $this->assertEquals(vfsStream::url('root/was-hidden'), $directory->getPathname());
+
+        $this->assertTrue(is_dir(vfsStream::url('root/dir1/dir-1-b/.hidden')));
+        $this->assertTrue(is_file(vfsStream::url('root/dir1/dir-1-b/.hidden/template1.twig')));
+        $this->assertTrue(is_file(vfsStream::url('root/dir1/dir-1-b/.hidden/template-not.not.twig')));
+        $this->assertTrue(is_file(vfsStream::url('root/dir1/dir-1-b/.hidden/text.txt')));
+
+        $this->assertTrue(is_dir(vfsStream::url('root/was-hidden')));
+        $this->assertTrue(is_file(vfsStream::url('root/was-hidden/template1.twig')));
+        $this->assertTrue(is_file(vfsStream::url('root/was-hidden/template-not.not.twig')));
+        $this->assertTrue(is_file(vfsStream::url('root/was-hidden/text.txt')));
     }
 
     public function testMove(): void
     {
-        // move directory, given new Directory object, existing is gone
-        // could not move: return NULL, existing is gone
+        $directory = Directory::make(vfsStream::url('root/dir1/dir-1-b/.hidden'))
+            ->move(vfsStream::url('root/was-hidden2'));
+
+        $this->assertEquals(vfsStream::url('root/was-hidden2'), $directory->getPathname());
+
+        $this->assertFalse(file_exists(vfsStream::url('root/dir1/dir-1-b/.hidden')));
+        $this->assertFalse(file_exists(vfsStream::url('root/dir1/dir-1-b/.hidden/template1.twig')));
+        $this->assertFalse(file_exists(vfsStream::url('root/dir1/dir-1-b/.hidden/template-not.not.twig')));
+        $this->assertFalse(file_exists(vfsStream::url('root/dir1/dir-1-b/.hidden/text.txt')));
+
+        $this->assertTrue(is_dir(vfsStream::url('root/was-hidden2')));
+        $this->assertTrue(is_file(vfsStream::url('root/was-hidden2/template1.twig')));
+        $this->assertTrue(is_file(vfsStream::url('root/was-hidden2/template-not.not.twig')));
+        $this->assertTrue(is_file(vfsStream::url('root/was-hidden2/text.txt')));
     }
 
     public function testDelete(): void
     {
-        // true: directory deleted
-        // false: could not be deleted
+        $directory = Directory::make(vfsStream::url('root/dir1'));
+
+        $this->assertTrue(is_dir(vfsStream::url('root/dir1')));
+        $this->assertTrue($directory->delete());
+        $this->assertFalse(file_exists(vfsStream::url('root/dir1')));
     }
 
     public function testDeleteChildren(): void
     {
-        // true: children deleted, path is still there and a directory
-        // false: children could not be deleted, path is still there and a directory
+        $directory = Directory::make(vfsStream::url('root/dir1'));
+
+        $this->assertTrue(is_dir(vfsStream::url('root/dir1')));
+        $this->assertTrue($directory->deleteChildren());
+        $this->assertTrue(is_dir(vfsStream::url('root/dir1')));
+
+        $this->assertFalse(is_dir(vfsStream::url('root/dir1/dir-1-b/.hidden')));
+        $this->assertFalse(is_file(vfsStream::url('root/dir1/dir-1-b/.hidden/template1.twig')));
+        $this->assertFalse(is_file(vfsStream::url('root/dir1/dir-1-b/.hidden/template-not.not.twig')));
+        $this->assertFalse(is_file(vfsStream::url('root/dir1/dir-1-b/.hidden/text.txt')));
+
+        $this->assertEquals([], Filesystem::allFiles(vfsStream::url('root/dir1'), true));
+        $this->assertEquals([], Filesystem::directories(vfsStream::url('root/dir1')));
     }
 }

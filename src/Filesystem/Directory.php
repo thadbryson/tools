@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Tool\Filesystem;
 
+use SplFileInfo;
+
 class Directory extends Pathinfo
 {
     public function __construct(string $path)
@@ -11,6 +13,17 @@ class Directory extends Pathinfo
         parent::__construct($path);
 
         $this->assertDirectory();
+    }
+
+    /**
+     * @param string|SplFileInfo $path
+     * @return Directory
+     */
+    public static function make($path)
+    {
+        $pathinfo = parent::make($path);
+
+        return new static($pathinfo->getPathname());
     }
 
     public static function makeEnsure(string $path, int $mode = null): self

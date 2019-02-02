@@ -4,79 +4,141 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Filesystem;
 
+use InvalidArgumentException;
+use org\bovigo\vfs\vfsStream;
+use Tool\Filesystem\Directory;
+use Tool\Filesystem\File;
+use Tool\Filesystem\Pathinfo;
+use function chmod;
+
 class PathinfoTest extends \Codeception\Test\Unit
 {
+    use VfsStreamTrait {
+        _before as beforeParent;
+    }
+
+    /**
+     * @var File
+     */
+    private $file;
+
+    /**
+     * @var Directory
+     */
+    private $directory;
+
+    public function _before(): void
+    {
+        $this->beforeParent();
+
+        $this->file      = Pathinfo::make(vfsStream::url('root/file.txt'));
+        $this->directory = Pathinfo::make(vfsStream::url('root/dir1'));
+    }
+
     public function testConstruct(): void
     {
-        // InvalidArgumentException thrown when filepath does not exist.
-        // creates for existing directories
-        // creates for existing files
+        $this->assertTrue($this->file->isFile());
+        $this->assertTrue($this->directory->isDir());
     }
 
-    public static function testMake(): void
+    public function testConstructDirectoryNotFound(): void
     {
-        // ::make() with string path
-        // ::make() with \SplFileInfo var
-        // ::make() with Pathinfo() var
+        $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/no does not exist.', 400));
+
+        Pathinfo::make(vfsStream::url('root/no'));
     }
 
-    public function testGetPermissionDescription(): void
+    public function testConstructFileNotFound(): void
     {
-        // open perms - 0777
-        // closed perms - 0655
-        // for directory
-        // for file
+        $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/notxt does not exist.', 400));
+
+        Pathinfo::make(vfsStream::url('root/notxt'));
     }
 
     public function testGetContents(): void
     {
-        // "" returned for a directory
-        // contents returned for existing file
-        // no file: FileNotFoundException() thrown
+        $this->assertEquals('file text', $this->file->getContents());
+        $this->assertEquals('', $this->directory->getContents(), 'Directories should just return an empty string.');
     }
 
     public function testIsHidden(): void
     {
-        // hidden file
-        // hidden directory
-        // non-hidden file
-        // non-hidden directory
+        $this->assertTrue(Pathinfo::make(vfsStream::url('root/.some'))->isHidden());
+        $this->assertTrue(Pathinfo::make(vfsStream::url('root/dir1/dir-1-b/.hidden'))->isHidden());
+
+        $this->assertFalse($this->file->isHidden());
+        $this->assertFalse($this->directory->isHidden());
     }
 
     public function testGetShort(): void
     {
-        // short path after full path
-        // no $parentDirectory apart of path
+        $directory = Pathinfo::make(vfsStream::url('root/dir1/dir-1-b/dir-1-b-a'));
+
+        $this->assertTrue($directory->isDir());
+
+        $this->assertEquals('dir-1-b/dir-1-b-a', $directory->getShort(vfsStream::url('root/dir1')));
+        $this->assertEquals('dir-1-b/dir-1-b-a', $directory->getShort(vfsStream::url('root/dir1/')));
+
+        $this->assertNull($directory->getShort(vfsStream::url('root/no')));
+        $this->assertNull($directory->getShort(vfsStream::url('root/dir1~no')));
     }
 
     public function testHasExtension(): void
     {
-        // has given extension
-        // does not have extension
-        // is directory: return false
+        $this->assertTrue($this->file->hasExtension('txt'));
+        $this->assertTrue($this->file->hasExtension('.txt'));
+
+        $this->assertFalse($this->file->hasExtension('md'));
+
+        $this->assertFalse($this->directory->hasExtension('txt'));
+        $this->assertFalse($this->directory->hasExtension('dir1'));
     }
 
     public function testAssertReadable(): void
     {
-        // throw InvalidArgumentException if not readable
-        // is readable - no exception
+        $this->file->assertReadable();
+        $this->directory->assertReadable();
+
+        $this->checkPermission(true, $this->file, 'Path "vfs://root/file.txt" was expected to be readable.');
+        $this->checkPermission(true, $this->directory, 'Path "vfs://root/dir1" was expected to be readable.');
     }
 
     public function testAssertWritable(): void
     {
-        // throw InvalidArgumentException if not writable
-        // is writable - no exception
+        $this->file->assertWritable();
+        $this->directory->assertWritable();
+
+        $this->checkPermission(false, $this->file, 'Path "vfs://root/file.txt" was expected to be writeable.');
+        $this->checkPermission(false, $this->directory, 'Path "vfs://root/dir" was expected to be writeable.');
     }
 
     public function testAssertDirectory(): void
     {
-        // throw InvalidArgumentException if not directory
-        // is directory - no exception
+        $this->directory->assertDirectory();
+        $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/file.txt cannot be a file.', 400));
+
+        Pathinfo::make(vfsStream::url('root/file.txt'))->assertDirectory();
     }
 
     public function testAssertFile(): void
     {
-        // throw InvalidArgumentException if not file
-        // is file - no exception
+        $this->file->assertFile();
+        $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/dir1 cannot be a directory.', 400));
+
+        Pathinfo::make(vfsStream::url('root/dir1'))->assertFile();
+    }
+
+    private function checkPermission(bool $readable, Pathinfo $path, string $errorMessage): void
+    {
+        $this->expectExceptionObject(new InvalidArgumentException($errorMessage, 400));
+
+        chmod($path->getPathname(), 0111);  // remove read access
+
+        if ($readable) {
+            $path->assertReadable();
+        }
+        else {
+            $path->assertWritable();
+        }
     }
 }

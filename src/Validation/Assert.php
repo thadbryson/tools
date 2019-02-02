@@ -102,6 +102,8 @@ use Tool\Validation\Helper;
  * @method static string defined($constant, string $message = null, string $propertyPath = null)
  * @method static string base64($value, string $message = null, string $propertyPath = null)
  * @method static string filepath($value, $message = null, $propertyPath = null)
+ * @method static string notFile($filepath, string $message = null, string $propertyPath = null)
+ * @method static string notDirectory($filepath, string $message = null, string $propertyPath = null)
  * @method static string[] allAlnum(mixed $value, string|callable $message = null, string $propertyPath = null)
  * @method static string[] allBase64(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static int[]|float[] allBetween(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)

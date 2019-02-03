@@ -33,7 +33,7 @@ trait RestrictedTrait
      * RestrictedCollection constructor.
      *
      * @param array $items
-     * @throws \Tool\Exceptions\Error
+     * @throws \Tool\Validation\Exceptions\ValidationException
      */
     public function __construct(array $items = [])
     {
@@ -49,7 +49,7 @@ trait RestrictedTrait
      * @param array  $items = []
      *
      * @return Collection
-     * @throws \Tool\Exceptions\Error
+     * @throws \Tool\Validation\Exceptions\ValidationException
      */
     public static function makeType(string $type, array $items = []): Collection
     {
@@ -65,7 +65,7 @@ trait RestrictedTrait
      * @param array  $items = []
      *
      * @return Collection
-     * @throws \Tool\Exceptions\Error
+     * @throws \Tool\Validation\Exceptions\ValidationException
      */
     public static function makeObject(string $class, array $items = []): Collection
     {
@@ -80,7 +80,7 @@ trait RestrictedTrait
      * Validate Collection, throw InvalidArgumentException if any data is invalid.
      *
      * @return Collection
-     * @throws \Tool\Exceptions\Error
+     * @throws \Tool\Validation\Exceptions\ValidationException
      */
     public function assert(): Collection
     {
@@ -184,7 +184,7 @@ trait RestrictedTrait
      * @param  callable $callback
      *
      * @return $this
-     * @throws \Tool\Exceptions\Error
+     * @throws \Tool\Validation\Exceptions\ValidationException
      */
     public function transform(callable $callback): Collection
     {
@@ -200,7 +200,7 @@ trait RestrictedTrait
      * @param  mixed $key = null
      *
      * @return $this
-     * @throws \Tool\Exceptions\Error
+     * @throws \Tool\Validation\Exceptions\ValidationException
      */
     public function prepend($value, $key = null): Collection
     {
@@ -216,7 +216,7 @@ trait RestrictedTrait
      * @param  mixed $value
      *
      * @return void
-     * @throws \Tool\Exceptions\Error
+     * @throws \Tool\Validation\Exceptions\ValidationException
      */
     public function offsetSet($key, $value): void
     {

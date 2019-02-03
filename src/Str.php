@@ -42,9 +42,9 @@ class Str extends \Stringy\Stringy
     /**
      * Explode string into an array.
      */
-    public function explode(string $delimeter): array
+    public function explode(string $delimiter): array
     {
-        return explode($delimeter, $this->get());
+        return explode($delimiter, $this->get());
     }
 
     public function get(): string

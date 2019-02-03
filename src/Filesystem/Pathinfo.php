@@ -84,4 +84,11 @@ class Pathinfo extends SplFileInfo
 
         return $this;
     }
+
+    public function assertExtension(string $extension): self
+    {
+        Assert::fileExtension($this->getPathname(), $extension);
+
+        return $this;
+    }
 }

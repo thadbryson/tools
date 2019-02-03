@@ -282,6 +282,23 @@ class AssertRules extends BaseAssertion
     }
 
     /**
+     * Is $value a valid filepath to an existing file or directory?
+     *
+     * @param        $filepath
+     * @param string $extension
+     * @param string $message = null
+     * @param string $propertyPath = null
+     * @return bool
+     */
+    public static function fileExtension($filepath, string $extension, string $message = null, string $propertyPath = null): bool
+    {
+        static::file($filepath);
+        static::equals(pathinfo($filepath, PATHINFO_EXTENSION), $extension, $message ?? '%s must have extension %s', $propertyPath);
+
+        return true;
+    }
+
+    /**
      * Is $filepath an actual, existing file?
      *
      * @param             $filepath

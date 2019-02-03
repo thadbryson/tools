@@ -12,7 +12,7 @@ use Tool\Validation\Helper;
  * Call assertion rule, return value if the value is valid.
  * If not valid - throw \InvalidArgumentException
  *
- * @method static mixed equals($value, $value2, $message = null, $propertyPath = null)
+ * @method static mixed equals($value, $value2, string $message = null, string $propertyPath = null)
  * @method static mixed eq($value, $value2, string $message = null, string $propertyPath = null)
  * @method static mixed same($value, $value2, string $message = null, string $propertyPath = null)
  * @method static mixed notEq($value1, $value2, string $message = null, string $propertyPath = null)
@@ -101,7 +101,8 @@ use Tool\Validation\Helper;
  * @method static string ipv6($value, $flag = null, string $message = null, string $propertyPath = null)
  * @method static string defined($constant, string $message = null, string $propertyPath = null)
  * @method static string base64($value, string $message = null, string $propertyPath = null)
- * @method static string filepath($value, $message = null, $propertyPath = null)
+ * @method static string filepath($value, string $message = null, string $propertyPath = null)
+ * @method static string fileExtension($value, string $extension, string $message = null, string $propertyPath = null)
  * @method static string notFile($filepath, string $message = null, string $propertyPath = null)
  * @method static string notDirectory($filepath, string $message = null, string $propertyPath = null)
  * @method static string[] allAlnum(mixed $value, string|callable $message = null, string $propertyPath = null)
@@ -191,7 +192,7 @@ use Tool\Validation\Helper;
  * @method static string[] allUuid(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static string[] allVersion(string $version1, string $operator, string $version2, string|callable $message = null, string $propertyPath = null)
  * @method static string[] allWriteable(string $value, string|callable $message = null, string $propertyPath = null)
- * @method static string[] allFilepath($value, $message = null, $propertyPath = null)
+ * @method static string[] allFilepath($value, string $message = null, string $propertyPath = null)
  * @method static bool nullOrAlnum(mixed $value, string|callable $message = null, string $propertyPath = null)
  * @method static bool nullOrBase64(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static bool nullOrBetween(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)
@@ -278,7 +279,7 @@ use Tool\Validation\Helper;
  * @method static null|string nullOrUuid(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static null|string nullOrVersion(string $version1, string $operator, string $version2, string|callable $message = null, string $propertyPath = null)
  * @method static null|string nullOrWriteable(string $value, string|callable $message = null, string $propertyPath = null)
- * @method static null|string nullOrFilepath($value, $message = null, $propertyPath = null)
+ * @method static null|string nullOrFilepath($value, string $message = null, string $propertyPath = null)
  */
 class Assert
 {

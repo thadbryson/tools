@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace Tool\Filesystem;
 
 use SplFileInfo;
+use function fclose;
+use function is_resource;
 
 /**
  * Class File
@@ -13,11 +15,24 @@ use SplFileInfo;
  */
 class File extends Pathinfo
 {
+    /**
+     * @var resource|null
+     */
+    private $fopen;
+
     public function __construct(string $path)
     {
         parent::__construct($path);
 
         $this->assertFile();
+    }
+
+    /**
+     * Closes any open file handles.
+     */
+    public function __destruct()
+    {
+        $this->close();
     }
 
     /**
@@ -36,6 +51,32 @@ class File extends Pathinfo
         Filesystem::ensureFile($path, $contents);
 
         return new static($path);
+    }
+
+    /**
+     * @param string $permissions
+     * @return false|resource
+     */
+    public function open(string $permissions = 'r')
+    {
+        if (is_resource($this->fopen) === false) {
+
+            $this->fopen = fopen($this->getPathname(), $permissions);
+        }
+
+        return $this->fopen;
+    }
+
+    /**
+     * @return $this
+     */
+    public function close()
+    {
+        if (is_resource($this->fopen) === true) {
+            fclose($this->fopen);
+        }
+
+        return $this;
     }
 
     public function save(string $contents, bool $lock = false): int

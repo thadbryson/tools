@@ -6,7 +6,6 @@ namespace Tool\Validation;
 
 use Illuminate\Support\MessageBag;
 use Tool\Exceptions\Error;
-use function json_encode;
 use Tool\Validation\Exceptions\ValidationException;
 
 /**
@@ -49,29 +48,29 @@ class Result
     /**
      * Throw an Exception if there are errors. Otherwise return the data that was validated.
      *
-     * @param string $message = null - Exception message to throw if any.
+     * @param string $message = 'Invalid data found.' - Exception message to throw if any.
      * @param int    $code = 400  - Exception code to throw if any.
      *
      * @return bool
-     * @throws Error
+     * @throws ValidationException
      */
-    public function assert(string $message = null, int $code = 400): bool
+    public function assert(string $message = 'Invalid data found.', int $code = 400): bool
     {
         if ($this->errors->isNotEmpty()) {
-            $this->throw($message ?? 'An Error has occured.', $code);
+            $this->throw($message, $code);
         }
 
         return true;
     }
 
     /**
-     * @param string $message = null
+     * @param string $message = 'Invalid data found.'
      * @param int    $code = 400
      *
      * @return void
      * @throws ValidationException
      */
-    public function throw(string $message = null, int $code = 400): void
+    public function throw(string $message = 'Invalid data found.', int $code = 400): void
     {
         throw new ValidationException($this->getErrors(), $message, $code);
     }

@@ -10,34 +10,16 @@ use Tool\Validation\Assert;
 use function json_decode;
 use function json_last_error;
 use function strlen;
-use function Tool\Functions\String\money;
-use function Tool\Functions\String\money_international;
 use const JSON_ERROR_NONE;
 
 /**
  * Class Str
+ *
  */
 class Str extends \Stringy\Stringy
 {
     use StrTraits\BooleanTraits,
         StrTraits\StaticMakeTrait;
-
-    /**
-     * Call any Str method statically.
-     *
-     * @param string $method
-     * @param array  $arguments
-     * @return string
-     */
-    public static function __callStatic(string $method, array $arguments): string
-    {
-        $str = Arr::removeFirst($arguments);
-
-        Assert::string($str, sprintf('%s::%s() expects first argument to ge a string.', static::class, $method));
-        Assert::methodExists($method, static::class);
-
-        return static::make($str)->{$method}(...$arguments);
-    }
 
     /**
      * Explode string into an array.
@@ -50,6 +32,24 @@ class Str extends \Stringy\Stringy
     public function get(): string
     {
         return $this->__toString();
+    }
+
+    public function swapLeft(string $substr, string $replace): self
+    {
+        if ($this->startsWith($substr) === false) {
+            return $this;
+        }
+
+        return $this
+            ->removeLeft($substr)
+            ->prepend($replace);
+    }
+
+    public function swapRight(string $substr, string $replace): self
+    {
+        return $this
+            ->removeRight($substr)
+            ->append($replace);
     }
 
     public function beforeSubstr(string $substr, int $offset = 0): self
@@ -98,16 +98,6 @@ class Str extends \Stringy\Stringy
         return $this->getAsMethod('get', $append);
     }
 
-    private function getAsMethod(string $prepend, string $append): self
-    {
-        return $this->replace('_', ' ')
-            ->prepend($prepend . ' ')
-            ->append(' ' . $append)
-            ->titleize()
-            ->lowerCaseFirst()
-            ->replace(' ', '');
-    }
-
     public function setter(string $append = ''): self
     {
         return $this->getAsMethod('set', $append);
@@ -142,5 +132,15 @@ class Str extends \Stringy\Stringy
     public function moneyInternational(string $locale = 'en_US'): self
     {
         return $this->money($locale, '%i');
+    }
+
+    protected function getAsMethod(string $prepend, string $append): self
+    {
+        return $this->replace('_', ' ')
+            ->prepend($prepend . ' ')
+            ->append(' ' . $append)
+            ->titleize()
+            ->lowerCaseFirst()
+            ->replace(' ', '');
     }
 }

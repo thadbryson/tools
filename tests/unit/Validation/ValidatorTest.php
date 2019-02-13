@@ -58,24 +58,24 @@ class ValidatorTest extends \Codeception\Test\Unit
     {
         $result = Validator::single(null, 'required|integer|min:5', $this->messages);
 
-        $this->tester->testValidationResult($result, [
+        $this->tester->assertValidationResult($result, [
             'data' => ['Data is always necessary.'],
         ]);
 
         $result = Validator::single(10, 'required|integer|min:5:max10', $this->messages);
 
-        $this->tester->testValidationSuccess($result);
+        $this->tester->assertValidationSuccess($result);
     }
 
     public function testValidate(): void
     {
         $result = Validator::validate($this->data, $this->rules, $this->messages, $this->customAttributes);
 
-        $this->tester->testValidationSuccess($result);
+        $this->tester->assertValidationSuccess($result);
 
         $result = Validator::validate($this->data, []);
 
-        $this->tester->testValidationSuccess($result);
+        $this->tester->assertValidationSuccess($result);
 
         // $messages for "string" and "required" will show.
         $this->rules['id'] = 'string';
@@ -83,7 +83,7 @@ class ValidatorTest extends \Codeception\Test\Unit
 
         $result = Validator::validate($this->data, $this->rules, $this->messages, $this->customAttributes);
 
-        $this->tester->testValidationResult($result, [
+        $this->tester->assertValidationResult($result, [
             'id'        => ['id must be a valid UTF-8 string.'],
             'is_active' => ['Active is always necessary.'],
         ]);

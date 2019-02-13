@@ -30,8 +30,8 @@ class KeyMethodsTraitTest extends \Codeception\Test\Unit
             'some' => [
                 'addr'    => 101,
                 'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny']
-            ]
+                'friends' => ['Tom', 'Tina', 'Jenny'],
+            ],
         ]);
     }
 
@@ -44,7 +44,7 @@ class KeyMethodsTraitTest extends \Codeception\Test\Unit
             'some.zip'       => 20000,
             'some.friends.0' => 'Tom',
             'some.friends.1' => 'Tina',
-            'some.friends.2' => 'Jenny'
+            'some.friends.2' => 'Jenny',
         ], $this->coll->dot());
 
         $this->tester->assertArr([
@@ -54,7 +54,7 @@ class KeyMethodsTraitTest extends \Codeception\Test\Unit
             'pre_some.zip'       => 20000,
             'pre_some.friends.0' => 'Tom',
             'pre_some.friends.1' => 'Tina',
-            'pre_some.friends.2' => 'Jenny'
+            'pre_some.friends.2' => 'Jenny',
         ], $this->coll->dot('pre_'));
     }
 
@@ -67,7 +67,7 @@ class KeyMethodsTraitTest extends \Codeception\Test\Unit
             'some.zip'       => 20000,
             'some.friends.0' => 'Tom',
             'some.friends.1' => 'Tina',
-            'some.friends.2' => 'Jenny'
+            'some.friends.2' => 'Jenny',
         ], $this->coll->dot());
 
         $this->tester->assertArr([
@@ -76,8 +76,8 @@ class KeyMethodsTraitTest extends \Codeception\Test\Unit
             'some' => [
                 'addr'    => 101,
                 'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny']
-            ]
+                'friends' => ['Tom', 'Tina', 'Jenny'],
+            ],
         ], $this->coll->undot());
     }
 }

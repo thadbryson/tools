@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Traits\Str;
 
+use Tool\Str;
+use UnitTester;
 use const M_PI;
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
-use Tool\Str;
-use UnitTester;
 
 class BooleanTraitsTest extends \Codeception\Test\Unit
 {

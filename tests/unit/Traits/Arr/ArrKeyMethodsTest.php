@@ -18,8 +18,8 @@ class ArrKeyMethodsTest extends \Codeception\Test\Unit
         'name' => 2,
         'some' => [
             'person' => '',
-            'other'  => 'maybe'
-        ]
+            'other'  => 'maybe',
+        ],
     ];
 
     public function testUndot(): void
@@ -28,14 +28,14 @@ class ArrKeyMethodsTest extends \Codeception\Test\Unit
             'id'          => 1,
             'name'        => 2,
             'some.person' => '',
-            'some.other'  => 'maybe'
+            'some.other'  => 'maybe',
         ]));
 
         $this->assertEquals($this->original, Arr::undot([
             'what.id'          => 1,
             'what.name'        => 2,
             'what.some.person' => '',
-            'what.some.other'  => 'maybe'
+            'what.some.other'  => 'maybe',
         ], 'what.'));
     }
 
@@ -47,7 +47,7 @@ class ArrKeyMethodsTest extends \Codeception\Test\Unit
             'id'          => 1,
             'name'        => 2,
             'some.person' => '',
-            'some.other'  => 'maybe'
+            'some.other'  => 'maybe',
         ]));
     }
 

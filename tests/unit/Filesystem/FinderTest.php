@@ -54,6 +54,15 @@ class FinderTest extends \Codeception\Test\Unit
         Finder::make()->setFileInfoClass(DateTime::class);
     }
 
+    public function testGetIterator(): void
+    {
+        $finder = Finder::make(...$this->directories);
+        $this->checkIteratorAndArray($finder, Pathinfo::class);
+
+        $finder->setFileInfoClass(SplFileInfo::class);
+        $this->checkIteratorAndArray($finder, SplFileInfo::class);
+    }
+
     protected function checkIteratorAndArray(Finder $finder, string $splClass): void
     {
         $result = $finder->toArray();
@@ -74,14 +83,5 @@ class FinderTest extends \Codeception\Test\Unit
         }
 
         $this->assertEquals(count($result), $count, 'Iterator / array counts did not match.');
-    }
-
-    public function testGetIterator(): void
-    {
-        $finder = Finder::make(...$this->directories);
-        $this->checkIteratorAndArray($finder, Pathinfo::class);
-
-        $finder->setFileInfoClass(SplFileInfo::class);
-        $this->checkIteratorAndArray($finder, SplFileInfo::class);
     }
 }

@@ -23,7 +23,7 @@ class ExtendedRulesTest extends \Codeception\Test\Unit
     private $rules = [
         'type'   => 'required|class_exists',
         'method' => 'required|method_exists:' . UserStub::class,
-        'static' => 'required|method_exists:' . UserStub::class
+        'static' => 'required|method_exists:' . UserStub::class,
     ];
 
     public function testExtendedRules(): void
@@ -34,27 +34,27 @@ class ExtendedRulesTest extends \Codeception\Test\Unit
         $this->assertTrue(method_exists(UserStub::class, 'myMethod'));
         $this->assertTrue(method_exists(UserStub::class, 'myStaticMethod'));
 
-        $this->tester->testValidationResult($result, []);
+        $this->tester->assertValidationResult($result, []);
 
         // Test a failure.
         $result = Validator::validate([
             'type'   => UserStub::class . 'Nope',
             'method' => '_myMethod',
-            'static' => '_myStaticMethod'
+            'static' => '_myStaticMethod',
         ], [
             'type'   => 'required|class_exists',
             'method' => 'required|method_exists:' . UserStub::class,
-            'static' => 'required|method_exists:' . UserStub::class
+            'static' => 'required|method_exists:' . UserStub::class,
         ]);
 
         $this->assertFalse(class_exists(UserStub::class . 'Nope'));
         $this->assertFalse(method_exists(UserStub::class, '_myMethod'));
         $this->assertFalse(method_exists(UserStub::class, '_myStaticMethod'));
 
-        $this->tester->testValidationResult($result, [
+        $this->tester->assertValidationResult($result, [
             'type'   => ['The type class does not exist.'],
             'method' => ['The method method does not exist on this class.'],
-            'static' => ['The static method does not exist on this class.']
+            'static' => ['The static method does not exist on this class.'],
         ]);
     }
 
@@ -65,14 +65,14 @@ class ExtendedRulesTest extends \Codeception\Test\Unit
             ['datetime' => 'object:' . \DateTime::class]
         );
 
-        $this->tester->testValidationResult($result, []);
+        $this->tester->assertValidationResult($result, []);
 
         $result = Validator::validate(
             ['datetime' => new \ReflectionClass(\DateTime::class)],
             ['datetime' => 'object:' . \DateTime::class]);
 
-        $this->tester->testValidationResult($result, [
-            'datetime' => ['The datetime is not a valid object.']
+        $this->tester->assertValidationResult($result, [
+            'datetime' => ['The datetime is not a valid object.'],
         ]);
     }
 }

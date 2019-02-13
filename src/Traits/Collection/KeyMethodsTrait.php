@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Tool\Traits\Collection;
 
-use InvalidArgumentException;
 use Tool\Arr;
 use Tool\Collection;
 use function array_combine;
@@ -69,7 +68,7 @@ trait KeyMethodsTrait
     /**
      * Use row as a header.
      *
-     * @param int  $offset = 0
+     * @param int $offset = 0
      * @return Collection
      */
     public function mapHeader(int $offset = 0): Collection

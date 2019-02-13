@@ -107,24 +107,6 @@ class AssertRules extends BaseAssertion
     }
 
     /**
-     * Helper method that handles building the assertion failure exceptions.
-     * They are returned from this method so that the stack trace still shows
-     * the assertions method.
-     *
-     * @param mixed           $value
-     * @param string|callable $message
-     * @param int             $code
-     * @param string|null     $propertyPath
-     * @param array           $constraints
-     *
-     * @return mixed
-     */
-    protected static function createException($value, $message, $code, $propertyPath = null, array $constraints = [])
-    {
-        return parent::createException($value, $message, 400, $propertyPath, $constraints);
-    }
-
-    /**
      * Value is of type of class in array $type.
      *
      * @param array    $values
@@ -292,8 +274,10 @@ class AssertRules extends BaseAssertion
      */
     public static function fileExtension($filepath, string $extension, string $message = null, string $propertyPath = null): bool
     {
+        $extension = ltrim($extension, '.');
+
         static::file($filepath);
-        static::equals(pathinfo($filepath, PATHINFO_EXTENSION), $extension, $message ?? '%s must have extension %s', $propertyPath);
+        static::eq(pathinfo($filepath, PATHINFO_EXTENSION), $extension, $message ?? '%s must have extension %s', $propertyPath);
 
         return true;
     }
@@ -342,6 +326,24 @@ class AssertRules extends BaseAssertion
         }
 
         return true;
+    }
+
+    /**
+     * Helper method that handles building the assertion failure exceptions.
+     * They are returned from this method so that the stack trace still shows
+     * the assertions method.
+     *
+     * @param mixed           $value
+     * @param string|callable $message
+     * @param int             $code
+     * @param string|null     $propertyPath
+     * @param array           $constraints
+     *
+     * @return mixed
+     */
+    protected static function createException($value, $message, $code, $propertyPath = null, array $constraints = [])
+    {
+        return parent::createException($value, $message, 400, $propertyPath, $constraints);
     }
 
     protected static function typeString($value): string

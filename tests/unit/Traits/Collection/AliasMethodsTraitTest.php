@@ -29,8 +29,8 @@ class AliasMethodsTraitTest extends \Codeception\Test\Unit
             'some' => [
                 'addr'    => 101,
                 'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny']
-            ]
+                'friends' => ['Tom', 'Tina', 'Jenny'],
+            ],
         ]);
     }
 
@@ -46,10 +46,10 @@ class AliasMethodsTraitTest extends \Codeception\Test\Unit
             'some' => [
                 'addr'    => 101,
                 'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny']
+                'friends' => ['Tom', 'Tina', 'Jenny'],
             ],
             1,
-            2
+            2,
         ], $this->coll);
     }
 
@@ -65,9 +65,9 @@ class AliasMethodsTraitTest extends \Codeception\Test\Unit
             'some' => [
                 'addr'    => 101,
                 'zip'     => 20000,
-                'friends' => ['Tom', 'Tina', 'Jenny', 'another' => 'Buddy']
+                'friends' => ['Tom', 'Tina', 'Jenny', 'another' => 'Buddy'],
             ],
-            'what' => null
+            'what' => null,
         ], $this->coll);
     }
 
@@ -77,8 +77,8 @@ class AliasMethodsTraitTest extends \Codeception\Test\Unit
             'code' => 'abc',
             'some' => [
                 'addr'    => 101,
-                'friends' => ['Tom', 'Tina']
-            ]
+                'friends' => ['Tom', 'Tina'],
+            ],
         ], $this->coll->remove('id', 'some.zip', 'some.friends.2'));
     }
 
@@ -93,7 +93,7 @@ class AliasMethodsTraitTest extends \Codeception\Test\Unit
         $this->assertEquals([
             'addr'    => 101,
             'zip'     => 20000,
-            'friends' => ['Tom', 'Tina', 'Jenny']
+            'friends' => ['Tom', 'Tina', 'Jenny'],
         ], $this->coll->removeLast());
 
         $this->assertEquals('abc', $this->coll->removeLast());

@@ -52,15 +52,6 @@ class Validator
         return new Result($validator->messages());
     }
 
-    private static function getFactory(): Factory
-    {
-        if (static::$factory === null) {
-            static::setFactory();
-        }
-
-        return static::$factory;
-    }
-
     public static function setFactory(string $directory = __DIR__ . '/../../lang', string $language = 'en'): void
     {
         $directory = rtrim($directory, '/');
@@ -77,6 +68,15 @@ class Validator
         $factory = new Factory($translator, new Container);
 
         static::$factory = static::attachRules($factory);
+    }
+
+    private static function getFactory(): Factory
+    {
+        if (static::$factory === null) {
+            static::setFactory();
+        }
+
+        return static::$factory;
     }
 
     private static function attachRules(Factory $factory): Factory

@@ -7,6 +7,7 @@ namespace Tool\Filesystem;
 use ArrayIterator;
 use Iterator;
 use SplFileInfo;
+use Tool\Collection;
 use Tool\Validation\Assert;
 use function iterator_to_array;
 
@@ -38,14 +39,19 @@ class Finder extends \Symfony\Component\Finder\Finder
 
     public function in($dirs): self
     {
-        $resolvedDirs = array();
+        $resolvedDirs = [];
 
         foreach ((array) $dirs as $dir) {
+
+            $glob = glob($dir, (\defined('GLOB_BRACE') ? GLOB_BRACE : 0) | GLOB_ONLYDIR);
+
             if (is_dir($dir)) {
                 $resolvedDirs[] = $dir;
-            } elseif ($glob = glob($dir, (\defined('GLOB_BRACE') ? GLOB_BRACE : 0) | GLOB_ONLYDIR)) {
-                $resolvedDirs = array_merge($resolvedDirs, array_map(array($this, 'normalizeDir'), $glob));
-            } else {
+            }
+            elseif ($glob) {
+                $resolvedDirs = array_merge($resolvedDirs, array_map([$this, 'normalizeDir'], $glob));
+            }
+            else {
                 throw new \InvalidArgumentException(sprintf('The "%s" directory does not exist.', $dir));
             }
         }
@@ -91,5 +97,10 @@ class Finder extends \Symfony\Component\Finder\Finder
     public function toArray(): array
     {
         return iterator_to_array($this->getIterator());
+    }
+
+    public function toCollection(): Collection
+    {
+        return new Collection($this->toArray());
     }
 }

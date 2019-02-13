@@ -48,6 +48,21 @@ class JsonClient
     }
 
     /**
+     * Decode JSON from an HTTP Response.
+     *
+     * @param ResponseInterface $response
+     * @param int               $options
+     *
+     * @return array
+     */
+    public static function jsonDecode(ResponseInterface $response, int $options = 0): array
+    {
+        $contents = $response->getBody()->getContents();
+
+        return json_decode($contents, true, 512, $options);
+    }
+
+    /**
      * Has a Request been made on this Client?
      *
      * @return bool
@@ -127,21 +142,6 @@ class JsonClient
     public function getBaseUri(): string
     {
         return $this->client->getConfig()['base_uri'] ?? '';
-    }
-
-    /**
-     * Decode JSON from an HTTP Response.
-     *
-     * @param ResponseInterface $response
-     * @param int               $options
-     *
-     * @return array
-     */
-    public static function jsonDecode(ResponseInterface $response, int $options = 0): array
-    {
-        $contents = $response->getBody()->getContents();
-
-        return json_decode($contents, true, 512, $options);
     }
 
     public function post(string $uri, array $options = []): array

@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Validation;
 
+use Carbon\Carbon;
+use DateTime;
 use Tool\Validation\Assert;
 use Tool\Validation\Helper;
 use function get_class;
@@ -94,15 +96,22 @@ class AssertTest extends \Codeception\Test\Unit
     {
         return [
             ['equals', '', ''],
+            ['stringNotEmpty', ' '],
+            ['stringNotEmpty', 'test'],
             ['oneOfAType', 1, ['int', 'string', 'bool']],
             ['allOfAnyType', [1.0, 'string'], ['int', 'float', 'string', 'array']],
             ['inArray', '', [1, 2, true, null, false, '']],
             ['notInArray', '', [1, 2, 3, null]],
             ['dotKeyExists', '0.2', [[1, 2, 3], 'a', 'b', 'c']],
             ['notDotKeyExists', 'id', [1, 2, 3]],
+            ['isSubclassOf', Carbon::class, DateTime::class],
+            ['isSubclassOf', DateTime::class, DateTime::class],
             ['classOrObject', \DateTime::class],
             ['methodExists', 'format', new \DateTime],
             ['classOrObject', new \DateTime('2015-01-20')],
+            ['fileExtension', __FILE__, 'php'],
+            ['fileExtension', __FILE__, '.php'],
+            ['fileExtension', __FILE__, 'php'],
         ];
     }
 
@@ -132,16 +141,19 @@ class AssertTest extends \Codeception\Test\Unit
             ['equals', true, false],
             ['equals', [1, 2, 3], []],
             ['equals', '', new \DateTime],
+            ['stringNotEmpty', ''],
             ['oneOfAType', [], ['integer', 'string', 'bool']],
             ['allOfAnyType', [1.0, 'string'], ['integer', 'array']],
             ['inArray', 'nope', [1, 2, true, null, false, '']],
             ['notInArray', 1, [1, 2, 3]],
             ['dotKeyExists', '0.5', [[1, 2, 3], 'a', 'b', 'c']],
             ['notDotKeyExists', '0', [1, 2, 3]],
+            ['isSubclassOf', DateTime::class, Carbon::class],
             ['classOrObject', '\\NotAClass'],
             ['classOrObject', 1],
             ['methodExists', 'format ', \DateTime::class],
             ['methodExists', 1, \DateTime::class . 'nah'],
+            ['fileExtension', 'word.txt', 'pdf'],
         ];
     }
 

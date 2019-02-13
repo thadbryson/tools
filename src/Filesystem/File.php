@@ -28,14 +28,6 @@ class File extends Pathinfo
     }
 
     /**
-     * Closes any open file handles.
-     */
-    public function __destruct()
-    {
-        $this->close();
-    }
-
-    /**
      * @param string|SplFileInfo $path
      * @return File
      */
@@ -51,6 +43,14 @@ class File extends Pathinfo
         Filesystem::ensureFile($path, $contents);
 
         return new static($path);
+    }
+
+    /**
+     * Closes any open file handles.
+     */
+    public function __destruct()
+    {
+        $this->close();
     }
 
     /**

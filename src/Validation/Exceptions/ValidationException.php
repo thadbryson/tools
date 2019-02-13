@@ -6,6 +6,7 @@ namespace Tool\Validation\Exceptions;
 
 use Exception;
 use Illuminate\Support\MessageBag;
+use Tool\Environment;
 
 /**
  * Class ValidationException
@@ -23,9 +24,11 @@ class ValidationException extends Exception
 
     public function __construct(array $errors, string $message = null, int $code = 400)
     {
-        parent::__construct($message ?? 'Validation errors have been found.', $code);
-
         $this->errors = new MessageBag($errors);
+
+        $message = $this->makeMessage($message);
+
+        parent::__construct($message, $code);
     }
 
     public function getErrorBag(): MessageBag
@@ -36,5 +39,18 @@ class ValidationException extends Exception
     public function getErrors(): array
     {
         return $this->errors->messages();
+    }
+
+    private function makeMessage(?string $message): string
+    {
+        $message = $message ?? 'Validation errors have been found.';
+
+        // List errors if on command line and there are errors.
+        if (Environment::isCommandLine() === true && $this->errors->count() > 0) {
+
+            $message .= "\n\nErrors: \n" . implode("\n- ", $this->errors->all()) . "\n";
+        }
+
+        return $message;
     }
 }

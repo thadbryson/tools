@@ -24,19 +24,19 @@ class RestrictedTraitTest extends \Codeception\Test\Unit
 
     private $rules = [
         'id'   => 'required|integer',
-        'what' => 'required|string'
+        'what' => 'required|string',
     ];
 
     private $rulesEach = [
         '*.id'   => 'required|integer',
-        '*.what' => 'required|string'
+        '*.what' => 'required|string',
     ];
 
     private $messages = [
         'id'   => [
-            'required' => ':attiribute is needed here.'
+            'required' => ':attiribute is needed here.',
         ],
-        'what' => 'required|string'
+        'what' => 'required|string',
     ];
 
     private $customAttributes = [
@@ -47,7 +47,7 @@ class RestrictedTraitTest extends \Codeception\Test\Unit
     {
         $this->coll = new Collection([
             'id'   => 10,
-            'what' => 'me'
+            'what' => 'me',
         ]);
 
         $this->coll->setRules($this->rules);
@@ -105,21 +105,21 @@ class RestrictedTraitTest extends \Codeception\Test\Unit
         $this->tester->expectThrowable(ValidationException::class, function () {
 
             $this->coll->setRules(['id' => 'string'])
-                       ->assert();
+                ->assert();
         });
     }
 
     public function testTransform(): void
     {
         $this->coll->setRulesToEach()
-                   ->transform(function () {
+            ->transform(function () {
 
-                       return ['id' => 4, 'what' => '??????'];
-                   });
+                return ['id' => 4, 'what' => '??????'];
+            });
 
         $this->tester->assertRestrictedCollection([
             'id'   => ['id' => 4, 'what' => '??????'],
-            'what' => ['id' => 4, 'what' => '??????']
+            'what' => ['id' => 4, 'what' => '??????'],
         ], $this->coll);
     }
 
@@ -128,13 +128,13 @@ class RestrictedTraitTest extends \Codeception\Test\Unit
         $this->coll
             ->setRulesToEach()
             ->reset([
-                ['id' => 2, 'what' => 'a']
+                ['id' => 2, 'what' => 'a'],
             ])
             ->prepend(['id' => 1, 'what' => 'something']);
 
         $this->tester->assertRestrictedCollection([
             ['id' => 1, 'what' => 'something'],
-            ['id' => 2, 'what' => 'a']
+            ['id' => 2, 'what' => 'a'],
         ], $this->coll);
     }
 
@@ -145,7 +145,7 @@ class RestrictedTraitTest extends \Codeception\Test\Unit
         $this->tester->assertRestrictedCollection([
             'id'   => 10,
             'what' => 'me',
-            ['id' => 3, 'what' => 'B']
+            ['id' => 3, 'what' => 'B'],
         ], $this->coll);
     }
 }

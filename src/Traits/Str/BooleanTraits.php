@@ -4,13 +4,10 @@ declare(strict_types = 1);
 
 namespace Tool\Traits\Str;
 
-use function is_numeric;
 use Tool\Str;
-use Tool\Validation\Assert;
-use function Tool\Functions\String\is_json;
-use function Tool\Functions\String\is_numeric_float;
-use function Tool\Functions\String\is_numeric_int;
-use function Tool\Functions\String\is_timezone;
+use function is_float;
+use function is_int;
+use function is_numeric;
 
 /**
  * Trait BooleanTraits
@@ -21,13 +18,9 @@ trait BooleanTraits
 {
     public function isJson(): bool
     {
-        if (is_string($this->get())) {
-            json_decode($this->get());
+        json_decode($this->get());
 
-            return json_last_error() === JSON_ERROR_NONE;
-        }
-
-        return false;
+        return json_last_error() === JSON_ERROR_NONE;
     }
 
     public function isEmpty(): bool
@@ -73,11 +66,9 @@ trait BooleanTraits
      */
     public function isNumericInt(): bool
     {
-        if (is_int($this->get())) {
-            return true;
-        }
+        $str = $this->get();
 
-        return is_string($this->get()) && is_numeric($this->get()) && strpos($this->get(), '.') === false;
+        return is_int($str) || (is_string($str) && is_numeric($str) && strpos($str, '.') === false);
     }
 
     /**
@@ -85,10 +76,8 @@ trait BooleanTraits
      */
     public function isNumericFloat(): bool
     {
-        if (is_float($this->get())) {
-            return true;
-        }
+        $str = $this->get();
 
-        return is_string($this->get()) && is_numeric($this->get()) && strpos($this->get(), '.') !== false;
+        return is_float($str) || (is_string($str) && is_numeric($str) && strpos($str, '.') !== false);
     }
 }

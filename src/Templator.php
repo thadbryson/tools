@@ -41,13 +41,6 @@ class Templator
         return static::make($contents, $vars);
     }
 
-    protected static function readTemplate(string $templateFilepath): string
-    {
-        $contents = file_get_contents($templateFilepath);
-
-        return Assert::string($contents, sprintf('Could not read template file %s.', $templateFilepath));
-    }
-
     /**
      * Get compiled string.
      */
@@ -79,5 +72,12 @@ class Templator
     public static function setEngine($engine): void
     {
         static::$engine = $engine;
+    }
+
+    protected static function readTemplate(string $templateFilepath): string
+    {
+        $contents = file_get_contents($templateFilepath);
+
+        return Assert::string($contents, sprintf('Could not read template file %s.', $templateFilepath));
     }
 }

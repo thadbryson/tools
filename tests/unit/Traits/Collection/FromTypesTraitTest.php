@@ -28,21 +28,21 @@ class FromTypesTraitTest extends \Codeception\Test\Unit
         $this->request = new Request(
             [
                 // GET vars
-                'q' => 'some'
+                'q' => 'some',
             ],
             [
                 // POST vars
                 'form' => [
                     'namem' => 'Person 1',
-                    'type'  => 'Admin'
-                ]
+                    'type'  => 'Admin',
+                ],
             ],
             [],
             [],
             [],
             [
                 // SERVER vars
-                'REQUEST_METHOD' => 'POST'
+                'REQUEST_METHOD' => 'POST',
             ]
         );
     }
@@ -53,16 +53,16 @@ class FromTypesTraitTest extends \Codeception\Test\Unit
             'q'    => 'some',
             'form' => [
                 'namem' => 'Person 1',
-                'type'  => 'Admin'
-            ]
+                'type'  => 'Admin',
+            ],
         ], $this->request->input());
 
         $this->tester->assertArr([
             'q'    => 'some',
             'form' => [
                 'namem' => 'Person 1',
-                'type'  => 'Admin'
-            ]
+                'type'  => 'Admin',
+            ],
         ], Collection::fromRequest($this->request));
     }
 
@@ -72,8 +72,8 @@ class FromTypesTraitTest extends \Codeception\Test\Unit
             'q'    => 'some',
             'form' => [
                 'namem' => 'Person 1',
-                'type'  => 'Admin'
-            ]
+                'type'  => 'Admin',
+            ],
         ], Collection::make()->loadRequest($this->request));
     }
 

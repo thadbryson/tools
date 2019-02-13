@@ -50,7 +50,7 @@ class Cast
      */
     public static function cast($value, string $type)
     {
-        if ($value === null) {
+        if ($value === null || $type === '') {
             return null;
         }
 

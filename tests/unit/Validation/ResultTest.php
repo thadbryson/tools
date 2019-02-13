@@ -51,15 +51,15 @@ class ResultTest extends \Codeception\Test\Unit
         $success = Result::fromArray([]);
         $failure = Result::fromArray(['some' => ['whatever']]);
 
-        $this->tester->testValidationResult($success, []);
-        $this->tester->testValidationResult($failure, ['some' => ['whatever']]);
+        $this->tester->assertValidationResult($success, []);
+        $this->tester->assertValidationResult($failure, ['some' => ['whatever']]);
     }
 
     public function testStaticSuccess(): void
     {
         $success = Result::success();
 
-        $this->tester->testValidationResult($success, []);
+        $this->tester->assertValidationResult($success, []);
     }
 
     public function testAssert(): void
@@ -100,7 +100,7 @@ class ResultTest extends \Codeception\Test\Unit
 
     public function testIsSuccess(): void
     {
-        $this->tester->testValidationResult($this->success, []);
+        $this->tester->assertValidationResult($this->success, []);
 
         $this->assertTrue($this->success->isSuccess());
         $this->assertFalse($this->failure->isSuccess());
@@ -108,7 +108,7 @@ class ResultTest extends \Codeception\Test\Unit
 
     public function testIsFailure(): void
     {
-        $this->tester->testValidationResult($this->failure, $this->failureMessages);
+        $this->tester->assertValidationResult($this->failure, $this->failureMessages);
 
         $this->assertFalse($this->success->isFailure());
         $this->assertTrue($this->failure->isFailure());

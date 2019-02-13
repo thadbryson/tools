@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tool\Validation;
 
+use Assert\AssertionChain;
 use Tool\Validation\Helper;
 
 /**
@@ -66,7 +67,7 @@ use Tool\Validation\Helper;
  * @method static string email($value, string $message = null, string $propertyPath = null)
  * @method static string url($value, string $message = null, string $propertyPath = null)
  * @method static string alnum($value, string $message = null, string $propertyPath = null)
- * @method static true true($value, string $message = null, string $propertyPath = null)
+ * @method static bool true($value, string $message = null, string $propertyPath = null)
  * @method static false false($value, string $message = null, string $propertyPath = null)
  * @method static string classExists($value, string $message = null, string $propertyPath = null)
  * @method static string interfaceExists($value, string $message = null, string $propertyPath = null)
@@ -289,5 +290,20 @@ class Assert
 
         // Return passed in value.
         return array_shift($arguments);
+    }
+
+    public static function that($value, string $message = null, string $propertyPath = null): AssertionChain
+    {
+        return \Assert\Assert::that($value, $message, $propertyPath);
+    }
+
+    public static function thatAll($value, string $message = null, string $propertyPath = null): AssertionChain
+    {
+        return \Assert\Assert::thatAll($value, $message, $propertyPath);
+    }
+
+    public static function thatNullOr($value, string $message = null, string $propertyPath = null): AssertionChain
+    {
+        return \Assert\Assert::thatNullOr($value, $message, $propertyPath);
     }
 }

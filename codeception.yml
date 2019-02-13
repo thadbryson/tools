@@ -15,4 +15,3 @@ coverage:
     enabled: true
     include:
         - src/*
-        - src-functions/*

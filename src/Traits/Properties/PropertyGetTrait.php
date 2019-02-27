@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace Tool\Traits\Properties;
 
 use InvalidArgumentException;
+use Tool\StrStatic;
 use function array_key_exists;
+use function method_exists;
 
 trait PropertyGetTrait
 {
@@ -36,18 +38,30 @@ trait PropertyGetTrait
 
     protected function propertyGet(string $name, $default = null)
     {
-        return $this->traitProperties[$name] ?? $default;
+        $value = $this->traitProperties[$name] ?? $default;
+
+        $getter = StrStatic::getter($name);
+
+        if (method_exists($this, $getter)) {
+            return $this->{$getter}($value);
+        }
+
+        return $value;
     }
 
     protected function propertyHas(string $name)
     {
+        if (method_exists($this, StrStatic::getter($name))) {
+            return true;
+        }
+
         return array_key_exists($name, $this->traitProperties) === true;
     }
 
     protected function propertyAssert(string $name)
     {
         if ($this->propertyHas($name) === false) {
-            throw new InvalidArgumentException(sprintf('Property %s not found on class %s.', $name, static::class), 500);
+            throw new InvalidArgumentException(sprintf('Property %s not found on decorator %s.', $name, static::class), 500);
         }
 
         return $this->propertyGet($name);

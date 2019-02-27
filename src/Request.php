@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tool;
 
+use Tool\Validation\Assert;
 use Tool\Validation\Result;
 use Tool\Validation\Validator;
 
@@ -12,6 +13,19 @@ use Tool\Validation\Validator;
  */
 class Request extends \Illuminate\Http\Request
 {
+    /**
+     * @param string $dot
+     * @return array
+     */
+    public static function findOrFail(string $dot): array
+    {
+        $request = Request::capture();
+
+        Assert::true($request->has($dot), sprintf('Form key "%s" not submitted.', $dot));
+
+        return $request->input($dot);
+    }
+
     /**
      * Is the current Request coming from a mobile device?
      * From: http://detectmobilebrowsers.com/

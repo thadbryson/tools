@@ -6,6 +6,8 @@ namespace Tool;
 
 use Tool\Traits\Collection as CollectionTraits;
 use function array_walk_recursive;
+use function is_object;
+use function method_exists;
 
 /**
  * Collection Class
@@ -16,6 +18,8 @@ use function array_walk_recursive;
  */
 class Collection extends \Illuminate\Support\Collection
 {
+    public const MAP_KEY = '@key';
+
     use CollectionTraits\AliasMethodsTrait,
         CollectionTraits\FromTypesTrait,
         CollectionTraits\KeyMethodsTrait,
@@ -181,5 +185,25 @@ class Collection extends \Illuminate\Support\Collection
         $this->items = Arr::trimAll($this->items, $chars);
 
         return $this;
+    }
+
+    public function saveAll(): Collection
+    {
+        return $this->each(function ($model) {
+
+            if (is_object($model) && method_exists($model, 'save')) {
+                $model->save();
+            }
+        });
+    }
+
+    public function deleteAllModels(): Collection
+    {
+        return $this->each(function ($model) {
+
+            if (is_object($model) && method_exists($model, 'delete')) {
+                $model->delete();
+            }
+        });
     }
 }

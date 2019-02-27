@@ -94,8 +94,8 @@ use Tool\Validation\Assert;
  * @method static string[] explode(string $str, string $delimiter, string $encoding = null)
  * @method static string beforeSubstr(string $str, string $substr, int $offset = 0, string $encoding = null)
  * @method static string afterSubstr(string $str, string $substr, int $offset = 0, string $encoding = null)
- * @method static string jsonDecode(string $str, string $encoding = null)
- * @method static string jsonDecodeOptions(string $str, bool $assoc = false, int $options = 0, int $depth = 512, string $encoding = null)
+ * @method static mixed jsonDecode(string $str, string $encoding = null)
+ * @method static mixed jsonDecodeOptions(string $str, bool $assoc = false, int $options = 0, int $depth = 512, string $encoding = null)
  * @method static string plural(string $str, int $count = 2, string $encoding = null)
  * @method static string getter(string $str, string $append = '', string $encoding = null)
  * @method static string setter(string $str, string $append = '', string $encoding = null)
@@ -103,6 +103,7 @@ use Tool\Validation\Assert;
  * @method static string isser(string $str, string $append = '', string $encoding = null)
  * @method static string money(string $str, string $locale = 'en_US', string $format = '%n', string $encoding = null)
  * @method static string moneyInternational(string $str, string $locale = 'en_US', string $encoding = null)
+ * @method static string temperature(string|int|float $temp, bool $fahrenheit = true)
  * @method static string swapLeft(string $str, string $substr, string $replace)
  * @method static string swapRight(string $str, string $substr, string $replace)
  */
@@ -119,7 +120,6 @@ class StrStatic
     {
         $str = Arr::removeFirst($arguments);
 
-        Assert::string($str, sprintf('StrStatic::%s() - first argument must be a string.', $method));
         Assert::methodExists($method, static::class);
 
         $result = Str::make($str)->{$method}(...$arguments);

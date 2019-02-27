@@ -17,7 +17,7 @@ use Tool\Validation\Validator;
 trait ValidationTrait
 {
     /**
-     * Validate the data and return a Result object with any error messages.
+     * Validate the data and return a Mapped object with any error messages.
      *
      * @param array $rules
      * @param array $messages = []

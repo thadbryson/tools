@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace Tool;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
 use function http_build_query;
 use function json_decode;
@@ -23,9 +25,28 @@ class JsonClient
     protected $globalParams = [];
 
     /**
+     * Send form bodies as JSON?
+     *
+     * @var bool
+     */
+    protected $sendJson = false;
+
+    /**
+     * Send requests asynchronously.
+     *
+     * @var bool
+     */
+    protected $sendAsync = false;
+
+    /**
      * @var Client
      */
     protected $client;
+
+    /**
+     * @var string
+     */
+    protected $baseUri;
 
     /**
      * Last URI called.
@@ -33,6 +54,10 @@ class JsonClient
      * @var string
      */
     protected $lastUri = '';
+
+    protected $responseHandler;
+
+    protected $exceptionHandler;
 
     /**
      * JsonClient constructor.
@@ -42,7 +67,7 @@ class JsonClient
      */
     public function __construct(string $baseUri = '', array $config = [])
     {
-        $config['base_uri'] = $baseUri;
+        $this->baseUri = $baseUri;
 
         $this->client = new Client($config);
     }
@@ -59,7 +84,35 @@ class JsonClient
     {
         $contents = $response->getBody()->getContents();
 
-        return json_decode($contents, true, 512, $options);
+        return json_decode($contents, true, 512, $options) ?? [];
+    }
+
+    public function sendJson()
+    {
+        $this->sendJson = true;
+
+        return $this;
+    }
+
+    public function sendForm()
+    {
+        $this->sendJson = false;
+
+        return $this;
+    }
+
+    public function sendAsynchronously()
+    {
+        $this->sendAsync = true;
+
+        return $this;
+    }
+
+    public function clearAsynchronously()
+    {
+        $this->sendAsync = false;
+
+        return $this;
     }
 
     /**
@@ -96,32 +149,66 @@ class JsonClient
         return $this;
     }
 
-    public function get(string $uri, array $options = []): array
-    {
-        return $this->send('GET', $uri, $options);
-    }
-
     /**
      * Send an HTTP Request.
      *
      * @param string $method - A valid HTTP method.
-     * @param string $uri - URI or path.
-     * @param array  $options
+     * @param string $uri = '' - URI or path.
+     * @param array  $form = []
+     * @param array  $options = []
      *
-     * @return array
+     * @return array|PromiseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function send(string $method, string $uri = '', array $options = []): array
+    public function send(string $method, string $uri = '', array $form = [], array $options = []): array
     {
-        if ($this->getGlobalQueryParameters() !== []) {
-            $uri = trim($uri, '?& ') . '?' . http_build_query($this->globalParams);
+        $uri     = $this->prepareUri($uri);
+        $options = $this->prepareOptions($method, $form, $options);
+
+        $this->lastUri = $uri;
+
+        if ($this->sendAsync === false) {
+            $response = $this->client->request($method, $uri, $options);
+
+            return static::jsonDecode($response);
         }
 
-        $this->lastUri = trim($this->getBaseUri(), '/') . '/' . trim($uri, '/');
+        return $this->client
+            ->requestAsync($method, $uri, $options)
+            ->then(
+                $this->responseHandler ?? function (ResponseInterface $res) {
+                },
+                $this->exceptionHandler ?? function (RequestException $res) {
+                }
+            );
+    }
 
-        $response = $this->client->request($method, $uri, $options);
+    public function setResponseHandler(callable $handler): self
+    {
+        $this->responseHandler = $handler;
 
-        return static::jsonDecode($response);
+        return $this;
+    }
+
+    public function clearResponseHandler(): self
+    {
+        $this->responseHandler = null;
+
+        return $this;
+    }
+
+    public function setExceptionHandler(callable $handler): self
+    {
+        $this->exceptionHandler = $handler;
+
+        return $this;
+    }
+
+    public function clearExceptionHandler(): self
+    {
+        $this->exceptionHandler = null;
+
+        return $this;
     }
 
     /**
@@ -141,36 +228,76 @@ class JsonClient
      */
     public function getBaseUri(): string
     {
-        return $this->client->getConfig()['base_uri'] ?? '';
+        return $this->baseUri;
     }
 
-    public function post(string $uri, array $options = []): array
+    public function get(string $uri, array $options = []): array
     {
-        return $this->send('POST', $uri, $options);
+        return $this->send('GET', $uri, [], $options);
     }
 
-    public function put(string $uri, array $options = []): array
+    public function post(string $uri, array $form = [], array $options = []): array
     {
-        return $this->send('PUT', $uri, $options);
+        return $this->send('POST', $uri, $form, $options);
     }
 
-    public function patch(string $uri, array $options = []): array
+    public function put(string $uri, array $form = [], array $options = []): array
     {
-        return $this->send('PATCH', $uri, $options);
+        return $this->send('PUT', $uri, $form, $options);
     }
 
-    public function delete(string $uri, array $options = []): array
+    public function patch(string $uri, array $form = [], array $options = []): array
     {
-        return $this->send('DELETE', $uri, $options);
+        return $this->send('PATCH', $uri, $form, $options);
     }
 
-    public function options(string $uri, array $options = []): array
+    public function delete(string $uri, array $form = [], array $options = []): array
     {
-        return $this->send('OPTIONS', $uri, $options);
+        return $this->send('DELETE', $uri, $form, $options);
     }
 
-    public function head(string $uri, array $options = []): array
+    public function options(string $uri, array $form = [], array $options = []): array
     {
-        return $this->send('HEAD', $uri, $options);
+        return $this->send('OPTIONS', $uri, $form, $options);
+    }
+
+    public function head(string $uri, array $form = [], array $options = []): array
+    {
+        return $this->send('HEAD', $uri, $form, $options);
+    }
+
+    protected function prepareUri(string $uri): string
+    {
+        if ($this->getGlobalQueryParameters() !== []) {
+            $uri = trim($uri, '?& ') . '?' . http_build_query($this->globalParams);
+        }
+
+        $baseUri = '';
+
+        if (Str::make($uri)
+                ->removeLeft('/')
+                ->startsWithAny(['http:', 'https:']) === false) {
+
+            $baseUri = $this->getBaseUri();
+        }
+
+        $uri = trim($baseUri, '/') . '/' . trim($uri, '/');
+        $uri = trim($uri, '/');
+
+        return $uri;
+    }
+
+    protected function prepareOptions(string $method, array $form, array $options): array
+    {
+        // Set form body to the Request. _POST data.
+        // NOTE: some APIs won't handle the form body on a GET request.
+        if ($form !== [] && $method !== 'GET') {
+
+            $key = $this->sendJson ? 'json' : 'form_params';
+
+            $options[$key] = $form;
+        }
+
+        return $options;
     }
 }

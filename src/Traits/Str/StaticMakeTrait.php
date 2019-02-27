@@ -44,7 +44,7 @@ trait StaticMakeTrait
         return static::make($random, $encoding)->shuffle();
     }
 
-    public static function make(string $str, string $encoding = null): self
+    public static function make($str, string $encoding = null): self
     {
         return static::create($str, $encoding);
     }

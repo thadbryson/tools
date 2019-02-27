@@ -9,7 +9,7 @@ use Tool\Validation\Exceptions\ValidationException;
 use Tool\Validation\Result;
 
 /**
- * Result Class
+ * Mapped Class
  */
 class ResultTest extends \Codeception\Test\Unit
 {

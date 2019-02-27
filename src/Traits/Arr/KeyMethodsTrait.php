@@ -26,6 +26,8 @@ trait KeyMethodsTrait
 
         foreach ($array as $dot => $value) {
 
+            $dot = (string) $dot;
+
             // Remove prepend (if there) from DOT key.
             if ($prepend !== '' && strpos($dot, $prepend) === 0) {
                 $dot = substr($dot, strlen($prepend));

@@ -32,10 +32,10 @@ trait RestrictedTrait
     /**
      * RestrictedCollection constructor.
      *
-     * @param array $items
+     * @param array $items = []
      * @throws \Tool\Validation\Exceptions\ValidationException
      */
-    public function __construct(array $items = [])
+    public function __construct($items = [])
     {
         parent::__construct($items);
 

@@ -9,6 +9,7 @@ use Tool\Validation\Assert;
 use function array_slice;
 use function basename;
 use function implode;
+use function json_decode;
 use function substr;
 use const DIRECTORY_SEPARATOR;
 
@@ -102,6 +103,20 @@ class Filesystem
     public static function save(string $path, string $contents, bool $lock = false): int
     {
         return static::put($path, $contents, $lock);
+    }
+
+    public static function saveJson(string $path, $data, bool $lock = false): int
+    {
+        $json = json_encode($data, JSON_PRETTY_PRINT) . "\n";
+
+        return static::save($path, $json, $lock);
+    }
+
+    public static function getJson(string $path, int $options = 0, int $depth = 512, bool $lock = false): array
+    {
+        $contents = static::get($path, $lock);
+
+        return json_decode($contents, true, $depth, $options);
     }
 
     public static function ensureFile(string $path, string $contents = '', bool $lock = false): bool

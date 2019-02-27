@@ -117,6 +117,31 @@ class Arr extends \Illuminate\Support\Arr
     }
 
     /**
+     * Change keys / values in $mappings (from DOT => to DOT).
+     *
+     * @param array    $arrays
+     * @param string[] $mappings
+     * @param string   $keyMap = null
+     *
+     * @return array
+     */
+    public static function mapEach(array $arrays, array $mappings, string $keyMap = null): array
+    {
+        $return = [];
+
+        foreach ($arrays as $index => $array) {
+
+            if ($keyMap !== null) {
+                $array[$keyMap] = $index;
+            }
+
+            $return[$index] = static::mapInternal($array, $mappings, false);
+        }
+
+        return $return;
+    }
+
+    /**
      * Move a value from $array to $destination.
      *
      * @param array       &$array
@@ -129,10 +154,9 @@ class Arr extends \Illuminate\Support\Arr
     public static function move(array &$array, array $destination, string $fromDot, string $toDot = null): array
     {
         $value = static::pull($array, $fromDot);
+        $toDot = $toDot ?? $fromDot;
 
-        static::set($destination, $toDot ?? $fromDot, $value);
-
-        return $destination;
+        return static::set($destination, $toDot, $value);
     }
 
     /**
@@ -146,6 +170,31 @@ class Arr extends \Illuminate\Support\Arr
     public static function mapOnly(array $array, array $mappings): array
     {
         return static::mapInternal($array, $mappings, true);
+    }
+
+    /**
+     * Change keys / values in $mappings (from DOT => to DOT).
+     *
+     * @param array    $arrays
+     * @param string[] $mappings
+     * @param string   $keyMap = null
+     *
+     * @return array
+     */
+    public static function mapEachOnly(array $arrays, array $mappings, string $keyMap = null): array
+    {
+        $return = [];
+
+        foreach ($arrays as $index => $array) {
+
+            if ($keyMap !== null) {
+                $array[$keyMap] = $index;
+            }
+
+            $return[$index] = static::mapInternal($array, $mappings, true);
+        }
+
+        return $return;
     }
 
     /**
@@ -318,7 +367,7 @@ class Arr extends \Illuminate\Support\Arr
         $result = $only ? [] : $array;
 
         foreach ($mappings as $fromDot => $toDot) {
-            $result = static::move($array, $result, (string) $fromDot, (string) $toDot);
+            $result = static::move($array, $result, (string) $fromDot, $toDot);
         }
 
         return $result;

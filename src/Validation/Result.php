@@ -9,7 +9,7 @@ use Tool\Exceptions\Error;
 use Tool\Validation\Exceptions\ValidationException;
 
 /**
- * Result Class
+ * Mapped Class
  */
 class Result
 {
@@ -19,7 +19,7 @@ class Result
     protected $errors;
 
     /**
-     * Result Constructor
+     * Mapped Constructor
      *
      * @param MessageBag $errors - Bag of errors
      */
@@ -34,7 +34,7 @@ class Result
     }
 
     /**
-     * Make Result from array of error messages.
+     * Make Mapped from array of error messages.
      *
      * @param string[] $errors - String of plain error messages.
      *

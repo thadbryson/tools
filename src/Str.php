@@ -134,6 +134,13 @@ class Str extends \Stringy\Stringy
         return $this->money($locale, '%i');
     }
 
+    public function temperature(bool $fahrenheit = true): self
+    {
+        $this->str .= '&deg; ' . ($fahrenheit ? 'F' : 'C');
+
+        return $this;
+    }
+
     protected function getAsMethod(string $prepend, string $append): self
     {
         return $this->replace('_', ' ')

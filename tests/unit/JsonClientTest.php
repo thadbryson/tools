@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Tests\Unit;
 
 use GuzzleHttp\Psr7\Response;
-use Tests\Support\Stubs\JsonClientStub;
-use Tool\JsonClient;
+use Tests\Support\Stubs\HttpClientStub;
+use Tool\HttpClient;
 use function json_encode;
 use function strtolower;
 
@@ -21,14 +21,14 @@ class JsonClientTest extends \Codeception\Test\Unit
     protected $tester;
 
     /**
-     * @var JsonClientStub
+     * @var HttpClientStub
      */
     private $client;
 
     public function _before(): void
     {
-        $this->client = new JsonClientStub('https://example.co');
-        $this->client->setGlobalQueryParameters([
+        $this->client = new HttpClientStub('https://example.co');
+        $this->client->setGlobalQuery([
             'id'    => 1,
             'other' => 'some',
         ]);
@@ -58,9 +58,9 @@ class JsonClientTest extends \Codeception\Test\Unit
         $this->assertEquals('https://example.co/deal?id=1&other=some', $this->client->getLastUri());
     }
 
-    public function testGetAndSetGlobalQueryParameters(): void
+    public function testGetAndSetGlobalQuery(): void
     {
-        $this->client->setGlobalQueryParameters([
+        $this->client->setGlobalQuery([
             'id'   => 4,
             'some' => 'mess',
         ]);
@@ -68,7 +68,7 @@ class JsonClientTest extends \Codeception\Test\Unit
         $this->tester->assertArr([
             'id'   => 4,
             'some' => 'mess',
-        ], $this->client->getGlobalQueryParameters());
+        ], $this->client->getGlobalQuery());
 
         $this->client->send('PUT', 'yo');
 
@@ -84,7 +84,7 @@ class JsonClientTest extends \Codeception\Test\Unit
 
         $responsee = new Response(200, [], json_encode($data));
 
-        $this->tester->assertArr($data, JsonClient::jsonDecode($responsee));
+        $this->tester->assertArr($data, HttpClient::jsonDecode($responsee));
     }
 
     /**

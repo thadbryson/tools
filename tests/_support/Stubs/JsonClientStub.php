@@ -4,12 +4,12 @@ declare(strict_types = 1);
 
 namespace Tests\Support\Stubs;
 
-use Tool\JsonClient;
+use Tool\HttpClient;
 
 /**
  * Class JsonClientStub
  */
-final class JsonClientStub extends JsonClient
+final class HttpClientStub extends HttpClient
 {
     public function __construct(string $baseUri = '', array $config = [])
     {

@@ -99,6 +99,8 @@ use Tool\Validation\Helper;
  * @method static bool ipv4($value, $flag = null, string $message = null, string $propertyPath = null)
  * @method static bool ipv6($value, $flag = null, string $message = null, string $propertyPath = null)
  * @method static bool defined($constant, string $message = null, string $propertyPath = null)
+ * @method static bool truthy(mixed $value, string $message = null, string $propertyPath = null)
+ * @method static bool falsey(mixed $value, string $message = null, string $propertyPath = null)
  * @method static bool base64($value, string $message = null, string $propertyPath = null)
  * @method static bool filepath($value, string $message = null, string $propertyPath = null)
  * @method static string fileExtension($value, string $extension, string $message = null, string $propertyPath = null)

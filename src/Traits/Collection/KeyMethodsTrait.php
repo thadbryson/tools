@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Tool\Traits\Collection;
 
+use function data_get;
+use Illuminate\Database\Eloquent\Model;
 use Tool\Arr;
 use Tool\Collection;
 use function array_combine;
@@ -79,6 +81,18 @@ trait KeyMethodsTrait
         return $this->combineEach(...$header);
     }
 
+    public function onlyEach(string ...$dots): Collection
+    {
+        return $this->map(function ($item) use ($dots) {
+
+            if ($item instanceof Model) {
+                return $item->only($dots);
+            }
+
+            return Arr::only($item, $dots);
+        });
+    }
+
     /**
      * Insert $values at position index.
      *
@@ -88,7 +102,9 @@ trait KeyMethodsTrait
      */
     public function insertAt(int $index, ...$values): Collection
     {
-        return $this->splice($index, null, $values);
+        array_splice($this->items, $index, 0, $values);
+
+        return $this;
     }
 
     /**
@@ -100,7 +116,9 @@ trait KeyMethodsTrait
      */
     public function setAt(int $index, ...$values): Collection
     {
-        return $this->splice($index, count($values), $values);
+        array_splice($this->items, $index, count($values), $values);
+
+        return $this;
     }
 
     /**

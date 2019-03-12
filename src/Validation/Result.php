@@ -30,7 +30,7 @@ class Result
 
     public static function success(): self
     {
-        return static::fromArray([]);
+        return static::make([]);
     }
 
     /**
@@ -40,7 +40,7 @@ class Result
      *
      * @return static
      */
-    public static function fromArray(array $errors): self
+    public static function make(array $errors): self
     {
         return new static(new MessageBag($errors));
     }

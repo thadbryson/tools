@@ -4,9 +4,14 @@ declare(strict_types = 1);
 
 namespace Tool;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Tool\Traits\Collection as CollectionTraits;
+use Tool\Validation\Assert;
 use function array_walk_recursive;
+use function call_user_func;
 use function is_object;
+use function is_string;
 use function method_exists;
 
 /**
@@ -180,11 +185,48 @@ class Collection extends \Illuminate\Support\Collection
      *
      * @return $this
      */
-    public function trimAll(string $chars = " \t\n\r\0\x0B"): Collection
+    public function trimEverything(string $chars = " \t\n\r\0\x0B"): Collection
     {
-        $this->items = Arr::trimAll($this->items, $chars);
+        return $this->actOnAllIf(function ($value) use ($chars) {
 
-        return $this;
+            return trim($value, $chars);
+        }, function ($value): bool {
+
+            return is_string($value) === true;
+        });
+    }
+
+    /**
+     * Run utf8_encode() on every string value.
+     *
+     * @return $this
+     */
+    public function utf8Everything(): Collection
+    {
+        $test = function ($value): bool {
+            return is_string($value) === true;
+        };
+
+        return $this->actOnAllIf(function ($value) {
+
+            return StrStatic::utf8($value);
+        }, $test);
+    }
+
+    /**
+     * Run a callable on all the items in an array - recursively.
+     *
+     * @param callable $callable
+     * @param mixed    ...$args
+     *
+     * @return $this
+     */
+    public function callEverything(callable $callable, ...$args): Collection
+    {
+        return $this->actOnAll(function ($value) use ($callable, $args) {
+
+            return call_user_func($callable, $value, ...$args);
+        });
     }
 
     public function saveAll(): Collection
@@ -205,5 +247,22 @@ class Collection extends \Illuminate\Support\Collection
                 $model->delete();
             }
         });
+    }
+
+    public function deleteNot(Builder $query = null): Collection
+    {
+        if ($query === null) {
+            $first = Assert::isSubclassOf($this->first(), Model::class, 'First element is not a Model. Please specify a Builder object.');
+
+            /** @var Model $first */
+            $query = $first->newQuery();
+        }
+
+        // Run the delete.
+        $query
+            ->whereNotIn('id', $this->pluck('id')->all())
+            ->delete();
+
+        return $this;
     }
 }

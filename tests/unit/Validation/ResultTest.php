@@ -48,8 +48,8 @@ class ResultTest extends \Codeception\Test\Unit
 
     public function testStaticFromArray(): void
     {
-        $success = Result::fromArray([]);
-        $failure = Result::fromArray(['some' => ['whatever']]);
+        $success = Result::make([]);
+        $failure = Result::make(['some' => ['whatever']]);
 
         $this->tester->assertValidationResult($success, []);
         $this->tester->assertValidationResult($failure, ['some' => ['whatever']]);

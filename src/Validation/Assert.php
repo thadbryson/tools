@@ -101,6 +101,8 @@ use Tool\Validation\Helper;
  * @method static string ipv4($value, $flag = null, string $message = null, string $propertyPath = null)
  * @method static string ipv6($value, $flag = null, string $message = null, string $propertyPath = null)
  * @method static string defined($constant, string $message = null, string $propertyPath = null)
+ * @method static mixed truthy(mixed $value, string $message = null, string $propertyPath = null)
+ * @method static mixed falsey(mixed $value, string $message = null, string $propertyPath = null)
  * @method static string base64($value, string $message = null, string $propertyPath = null)
  * @method static string filepath($value, string $message = null, string $propertyPath = null)
  * @method static string fileExtension($value, string $extension, string $message = null, string $propertyPath = null)

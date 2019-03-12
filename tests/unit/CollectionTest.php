@@ -155,13 +155,13 @@ class CollectionTest extends \Codeception\Test\Unit
         ));
     }
 
-    public function testTrimAll(): void
+    public function testTrimEverything(): void
     {
         $coll = $this->coll->toArray();
 
         $coll[1][0]    = '   ' . $coll[1][0] . ' ';
         $coll[3]['id'] .= '    ';
 
-        $this->tester->assertArr($this->coll, Collection::make($coll)->trimAll());
+        $this->tester->assertArr($this->coll, Collection::make($coll)->trimEverything());
     }
 }

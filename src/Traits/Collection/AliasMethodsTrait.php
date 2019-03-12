@@ -58,4 +58,18 @@ trait AliasMethodsTrait
     {
         return $this->pop();
     }
+
+    public function forgetFirst(): Collection
+    {
+        $this->removeFirst();
+
+        return $this;
+    }
+
+    public function forgetLast(): Collection
+    {
+        $this->removeLast();
+
+        return $this;
+    }
 }

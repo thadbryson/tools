@@ -6,6 +6,7 @@ namespace Tool\Validation\Helper;
 
 use Assert\Assertion as BaseAssertion;
 use Illuminate\Support\Arr;
+use Tool\Cast;
 use function file_exists;
 use function get_class;
 use function implode;
@@ -15,6 +16,7 @@ use function is_file;
 use function is_object;
 use function is_string;
 use function is_subclass_of;
+use function strtolower;
 
 /**
  * Wrap Webmozart Assert class  in this.
@@ -34,7 +36,7 @@ class AssertRules extends BaseAssertion
      * Assert that $value is a non-empty string.
      *
      * @param mixed  $value
-     * @param string $message = null
+     * @param string $message      = null
      * @param string $propertyPath = null
      * @return bool
      */
@@ -76,7 +78,7 @@ class AssertRules extends BaseAssertion
      *
      * @param mixed                $method
      * @param mixed                $object
-     * @param string|callable|null $message = null
+     * @param string|callable|null $message      = null
      * @param string|null          $propertyPath = null
      *
      * @return bool
@@ -111,7 +113,7 @@ class AssertRules extends BaseAssertion
      *
      * @param array    $values
      * @param string[] $types
-     * @param string   $message = null
+     * @param string   $message      = null
      * @param string   $propertyPath = null
      *
      * @return bool
@@ -192,7 +194,7 @@ class AssertRules extends BaseAssertion
      *
      * @param mixed  $classOrObject
      * @param string $parentClass
-     * @param string $message = null
+     * @param string $message      = null
      * @param string $propertyPath = null
      *
      * @return bool
@@ -221,7 +223,7 @@ class AssertRules extends BaseAssertion
      * Value is not in $array.
      *
      * @param mixed  $classOrObject
-     * @param string $message = null
+     * @param string $message      = null
      * @param string $propertyPath = null
      *
      * @return bool
@@ -236,6 +238,24 @@ class AssertRules extends BaseAssertion
             static::stringify($value)), $propertyPath);
 
         static::classExists($value, sprintf($message ?: '%s is not an existing class.', $value));
+
+        return true;
+    }
+
+    public static function truthy($value, string $message = null, string $propertyPath = null): bool
+    {
+        if (Cast::toBoolean($value) !== true) {
+            throw static::createException($value, $message ?? '%s is not a truth-like value.', $propertyPath);
+        }
+
+        return true;
+    }
+
+    public static function falsey($value, string $message = null, string $propertyPath = null): bool
+    {
+        if (Cast::toBoolean($value) !== false) {
+            throw static::createException($value, $message ?? '%s is not a false-like value.', $propertyPath);
+        }
 
         return true;
     }
@@ -268,7 +288,7 @@ class AssertRules extends BaseAssertion
      *
      * @param        $filepath
      * @param string $extension
-     * @param string $message = null
+     * @param string $message      = null
      * @param string $propertyPath = null
      * @return bool
      */

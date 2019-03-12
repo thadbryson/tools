@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
-use function http_build_query;
+use function array_merge;
 use function json_decode;
 
 /**
@@ -63,7 +63,7 @@ class JsonClient
      * JsonClient constructor.
      *
      * @param string $baseUri = '' - Base URI for all API calls.
-     * @param array  $config = [] - Client configuration.
+     * @param array  $config  = [] - Client configuration.
      */
     public function __construct(string $baseUri = '', array $config = [])
     {
@@ -152,18 +152,18 @@ class JsonClient
     /**
      * Send an HTTP Request.
      *
-     * @param string $method - A valid HTTP method.
-     * @param string $uri = '' - URI or path.
-     * @param array  $form = []
+     * @param string $method  - A valid HTTP method.
+     * @param string $uri     = '' - URI or path.
+     * @param array  $form    = []
      * @param array  $options = []
      *
      * @return array|PromiseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function send(string $method, string $uri = '', array $form = [], array $options = []): array
+    public function send(string $method, string $uri = '', array $form = [], array $query = [], array $options = []): array
     {
-        $uri     = $this->prepareUri($uri);
-        $options = $this->prepareOptions($method, $form, $options);
+        $uri     = $this->prepareUri($uri, $query);
+        $options = $this->prepareOptions($method, $form, $query, $options);
 
         $this->lastUri = $uri;
 
@@ -231,45 +231,45 @@ class JsonClient
         return $this->baseUri;
     }
 
-    public function get(string $uri, array $options = []): array
+    public function get(string $uri, array $query = [], array $options = []): array
     {
-        return $this->send('GET', $uri, [], $options);
+        return $this->send('GET', $uri, [], $query, $options);
     }
 
-    public function post(string $uri, array $form = [], array $options = []): array
+    public function post(string $uri, array $form = [], array $query = [], array $options = []): array
     {
-        return $this->send('POST', $uri, $form, $options);
+        return $this->send('POST', $uri, $form, $query, $options);
     }
 
-    public function put(string $uri, array $form = [], array $options = []): array
+    public function put(string $uri, array $form = [], array $query = [], array $options = []): array
     {
-        return $this->send('PUT', $uri, $form, $options);
+        return $this->send('PUT', $uri, $form, $query, $options);
     }
 
-    public function patch(string $uri, array $form = [], array $options = []): array
+    public function patch(string $uri, array $form = [], array $query = [], array $options = []): array
     {
-        return $this->send('PATCH', $uri, $form, $options);
+        return $this->send('PATCH', $uri, $form, $query, $options);
     }
 
-    public function delete(string $uri, array $form = [], array $options = []): array
+    public function delete(string $uri, array $form = [], array $query = [], array $options = []): array
     {
-        return $this->send('DELETE', $uri, $form, $options);
+        return $this->send('DELETE', $uri, $form, $query, $options);
     }
 
-    public function options(string $uri, array $form = [], array $options = []): array
+    public function options(string $uri, array $form = [], array $query = [], array $options = []): array
     {
-        return $this->send('OPTIONS', $uri, $form, $options);
+        return $this->send('OPTIONS', $uri, $form, $query, $options);
     }
 
-    public function head(string $uri, array $form = [], array $options = []): array
+    public function head(string $uri, array $form = [], array $query = [], array $options = []): array
     {
-        return $this->send('HEAD', $uri, $form, $options);
+        return $this->send('HEAD', $uri, $form, $query, $options);
     }
 
-    protected function prepareUri(string $uri): string
+    protected function prepareUri(string $uri, array &$query): string
     {
         if ($this->getGlobalQueryParameters() !== []) {
-            $uri = trim($uri, '?& ') . '?' . http_build_query($this->globalParams);
+            $query = array_merge($this->getGlobalQueryParameters(), $query);
         }
 
         $baseUri = '';
@@ -287,15 +287,19 @@ class JsonClient
         return $uri;
     }
 
-    protected function prepareOptions(string $method, array $form, array $options): array
+    protected function prepareOptions(string $method, array $form, array $query, array $options): array
     {
         // Set form body to the Request. _POST data.
         // NOTE: some APIs won't handle the form body on a GET request.
-        if ($form !== [] && $method !== 'GET') {
-
+        if ($form !== []) {
             $key = $this->sendJson ? 'json' : 'form_params';
 
             $options[$key] = $form;
+        }
+
+        // GET query parameters?  - /api?id=1&some=other
+        if ($query !== []) {
+            $options['query'] = $query;
         }
 
         return $options;

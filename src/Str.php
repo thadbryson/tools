@@ -10,6 +10,7 @@ use Tool\Validation\Assert;
 use function json_decode;
 use function json_last_error;
 use function strlen;
+use function utf8_encode;
 use const JSON_ERROR_NONE;
 
 /**
@@ -93,6 +94,41 @@ class Str extends \Stringy\Stringy
         return $this;
     }
 
+    /**
+     * If string is longer than $length then shorten and add $append string at end.
+     *
+     * @param int    $length
+     * @param string $append = '...'
+     * @return self
+     */
+    public function limit(int $length, string $append = '...'): self
+    {
+        $this->str = \Illuminate\Support\Str::limit($this->str, $length, $append);
+
+        return $this;
+    }
+
+    /**
+     * Return shortened text in <abbr> tag.
+     *
+     * @param int    $length
+     * @param string $append = '...
+     * @return self
+     */
+    public function abbr(int $length, string $append = '...'): self
+    {
+        $this->str = sprintf('<abbr title="%s">%s</abbr>', $this->str, StrStatic::limit($this->str, $length, $append));
+
+        return $this;
+    }
+
+    public function sanitizeHtml(): self
+    {
+        $this->str = htmlentities($this->str, ENT_QUOTES, 'utf-8');
+
+        return $this;
+    }
+
     public function getter(string $append = ''): self
     {
         return $this->getAsMethod('get', $append);
@@ -137,6 +173,15 @@ class Str extends \Stringy\Stringy
     public function temperature(bool $fahrenheit = true): self
     {
         $this->str .= '&deg; ' . ($fahrenheit ? 'F' : 'C');
+
+        return $this;
+    }
+
+    public function utf8(): self
+    {
+        $this->replace("\'", '');
+
+        $this->str = utf8_encode($this->str);
 
         return $this;
     }

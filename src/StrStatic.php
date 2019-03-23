@@ -108,6 +108,7 @@ use Tool\Validation\Assert;
  * @method static string swapRight(string $str, string $substr, string $replace)
  * @method static string limit(string $str, int $length, string $append = '...')
  * @method static string abbr(string $str, int $length, string $append = '...')
+ * @method static string abbrText(string $str, string $text, int $length, string $append = '...')
  * @method static string utf8(string $str)
  * @method static string sanitizeHtml()
  */

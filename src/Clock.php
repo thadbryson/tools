@@ -4,8 +4,12 @@ declare(strict_types = 1);
 
 namespace Tool;
 
+use Carbon\CarbonInterval;
 use DateTime;
 use DateTimeInterface;
+use Exception;
+use function is_int;
+use Tool\Validation\Assert;
 
 /**
  * Extend Carbon, which is a \DateTime extension.
@@ -24,6 +28,19 @@ class Clock extends \Carbon\Carbon
 
     protected static $weekEndsAt = self::SATURDAY;
 
+    public function __construct($time = null, $tz = null)
+    {
+        if ($time instanceof DateTimeInterface) {
+            $time = $time->getTimestamp();
+        }
+
+        if (is_int($time)) {
+            $time = static::createFromTimestamp($time, $tz)->format('Y-m-d H:i:s');
+        }
+
+        parent::__construct($time, $tz);
+    }
+
     /**
      * @alias of ::parse($time = null, $timezone = null)
      *
@@ -32,6 +49,16 @@ class Clock extends \Carbon\Carbon
     public static function make($time = null, $timezone = null): self
     {
         return static::parse($time, $timezone);
+    }
+
+    public static function makeOrNull($time = null, $timezone = null): ?self
+    {
+        try {
+            return static::parse($time, $timezone);
+        }
+        catch (Exception $e) {
+            return null;
+        }
     }
 
     /**
@@ -58,25 +85,52 @@ class Clock extends \Carbon\Carbon
         return new static($datetime->format('Y-m-d H:i:s'));
     }
 
-    public static function isBetween(DateTimeInterface $start, DateTimeInterface $end, DateTimeInterface $between): bool
+    public static function isAllDay($start, $end): bool
     {
-        $between = $between->format('Y-m-d H:i:s');
-        $start   = $start->format('Y-m-d H:i:s');
-        $end     = $end->format('Y-m-d H:i:s');
+        // Start and end date must be the same or end date can be 1 day after if ends on midnight.
+        // Starts at midnight.
+        // Ends at midnight to 1 second before midnight.
+
+        $start = Clock::make($start);
+        $end   = Clock::make($end);
+
+        // Must start at midnight.
+        // Must be same year and month. Can be a different day if ends at midnight on ending date.
+        if ($start->format('H:i:s') !== '00:00:00' || $start->format('Y-m') !== $end->format('Y-m')) {
+            return false;
+        }
+
+        $diffDays = $start->diff($end)->days;
+
+        if ($diffDays === 1) {
+            return $end->format('H:i:s') === '00:00:00';
+        }
+        elseif ($diffDays === 0) {
+            return $end->format('H:i:s') === '23:59:59';
+        }
+
+        return false;
+    }
+
+    public static function isBetween($start, $end, $between): bool
+    {
+        $between = Clock::make($between)->format('Y-m-d H:i:s');
+        $start   = Clock::make($start)->format('Y-m-d H:i:s');
+        $end     = Clock::make($end)->format('Y-m-d H:i:s');
 
         return $start <= $between && $between <= $end;
     }
 
-    public static function isNowBetween(DateTimeInterface $start, DateTimeInterface $end): bool
+    public static function isNowBetween($start, $end): bool
     {
         return static::isBetween($start, $end, new DateTime);
     }
 
-    public static function isBetweenTime(DateTimeInterface $start, DateTimeInterface $end, DateTimeInterface $between): bool
+    public static function isBetweenTime($start, $end, $between): bool
     {
-        $between = $between->format('H:i:s');
-        $start   = $start->format('H:i:s');
-        $end     = $end->format('H:i:s');
+        $between = Clock::make($between)->format('Y-m-d H:i:s');
+        $start   = Clock::make($start)->format('Y-m-d H:i:s');
+        $end     = Clock::make($end)->format('Y-m-d H:i:s');
 
         // Goes past midnigght?
         // Ex: end 3am, start 8pm
@@ -90,9 +144,37 @@ class Clock extends \Carbon\Carbon
         return $start <= $between && $between <= $end;
     }
 
-    public static function isNowBetweenTime(DateTimeInterface $start, DateTimeInterface $end): bool
+    public static function isNowBetweenTime($start, $end): bool
     {
-        return static::isBetweenTime($start, $end, new DateTime);
+        if ($start === null || $end === null) {
+            return false;
+        }
+
+        return static::isBetweenTime(new Clock($start), new Clock($end), new DateTime);
+    }
+
+    public static function getDiff($start, $end = null): ?CarbonInterval
+    {
+        $end = $end ?? new static;
+
+        if ($start instanceof DateTimeInterface === false || $end instanceof DateTimeInterface === false) {
+            return new CarbonInterval(0);
+        }
+
+        $start = static::createFromDateTime($start);
+        $end   = static::createFromDateTime($end);
+
+        return $start->diffAsCarbonInterval($end);
+    }
+
+    public function isBefore($end): bool
+    {
+        return $this->getTimestamp() < static::make($end)->getTimestamp();
+    }
+
+    public function isAfter($end): bool
+    {
+        return $this->isBefore($end) === false;
     }
 
     /**

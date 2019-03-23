@@ -117,7 +117,28 @@ class Str extends \Stringy\Stringy
      */
     public function abbr(int $length, string $append = '...'): self
     {
-        $this->str = sprintf('<abbr title="%s">%s</abbr>', $this->str, StrStatic::limit($this->str, $length, $append));
+        if ($length < strlen($this->str)) {
+            $str = $this->limit($length, $append);
+
+            $this->str = sprintf('<abbr title="%s">%s</abbr>', $this->str, $str);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use <abbr> text with different text placeholder.
+     *
+     * @param string $text
+     * @param int    $length
+     * @param string $append
+     * @return Str
+     */
+    public function abbrText(string $text, int $length,string $append = '...'): self
+    {
+        $str = $this->limit($length, $append);
+
+        $this->str = sprintf('<abbr title="%s">%s</abbr>', $text, $str);
 
         return $this;
     }

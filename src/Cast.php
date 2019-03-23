@@ -4,12 +4,19 @@ declare(strict_types = 1);
 
 namespace Tool;
 
+use DateTime;
+use DateTimeInterface;
 use InvalidArgumentException;
 use function array_replace_recursive;
 use function is_float;
 use function is_int;
+use function is_iterable;
+use function is_numeric;
+use function is_object;
 use function is_string;
+use function json_decode;
 use function strtolower;
+use function strtotime;
 
 /**
  * Cast Class
@@ -59,9 +66,11 @@ class Cast
         switch ($type) {
 
             case 'bool':
+            case 'boolean':
                 return static::toBoolean($value);
 
             case 'int':
+            case 'integer':
                 return static::toInteger($value);
 
             case 'float':
@@ -73,6 +82,12 @@ class Cast
             case 'array':
                 return static::toArray($value);
 
+            case 'datetime':
+                return static::toDateTime($value);
+
+            case 'time':
+                return static::toTime($value);
+
             default:
                 throw new InvalidArgumentException('Invalid cast type given: ' . $type);
         }
@@ -80,11 +95,23 @@ class Cast
 
     public static function toBoolean($value): ?bool
     {
-        if ($value === true || $value === 1 || $value === '1') {
+        if ($value === null) {
+            return null;
+        }
+
+        if (is_string($value)) {
+            $value = strtolower($value);
+        }
+
+        if (is_numeric($value)) {
+            $value = (int) $value;
+        }
+
+        if (in_array($value, [true, 'true', 1, 'on', 'yes', 'y', 't'], true)) {
             return true;
         }
 
-        if ($value === false || $value === 0 || $value === '0') {
+        if (in_array($value, [false, 'false', 0, 'off', 'no', 'n', 'f'], true)) {
             return false;
         }
 
@@ -134,6 +161,58 @@ class Cast
             return null;
         }
 
+        if (is_object($value)) {
+            return Collection::make($value)->all();
+        }
+
+        if (is_string($value)) {
+            return json_decode($value, true);
+        }
+
         return (array) $value;
+    }
+
+    public static function toCollection($value): Collection
+    {
+        $value = static::toArray($value);
+
+        if ($value === null) {
+            return null;
+        }
+
+        return new Collection($value);
+    }
+
+    public static function toDateTime($value): ?Clock
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $clock = Clock::makeOrNull($value);
+
+        if ($clock !== null) {
+            return $clock;
+        }
+
+        return null;
+    }
+
+    public static function toTime($value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        // Attempt to format.
+        foreach (['H:i:s', 'g:ia', 'g:iA'] as $format) {
+            $current = DateTime::createFromFormat($format, (string) $value);
+
+            if ($current !== false) {
+                return $current->format('H:i') . ':00';
+            }
+        }
+
+        return null;
     }
 }

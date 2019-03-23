@@ -7,6 +7,7 @@ namespace Tool\Traits\Properties;
 use InvalidArgumentException;
 use Tool\StrStatic;
 use function method_exists;
+use function var_dump;
 
 /**
  * Trait PropertyGettersTrait
@@ -15,6 +16,10 @@ trait PropertyGettersTrait
 {
     use PropertyGetTrait;
 
+    /**
+     * @param string $name
+     * @return mixed
+     */
     public function __get(string $name)
     {
         $getter    = StrStatic::getter($name);

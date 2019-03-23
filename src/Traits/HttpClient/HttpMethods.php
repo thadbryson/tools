@@ -27,6 +27,10 @@ trait HttpMethods
      */
     public function send(string $method, string $uri = '', array $post = [], array $query = []): array
     {
+        // Set method 1st so query and post parameters can be set.
+        $this->request->setMethod($method);
+
+        // Set _GET and _POST data.
         $this->request->query->add($query);
         $this->request->request->add($post);
 

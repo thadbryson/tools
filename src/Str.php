@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tool;
 
 use Illuminate\Support\Pluralizer;
+use function str_replace;
 use Tool\Traits\Str as StrTraits;
 use Tool\Validation\Assert;
 use function json_decode;
@@ -82,6 +83,17 @@ class Str extends \Stringy\Stringy
         }
 
         return $decoded;
+    }
+
+    /**
+     * Remove $substr from string entirely.
+     *
+     * @param string $substr
+     * @return Str
+     */
+    public function remove(string $substr): self
+    {
+        return $this->replace($substr, '');
     }
 
     /**

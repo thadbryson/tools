@@ -131,11 +131,11 @@ class Arr extends \Illuminate\Support\Arr
 
         foreach ($arrays as $index => $array) {
 
-            if ($keyMap !== null) {
-                $array[$keyMap] = $index;
-            }
-
             $return[$index] = static::mapInternal($array, $mappings, false);
+
+            if ($keyMap !== null) {
+                $return[$index][$keyMap] = $index;
+            }
         }
 
         return $return;
@@ -187,11 +187,11 @@ class Arr extends \Illuminate\Support\Arr
 
         foreach ($arrays as $index => $array) {
 
-            if ($keyMap !== null) {
-                $array[$keyMap] = $index;
-            }
-
             $return[$index] = static::mapInternal($array, $mappings, true);
+
+            if ($keyMap !== null) {
+                $return[$index][$keyMap] = $index;
+            }
         }
 
         return $return;
@@ -362,7 +362,7 @@ class Arr extends \Illuminate\Support\Arr
      *
      * @return array
      */
-    protected static function mapInternal(array $array, array $mappings, bool $only): array
+    protected static function mapInternal($array, array $mappings, bool $only): array
     {
         $result = $only ? [] : $array;
 

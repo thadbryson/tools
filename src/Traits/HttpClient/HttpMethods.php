@@ -5,8 +5,10 @@ declare(strict_types = 1);
 namespace Tool\Traits\HttpClient;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Tool\Arr;
 use Tool\HttpClient;
 use Tool\Str;
+use function json_encode;
 
 /**
  * Trait HttpMethods
@@ -15,6 +17,13 @@ use Tool\Str;
  */
 trait HttpMethods
 {
+    /**
+     * Configuration for mapping response data.
+     *
+     * @var array
+     */
+    protected $mappings = [];
+
     /**
      * Send an HTTP Request.
      *
@@ -38,14 +47,31 @@ trait HttpMethods
         $options       = $this->prepareOptions();
 
         $response = $this->client->request($method, $this->lastUri, $options);
+        $mappings = $this->mappings;
 
         // Reset the Request data.
+        $this->mappings         = [];
         $this->request->query   = new ParameterBag;
         $this->request->request = new ParameterBag;
         $this->request->headers = new ParameterBag;
         $this->options          = [];
 
-        return static::jsonDecode($response);
+        $response = static::jsonDecode($response);
+
+        if ($mappings === []) {
+            return $response;
+        }
+
+        if ($mappings['each'] === true) {
+
+            return $mappings['only'] === true ?
+                Arr::mapEachOnly($response, $mappings['mappings'], $mappings['keyMap']) :
+                Arr::mapEach($response, $mappings['mappings'], $mappings['keyMap']);
+        }
+
+        return $mappings['only'] === true ?
+            Arr::mapOnly($response, $mappings['mappings']) :
+            Arr::map($response, $mappings['mappings']);
     }
 
     protected function prepareUri(string $uri): string
@@ -82,6 +108,61 @@ trait HttpMethods
         $opts['headers'] = $this->request->headers->all();
 
         return $opts;
+    }
+
+    public function setMappings(array $mappings): self
+    {
+        $this->mappings = [
+            'mappings' => $mappings,
+            'each'     => false,
+            'only'     => false,
+            'keyMap'   => null
+        ];
+
+        return $this;
+    }
+
+    public function setMappingsOnly(array $mappings): self
+    {
+        $this->mappings = [
+            'mappings' => $mappings,
+            'each'     => false,
+            'only'     => true,
+            'keyMap'   => null
+        ];
+
+        return $this;
+    }
+
+    public function setMappingsMany(array $mappings, string $keyMap = null): self
+    {
+        $this->mappings = [
+            'mappings' => $mappings,
+            'each'     => true,
+            'only'     => false,
+            'keyMap'   => $keyMap
+        ];
+
+        return $this;
+    }
+
+    public function setMappingsManyOnly(array $mappings, string $keyMap = null): self
+    {
+        $this->mappings = [
+            'mappings' => $mappings,
+            'each'     => true,
+            'only'     => true,
+            'keyMap'   => $keyMap
+        ];
+
+        return $this;
+    }
+
+    public function clearMappings(): self
+    {
+        $this->mappings = [];
+
+        return $this;
     }
 
     public function get(string $uri, array $query = []): array

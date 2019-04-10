@@ -241,15 +241,15 @@ class Collection extends \Illuminate\Support\Collection
 
     public function deleteAllModels(): Collection
     {
-        return $this->each(function ($model) {
+        return $this->each(function (object $model) {
 
-            if (is_object($model) && method_exists($model, 'delete')) {
+            if (method_exists($model, 'delete')) {
                 $model->delete();
             }
         });
     }
 
-    public function deleteNot(Builder $query = null): Collection
+    public function deleteNot(Builder $query = null, string $searchKey = 'id'): Collection
     {
         if ($query === null) {
             $first = Assert::isSubclassOf($this->first(), Model::class, 'First element is not a Model. Please specify a Builder object.');
@@ -260,7 +260,7 @@ class Collection extends \Illuminate\Support\Collection
 
         // Run the delete.
         $query
-            ->whereNotIn('id', $this->pluck('id')->all())
+            ->whereNotIn($searchKey, $this->pluck($searchKey)->all())
             ->delete();
 
         return $this;

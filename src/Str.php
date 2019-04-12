@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Tool;
 
 use Illuminate\Support\Pluralizer;
-use function str_replace;
 use Tool\Traits\Str as StrTraits;
 use Tool\Validation\Assert;
 use function json_decode;
@@ -31,12 +30,24 @@ class Str extends \Stringy\Stringy
         return explode($delimiter, $this->get());
     }
 
+    /**
+     * Get raw string value.
+     *
+     * @return string
+     */
     public function get(): string
     {
         return $this->__toString();
     }
 
-    public function swapLeft(string $substr, string $replace): self
+    /**
+     * Swap left side text $substr with $replace.
+     *
+     * @param string $substr
+     * @param string $replace
+     * @return $this|Str
+     */
+    public function swapLeft(string $substr, string $replace)
     {
         if ($this->startsWith($substr) === false) {
             return $this;
@@ -47,21 +58,42 @@ class Str extends \Stringy\Stringy
             ->prepend($replace);
     }
 
-    public function swapRight(string $substr, string $replace): self
+    /**
+     * Swap right side text $substr with $replace.
+     *
+     * @param string $substr
+     * @param string $replace
+     * @return $this
+     */
+    public function swapRight(string $substr, string $replace)
     {
         return $this
             ->removeRight($substr)
             ->append($replace);
     }
 
-    public function beforeSubstr(string $substr, int $offset = 0): self
+    /**
+     * Get text before substring $substr from offset $offset.
+     *
+     * @param string $substr
+     * @param int    $offset
+     * @return $this
+     */
+    public function beforeSubstr(string $substr, int $offset = 0)
     {
         $index = $this->indexOf($substr, $offset);
 
         return $this->substr(0, $index);
     }
 
-    public function afterSubstr(string $substr, int $offset = 0): self
+    /**
+     * Get text after substring $substr from offset $offset.
+     *
+     * @param string $substr
+     * @param int    $offset
+     * @return Str
+     */
+    public function afterSubstr(string $substr, int $offset = 0)
     {
         $index = $this->indexOf($substr, $offset);
         $index += strlen($substr);
@@ -69,11 +101,24 @@ class Str extends \Stringy\Stringy
         return $this->substr($index);
     }
 
+    /**
+     * Perform standard json_decode of string.
+     *
+     * @return mixed
+     */
     public function jsonDecode()
     {
         return $this->jsonDecodeOptions(true);
     }
 
+    /**
+     * Persom json_decode with options.
+     *
+     * @param bool $assoc
+     * @param int  $options
+     * @param int  $depth
+     * @return mixed
+     */
     public function jsonDecodeOptions(bool $assoc = false, int $options = 0, int $depth = 512)
     {
         $decoded = json_decode($this->str, $assoc, $depth, $options);
@@ -89,17 +134,19 @@ class Str extends \Stringy\Stringy
      * Remove $substr from string entirely.
      *
      * @param string $substr
-     * @return Str
+     * @return $this
      */
-    public function remove(string $substr): self
+    public function remove(string $substr)
     {
         return $this->replace($substr, '');
     }
 
     /**
      * Get the plural form of an English word.
+     *
+     * @return $this
      */
-    public function plural(int $count = 2): self
+    public function plural(int $count = 2)
     {
         $this->str = Pluralizer::plural($this->str, $count);
 
@@ -111,9 +158,9 @@ class Str extends \Stringy\Stringy
      *
      * @param int    $length
      * @param string $append = '...'
-     * @return self
+     * @return $this
      */
-    public function limit(int $length, string $append = '...'): self
+    public function limit(int $length, string $append = '...')
     {
         $this->str = \Illuminate\Support\Str::limit($this->str, $length, $append);
 
@@ -125,9 +172,9 @@ class Str extends \Stringy\Stringy
      *
      * @param int    $length
      * @param string $append = '...
-     * @return self
+     * @return $this
      */
-    public function abbr(int $length, string $append = '...'): self
+    public function abbr(int $length, string $append = '...')
     {
         if ($length < strlen($this->str)) {
             $str = $this->limit($length, $append);
@@ -144,9 +191,9 @@ class Str extends \Stringy\Stringy
      * @param string $text
      * @param int    $length
      * @param string $append
-     * @return Str
+     * @return $this
      */
-    public function abbrText(string $text, int $length,string $append = '...'): self
+    public function abbrText(string $text, int $length, string $append = '...')
     {
         $str = $this->limit($length, $append);
 
@@ -155,37 +202,56 @@ class Str extends \Stringy\Stringy
         return $this;
     }
 
-    public function sanitizeHtml(): self
+    /**
+     * Get as a "getter" method name.
+     *
+     * @param string $append
+     * @return $this
+     */
+    public function getter(string $append = '')
     {
-        $this->str = htmlentities($this->str, ENT_QUOTES, 'utf-8');
-
-        return $this;
+        return $this->codeMethod('get', $append);
     }
 
-    public function getter(string $append = ''): self
+    /**
+     * Get as a "setter" method name.
+     *
+     * @param string $append
+     * @return $this
+     */
+    public function setter(string $append = '')
     {
-        return $this->getAsMethod('get', $append);
+        return $this->codeMethod('set', $append);
     }
 
-    public function setter(string $append = ''): self
+    /**
+     * Get as a "hasser" method name.
+     *
+     * @param string $append
+     * @return $this
+     */
+    public function hasser(string $append = '')
     {
-        return $this->getAsMethod('set', $append);
+        return $this->codeMethod('has', $append);
     }
 
-    public function hasser(string $append = ''): self
+    /**
+     * Get as an "isser" method name.
+     *
+     * @param string $append
+     * @return $this
+     */
+    public function isser(string $append = '')
     {
-        return $this->getAsMethod('has', $append);
-    }
-
-    public function isser(string $append = ''): self
-    {
-        return $this->getAsMethod('is', $append);
+        return $this->codeMethod('is', $append);
     }
 
     /**
      * Get monetery string format.
+     *
+     * @return $this
      */
-    public function money(string $locale = 'en_US', string $format = '%n'): self
+    public function money(string $locale = 'en_US', string $format = '%n')
     {
         Assert::numeric($this->get(), '$var must be a numeric string, integer, or float.');
         setlocale(LC_MONETARY, $locale . '.' . $this->getEncoding());
@@ -197,20 +263,36 @@ class Str extends \Stringy\Stringy
 
     /**
      * Get international monetery format.
+     *
+     * @return $this
      */
-    public function moneyInternational(string $locale = 'en_US'): self
+    public function moneyInternational(string $locale = 'en_US')
     {
         return $this->money($locale, '%i');
     }
 
-    public function temperature(bool $fahrenheit = true): self
+    /**
+     * Format to temperature. Ex: '75 &deg; F'
+     *
+     * @param bool $fahrenheit
+     * @return $this
+     */
+    public function temperature(bool $html = true, bool $fahrenheit = true)
     {
-        $this->str .= '&deg; ' . ($fahrenheit ? 'F' : 'C');
+        $sign = $html ? '&deg; ' : '° ';
+        $sign .= $fahrenheit ? 'F' : 'C';
+
+        $this->str .= $sign;
 
         return $this;
     }
 
-    public function utf8(): self
+    /**
+     * UTF-8 encode the string.
+     *
+     * @return $this
+     */
+    public function utf8()
     {
         $this->replace("\'", '');
 
@@ -219,7 +301,14 @@ class Str extends \Stringy\Stringy
         return $this;
     }
 
-    protected function getAsMethod(string $prepend, string $append): self
+    /**
+     * Get text as a method.
+     *
+     * @param string $prepend
+     * @param string $append
+     * @return $this
+     */
+    public function codeMethod(string $prepend, string $append)
     {
         return $this->replace('_', ' ')
             ->prepend($prepend . ' ')

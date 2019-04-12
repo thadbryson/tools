@@ -7,7 +7,6 @@ namespace Tool\Traits\Properties;
 use InvalidArgumentException;
 use Tool\StrStatic;
 use function method_exists;
-use function var_dump;
 
 /**
  * Trait PropertyGettersTrait

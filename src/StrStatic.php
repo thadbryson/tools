@@ -110,7 +110,6 @@ use Tool\Validation\Assert;
  * @method static string abbr(string $str, int $length, string $append = '...')
  * @method static string abbrText(string $str, string $text, int $length, string $append = '...')
  * @method static string utf8(string $str)
- * @method static string sanitizeHtml()
  */
 class StrStatic
 {

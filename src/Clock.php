@@ -178,6 +178,38 @@ class Clock extends \Carbon\Carbon
     }
 
     /**
+     * Determines if the instance is within the next week.
+     *
+     * @return bool
+     */
+    public function isCurrentWeekend(): bool
+    {
+        return $this->isSameWeek() && $this->isWeekend();
+    }
+
+    /**
+     * Determines if the instance is within the next week.
+     *
+     * @return bool
+     */
+    public function isCurrentWeek(): bool
+    {
+        return $this->isSameWeek();
+    }
+
+    /**
+     * Checks if the passed in date is the same exact hour as the instance´s hour.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
+     *
+     * @return bool
+     */
+    public function isSameWeek(DateTimeInterface $date = null): bool
+    {
+        return $this->isSameAs('W', $date);
+    }
+
+    /**
      * Get the "saving" format.
      */
     public function formatSave(): string
@@ -193,5 +225,35 @@ class Clock extends \Carbon\Carbon
     public function toFormatedTimeString(): string
     {
         return $this->format('g:ia');
+    }
+
+    public function toDayString(bool $short = true): string
+    {
+        return $this->format($short ? 'D' : 'l');
+    }
+
+    public static function intervalDescription($startsAt, $endsAt, bool $isAllDay = false): string
+    {
+        $startsAt = Clock::makeOrNull($startsAt);
+        $endsAt   = Clock::makeOrNull($endsAt);
+
+        if ($startsAt === null || $endsAt === null) {
+            return '';
+        }
+
+        // All day?
+        if ($isAllDay === true) {
+            return $startsAt->format('D M j, Y');
+        }
+
+        // Default at description
+        $display = $startsAt->format('D M j, Y g:ia') . ' -<br>' . $endsAt->format('D M j, Y g:ia');
+
+        // Same day
+        if ($startsAt->isSameDay($endsAt)) {
+            $display = $startsAt->format('D M j, Y g:ia') . ' - ' . $endsAt->format('g:ia');
+        }
+
+        return str_replace(':00', '', $display);
     }
 }

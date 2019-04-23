@@ -139,6 +139,22 @@ class Collection extends \Illuminate\Support\Collection
         return $this;
     }
 
+    public function castInteger(): Collection
+    {
+        return $this->map(function ($value) {
+
+            return Cast::toInteger($value);
+        });
+    }
+
+    public function castString(): Collection
+    {
+        return $this->map(function ($value) {
+
+            return Cast::toString($value);
+        });
+    }
+
     /**
      * Change every value (nested too) by returned result of $callback($value, $key).
      *

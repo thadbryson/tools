@@ -55,7 +55,7 @@ use Tool\Validation\Helper;
  * @method static string notBlank($value, string $message = null, string $propertyPath = null)
  * @method static object isInstanceOf($value, $className, string $message = null, string $propertyPath = null)
  * @method static object notIsInstanceOf($value, $className, string $message = null, string $propertyPath = null)
- * @method static object|string isSubclassOf($value, string $className, string $message = null, string $propertyPath = null)
+ * @method static object|string isSubclassOf(string|object $value, string $className, string $message = null, string $propertyPath = null)
  * @method static object subclassOf($value, $className, string $message = null, string $propertyPath = null)
  * @method static int|float range($value, $minValue, $maxValue, string $message = null, string $propertyPath = null)
  * @method static int|float min($value, $minValue, string $message = null, string $propertyPath = null)

@@ -32,7 +32,7 @@ class Request extends \Illuminate\Http\Request
      */
     public static function isCurrentMobile(): bool
     {
-        $agent = $_SERVER['HTTP_USER_AGENT'];
+        $agent = static::capture()->userAgent();
 
         return static::isAgentMobile($agent);
     }

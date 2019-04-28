@@ -61,4 +61,19 @@ class Environment
     {
         return static::getOS() === 'FRE';
     }
+
+    /**
+     * Is the current Request coming from a mobile device?
+     * From: http://detectmobilebrowsers.com/
+     */
+    public static function isMobile(): bool
+    {
+        $agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+
+        if ($agent === '') {
+            return false;
+        }
+
+        return Request::isAgentMobile($agent);
+    }
 }

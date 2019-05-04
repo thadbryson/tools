@@ -165,37 +165,37 @@ trait HttpMethods
         return $this;
     }
 
-    public function get(string $uri, array $query = []): array
+    public function get(string $uri = '/', array $query = []): array
     {
         return $this->send('GET', $uri, [], $query);
     }
 
-    public function post(string $uri, array $post = [], array $query = []): array
+    public function post(string $uri = '/', array $post = [], array $query = []): array
     {
         return $this->send('POST', $uri, $post, $query);
     }
 
-    public function put(string $uri, array $post = [], array $query = []): array
+    public function put(string $uri = '/', array $post = [], array $query = []): array
     {
         return $this->send('PUT', $uri, $post, $query);
     }
 
-    public function patch(string $uri, array $post = [], array $query = []): array
+    public function patch(string $uri = '/', array $post = [], array $query = []): array
     {
         return $this->send('PATCH', $uri, $post, $query);
     }
 
-    public function delete(string $uri, array $post = [], array $query = []): array
+    public function delete(string $uri = '/', array $post = [], array $query = []): array
     {
         return $this->send('DELETE', $uri, $post, $query);
     }
 
-    public function options(string $uri, array $post = [], array $query = []): array
+    public function options(string $uri = '/', array $post = [], array $query = []): array
     {
         return $this->send('OPTIONS', $uri, $post, $query);
     }
 
-    public function head(string $uri, array $post = [], array $query = []): array
+    public function head(string $uri = '/', array $post = [], array $query = []): array
     {
         return $this->send('HEAD', $uri, $post, $query);
     }

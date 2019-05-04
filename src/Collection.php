@@ -281,4 +281,17 @@ class Collection extends \Illuminate\Support\Collection
 
         return $this;
     }
+
+    public function rejectValue($value): Collection
+    {
+        return $this->reject(function ($item) use ($value) {
+
+            return $item === $value;
+        });
+    }
+
+    public function rejectNull(): Collection
+    {
+        return $this->rejectValue(null);
+    }
 }

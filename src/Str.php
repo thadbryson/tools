@@ -7,6 +7,7 @@ namespace Tool;
 use Illuminate\Support\Pluralizer;
 use Tool\Traits\Str as StrTraits;
 use Tool\Validation\Assert;
+use function hexdec;
 use function json_decode;
 use function json_last_error;
 use function strlen;
@@ -316,5 +317,29 @@ class Str extends \Stringy\Stringy
             ->titleize()
             ->lowerCaseFirst()
             ->replace(' ', '');
+    }
+
+    /**
+     * Convert hex color codes to RGB.
+     *
+     * @return int[]|null
+     */
+    public function colorHexToRgb(): ?array
+    {
+        $str = $this->trim()->trimLeft('#');
+
+        if ($str->length() !== 6 || $str->isHexadecimal() === false) {
+            return null;
+        }
+
+        $red   = $str->substr(0, 2)->get();
+        $green = $str->substr(2, 2)->get();
+        $blue  = $str->substr(4, 2)->get();
+
+        return [
+            'red'   => hexdec($red),
+            'green' => hexdec($green),
+            'blue'  => hexdec($blue)
+        ];
     }
 }

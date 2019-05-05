@@ -294,4 +294,12 @@ class Collection extends \Illuminate\Support\Collection
     {
         return $this->rejectValue(null);
     }
+
+    public function filterValue($value): Collection
+    {
+        return $this->filter(function ($item) use ($value) {
+
+            return $item === $value;
+        });
+    }
 }

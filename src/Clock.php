@@ -243,15 +243,15 @@ class Clock extends \Carbon\Carbon
 
         // All day?
         if ($isAllDay === true) {
-            return $startsAt->format('D M j, Y');
+            return $startsAt->format('D, M j, Y');
         }
 
         // Default at description
-        $display = $startsAt->format('D M j, Y g:ia') . ' -<br>' . $endsAt->format('D M j, Y g:ia');
+        $display = $startsAt->format('D, M j, Y g:ia') . ' -<br>' . $endsAt->format('D, M j, Y g:ia');
 
         // Same day
         if ($startsAt->isSameDay($endsAt)) {
-            $display = $startsAt->format('D M j, Y g:ia') . ' - ' . $endsAt->format('g:ia');
+            $display = $startsAt->format('D, M j, Y g:ia') . ' - ' . $endsAt->format('g:ia');
         }
 
         return str_replace(':00', '', $display);

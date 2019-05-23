@@ -242,7 +242,7 @@ class Clock extends \Carbon\Carbon
         }
 
         // All day?
-        if ($isAllDay === true) {
+        if ($isAllDay) {
             return $startsAt->format('D, M j, Y');
         }
 
@@ -250,7 +250,10 @@ class Clock extends \Carbon\Carbon
         $display = $startsAt->format('D, M j, Y g:ia') . ' -<br>' . $endsAt->format('D, M j, Y g:ia');
 
         // Same day
-        if ($startsAt->isSameDay($endsAt)) {
+        if ($startsAt->isSameMinute($endsAt)) {
+            $display = $startsAt->format('D, M j, Y g:ia');
+        }
+        elseif ($startsAt->isSameDay($endsAt)) {
             $display = $startsAt->format('D, M j, Y g:ia') . ' - ' . $endsAt->format('g:ia');
         }
 

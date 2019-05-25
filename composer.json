@@ -8,19 +8,19 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-simplexml": "*",
-        "illuminate/http": "^5.7",
-        "illuminate/support": "^5.7",
-        "illuminate/validation": "^5.7",
-        "ramsey/uuid": "3.7.*",
+        "illuminate/http": "5.8.*",
+        "illuminate/support": "5.8.*",
+        "illuminate/validation": "5.8.*",
+        "ramsey/uuid": "3.8.*",
         "danielstjules/stringy": "3.1.*",
-        "twig/twig": "2.7.*",
-        "giggsey/libphonenumber-for-php": "8.*",
-        "beberlei/assert": "^3.2"
+        "twig/twig": "2.10.*",
+        "giggsey/libphonenumber-for-php": "8.10.*",
+        "beberlei/assert": "3.2.*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
         "codeception/codeception":  "3.*",
-        "mikey179/vfsStream": "^1.6"
+        "mikey179/vfsStream": "1.6.*"
     },
     "autoload": {
         "psr-4": {

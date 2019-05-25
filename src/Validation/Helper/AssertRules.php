@@ -297,7 +297,10 @@ class AssertRules extends BaseAssertion
         $extension = ltrim($extension, '.');
 
         static::file($filepath);
-        static::eq(pathinfo($filepath, PATHINFO_EXTENSION), $extension, $message ?? '%s must have extension %s', $propertyPath);
+
+        $message = sprintf('Filepath %s must have extension "%s".', $filepath, $extension);
+
+        static::eq(pathinfo($filepath, PATHINFO_EXTENSION), $extension, $message, $propertyPath);
 
         return true;
     }

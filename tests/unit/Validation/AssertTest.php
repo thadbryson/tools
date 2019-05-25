@@ -106,12 +106,13 @@ class AssertTest extends \Codeception\Test\Unit
             ['notDotKeyExists', 'id', [1, 2, 3]],
             ['isSubclassOf', Carbon::class, DateTime::class],
             ['isSubclassOf', DateTime::class, DateTime::class],
+            ['isSubclassOf', new Carbon, DateTime::class],
+            ['isSubclassOf', new DateTime, DateTime::class],
             ['classOrObject', \DateTime::class],
             ['methodExists', 'format', new \DateTime],
             ['classOrObject', new \DateTime('2015-01-20')],
             ['fileExtension', __FILE__, 'php'],
             ['fileExtension', __FILE__, '.php'],
-            ['fileExtension', __FILE__, 'php'],
         ];
     }
 
@@ -149,6 +150,7 @@ class AssertTest extends \Codeception\Test\Unit
             ['dotKeyExists', '0.5', [[1, 2, 3], 'a', 'b', 'c']],
             ['notDotKeyExists', '0', [1, 2, 3]],
             ['isSubclassOf', DateTime::class, Carbon::class],
+            ['isSubclassOf', new DateTime, Carbon::class],
             ['classOrObject', '\\NotAClass'],
             ['classOrObject', 1],
             ['methodExists', 'format ', \DateTime::class],

@@ -80,4 +80,39 @@ class KeyMethodsTraitTest extends \Codeception\Test\Unit
             ],
         ], $this->coll->undot());
     }
+
+    public function testCombineEach(): void
+    {
+
+    }
+
+    public function testMapHeader(): void
+    {
+
+    }
+
+    public function testOnlyEach(): void
+    {
+
+    }
+
+    public function testInsertAt(): void
+    {
+
+    }
+
+    public function testSetAt(): void
+    {
+
+    }
+
+    public function testGetAt(): void
+    {
+
+    }
+
+    public function testPullAt(): void
+    {
+
+    }
 }

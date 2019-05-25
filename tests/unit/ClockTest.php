@@ -24,6 +24,17 @@ class ClockTest extends \Codeception\Test\Unit
         $this->datetime = new \DateTime('2000-01-03 12:15:45');
     }
 
+    public function testConstruct(): void
+    {
+        $this->tester->assertClock($this->datetime, new Clock('2000-01-03 12:15:45'));
+    }
+
+    public function testStaticMakeOrNull(): void
+    {
+        $this->tester->assertClock($this->datetime, Clock::make('2000-01-03 12:15:45'));
+        $this->assertNull(Clock::make('aaaa-01-03 12:15:45'));
+    }
+
     public function testStaticMake(): void
     {
         $this->tester->assertClock($this->datetime, Clock::make('2000-01-03 12:15:45'));
@@ -98,5 +109,80 @@ class ClockTest extends \Codeception\Test\Unit
             [false, '08:00:00', '17:00:00', '02:00:00'],    // way too soon
             [false, '04:00:00', '06:00:00', '09:00:00'],    // way too late
         ];
+    }
+
+    public function testIsAllDay(): void
+    {
+
+    }
+
+    public function testIsDateBetween(): void
+    {
+
+    }
+
+    public function testIsNowBetween(): void
+    {
+
+    }
+
+    public function testIsTimeBetween(): void
+    {
+
+    }
+
+    public function testIsNowBetweenTime(): void
+    {
+
+    }
+
+    public function testGetDiff(): void
+    {
+
+    }
+
+    public function testIsBefore(): void
+    {
+
+    }
+
+    public function testIsAfter(): void
+    {
+
+    }
+
+    public function testIsCurrentWeekend(): void
+    {
+
+    }
+
+    public function testIsCurrentWeek(): void
+    {
+
+    }
+
+    public function testIsSameWeek(): void
+    {
+
+    }
+
+    public function testGetAvailableTimezones(): void
+    {
+
+    }
+
+    public function testToFormatedTimeString(): void
+    {
+
+    }
+
+    public function testToDayString(): void
+    {
+
+    }
+
+    public function testIntervalDescription(): void
+    {
+
     }
 }

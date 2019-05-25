@@ -119,6 +119,16 @@ class CollectionTest extends \Codeception\Test\Unit
         ]));
     }
 
+    public function testCastInteger(): void
+    {
+
+    }
+
+    public function testCastString(): void
+    {
+
+    }
+
     public function testActOnAll(): void
     {
         $this->tester->assertArr([
@@ -163,5 +173,45 @@ class CollectionTest extends \Codeception\Test\Unit
         $coll[3]['id'] .= '    ';
 
         $this->tester->assertArr($this->coll, Collection::make($coll)->trimEverything());
+    }
+
+    public function testUtf8Everything(): void
+    {
+
+    }
+
+    public function testCallEverything(): void
+    {
+
+    }
+
+    public function testSaveAll(): void
+    {
+
+    }
+
+    public function testDeleteAllModels(): void
+    {
+
+    }
+
+    public function testDeleteNot(): void
+    {
+
+    }
+
+    public function testRejectValue(): void
+    {
+
+    }
+
+    public function testRejectNull(): void
+    {
+
+    }
+
+    public function testFilterValue(): void
+    {
+
     }
 }

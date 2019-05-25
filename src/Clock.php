@@ -111,21 +111,23 @@ class Clock extends \Carbon\Carbon
         return false;
     }
 
-    public static function isBetween($start, $end, $between): bool
+    public static function isDateBetween($start, $end, $between, bool $equals = true): bool
     {
-        $between = Clock::make($between)->format('Y-m-d H:i:s');
-        $start   = Clock::make($start)->format('Y-m-d H:i:s');
-        $end     = Clock::make($end)->format('Y-m-d H:i:s');
+        $start = Clock::make($start);
+        $end   = Clock::make($end);
 
-        return $start <= $between && $between <= $end;
+        return Clock::make($between)->isBetween($start, $end, $equals);
     }
 
-    public static function isNowBetween($start, $end): bool
+    public static function isNowBetween($start, $end, bool $equals = true): bool
     {
-        return static::isBetween($start, $end, new DateTime);
+        $start = Clock::make($start);
+        $end   = Clock::make($end);
+
+        return Clock::now()->isBetween($start, $end, $equals);
     }
 
-    public static function isBetweenTime($start, $end, $between): bool
+    public static function isTimeBetween($start, $end, $between): bool
     {
         $between = Clock::make($between)->format('Y-m-d H:i:s');
         $start   = Clock::make($start)->format('Y-m-d H:i:s');

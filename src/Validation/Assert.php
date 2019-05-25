@@ -293,19 +293,4 @@ class Assert
         // Return passed in value.
         return array_shift($arguments);
     }
-
-    public static function that($value, string $message = null, string $propertyPath = null): AssertionChain
-    {
-        return \Assert\Assert::that($value, $message, $propertyPath);
-    }
-
-    public static function thatAll($value, string $message = null, string $propertyPath = null): AssertionChain
-    {
-        return \Assert\Assert::thatAll($value, $message, $propertyPath);
-    }
-
-    public static function thatNullOr($value, string $message = null, string $propertyPath = null): AssertionChain
-    {
-        return \Assert\Assert::thatNullOr($value, $message, $propertyPath);
-    }
 }

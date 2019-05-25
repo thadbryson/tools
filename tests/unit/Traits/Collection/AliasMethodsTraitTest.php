@@ -98,4 +98,14 @@ class AliasMethodsTraitTest extends \Codeception\Test\Unit
 
         $this->assertEquals('abc', $this->coll->removeLast());
     }
+
+    public function testForgetFirst(): void
+    {
+
+    }
+
+    public function testForgetLast(): void
+    {
+
+    }
 }

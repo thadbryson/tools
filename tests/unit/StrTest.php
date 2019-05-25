@@ -38,6 +38,35 @@ class StrTest extends \Codeception\Test\Unit
         $this->assertEquals(' what??? ', (string) $str);
     }
 
+    public function testSwapLeft(): void
+    {
+
+    }
+
+    public function testSwapRight(): void
+    {
+
+    }
+
+    public function testRemove(): void
+    {
+
+    }
+
+    public function testLimit(): void
+    {
+
+    }
+
+    public function testAbbr(): void
+    {
+    }
+
+    public function testAbbrText(): void
+    {
+
+    }
+
     public function testBeforeSubstr(): void
     {
         $this->tester
@@ -163,5 +192,20 @@ class StrTest extends \Codeception\Test\Unit
             ->assertStr(Str::make('0')->moneyInternational(), 'USD 0.00')
             ->assertStr(Str::make('98345.72')->moneyInternational(), 'USD 98,345.72')
             ->assertStr(Str::make('712.832')->moneyInternational(), 'USD 712.83');
+    }
+
+    public function testTemperature(): void
+    {
+
+    }
+
+    public function testUtf8(): void
+    {
+
+    }
+
+    public function testColorHexToRgb(): void
+    {
+
     }
 }

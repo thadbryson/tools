@@ -11,9 +11,9 @@ use function json_encode;
 use function strtolower;
 
 /**
- * Class JsonClient
+ * Class HttpClient
  */
-class JsonClientTest extends \Codeception\Test\Unit
+class HttpClientTest extends \Codeception\Test\Unit
 {
     /**
      * @var \UnitTester

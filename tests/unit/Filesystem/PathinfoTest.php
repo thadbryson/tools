@@ -41,6 +41,12 @@ class PathinfoTest extends \Codeception\Test\Unit
         $this->assertTrue($this->directory->isDir());
     }
 
+    public function testMakeWithSplFileInfoArgument(): void
+    {
+        $this->assertTrue(Pathinfo::make($this->file)->isFile());
+        $this->assertTrue(Pathinfo::make($this->directory)->isDir());
+    }
+
     public function testConstructDirectoryNotFound(): void
     {
         $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/no does not exist.', 400));
@@ -126,6 +132,18 @@ class PathinfoTest extends \Codeception\Test\Unit
         $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/dir1 cannot be a directory.', 400));
 
         Pathinfo::make(vfsStream::url('root/dir1'))->assertFile();
+    }
+
+    public function testAssertExtension(): void
+    {
+        $this->file->assertExtension('txt');
+        $this->file->assertExtension('.txt');
+
+        $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/file.txt must have extension "pdf".', 400));
+        $this->file->assertExtension('pdf');
+
+        $this->expectExceptionObject(new InvalidArgumentException('Filepath vfs://root/file.txt must have extension "pdf".', 400));
+        $this->file->assertExtension('.pdf');
     }
 
     private function checkPermission(bool $readable, Pathinfo $path, string $errorMessage): void

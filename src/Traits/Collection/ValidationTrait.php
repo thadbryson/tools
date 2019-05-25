@@ -20,7 +20,7 @@ trait ValidationTrait
      * Validate the data and return a Mapped object with any error messages.
      *
      * @param array $rules
-     * @param array $messages = []
+     * @param array $messages         = []
      * @param array $customAttributes = []
      *
      * @return Result

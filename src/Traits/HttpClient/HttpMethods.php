@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Tool\Arr;
 use Tool\HttpClient;
 use Tool\Str;
-use function json_encode;
 
 /**
  * Trait HttpMethods

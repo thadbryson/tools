@@ -37,7 +37,7 @@ trait StaticMakeTrait
         $random      = '';
         $charsLength = mb_strlen($chars, '8bit') - 1;
 
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0;$i < $length;$i++) {
             $random .= $chars[random_int(0, $charsLength)];
         }
 

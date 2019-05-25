@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Tool;
 
-use const PHP_OS;
 use function php_sapi_name;
+use const PHP_OS;
 
 /**
  * Class Environment

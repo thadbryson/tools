@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Tool\Traits\Collection;
 
-use function data_get;
 use Illuminate\Database\Eloquent\Model;
 use Tool\Arr;
 use Tool\Collection;

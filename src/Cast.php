@@ -5,18 +5,15 @@ declare(strict_types = 1);
 namespace Tool;
 
 use DateTime;
-use DateTimeInterface;
 use InvalidArgumentException;
 use function array_replace_recursive;
 use function is_float;
 use function is_int;
-use function is_iterable;
 use function is_numeric;
 use function is_object;
 use function is_string;
 use function json_decode;
 use function strtolower;
-use function strtotime;
 
 /**
  * Cast Class

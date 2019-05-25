@@ -49,7 +49,7 @@ class Result
      * Throw an Exception if there are errors. Otherwise return the data that was validated.
      *
      * @param string $message = 'Invalid data found.' - Exception message to throw if any.
-     * @param int    $code = 400  - Exception code to throw if any.
+     * @param int    $code    = 400  - Exception code to throw if any.
      *
      * @return bool
      * @throws ValidationException
@@ -65,7 +65,7 @@ class Result
 
     /**
      * @param string $message = 'Invalid data found.'
-     * @param int    $code = 400
+     * @param int    $code    = 400
      *
      * @return void
      * @throws ValidationException

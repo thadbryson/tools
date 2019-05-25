@@ -147,7 +147,7 @@ class Arr extends \Illuminate\Support\Arr
      * @param array       &$array
      * @param array        $destination
      * @param string       $fromDot - DOT key in $array to copy
-     * @param string|null  $toDot - DOT key to copy to, if NULL will use same DOT as $fromDOT
+     * @param string|null  $toDot   - DOT key to copy to, if NULL will use same DOT as $fromDOT
      *
      * @return array
      */
@@ -203,7 +203,7 @@ class Arr extends \Illuminate\Support\Arr
      * @param array       $array
      * @param array       $destination
      * @param string      $fromDot - DOT key in $array to copy
-     * @param string|null $toDot - DOT key to copy to, if NULL will use same DOT as $fromDOT
+     * @param string|null $toDot   - DOT key to copy to, if NULL will use same DOT as $fromDOT
      *
      * @return array
      */

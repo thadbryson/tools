@@ -4,26 +4,25 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Traits\Properties;
 
-use InvalidArgumentException;
-use Tool\Paging\Pager;
+use Tests\Support\Stubs\PropertiesGetterStub;
 
-/**
- * Class PropertyGetTraitTest
- *
- * TThe PropertyGetTrait is used throughout the code in classes.
- * I want to explicitly test the propertyAssert() method by calling
- * a non-existent property on a class that uses it.
- */
 class PropertyGettersTraitTest extends \Codeception\Test\Unit
 {
 
     public function testInvalidProperty(): void
     {
+        $getter = new PropertiesGetterStub;
 
+        $this->expectException(\Assert\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Nope');
+
+        $getter->nope;
     }
 
     public function testHasGetter(): void
     {
+        $getter = new PropertiesGetterStub;
 
+        $this->assertEquals(false, $getter->id);
     }
 }

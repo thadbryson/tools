@@ -54,10 +54,10 @@ class DirectoryTest extends \Codeception\Test\Unit
 
     public function testCopy(): void
     {
-        $directory = Directory::make(vfsStream::url('root/dir1/dir-1-b/.hidden'))
-            ->copy(vfsStream::url('root/was-hidden'));
+        $directory = Directory::make(vfsStream::url('root/dir1/dir-1-b/.hidden'));
+        $copied = $directory->copy(vfsStream::url('root/was-hidden'));
 
-        $this->assertEquals(vfsStream::url('root/was-hidden'), $directory->getPathname());
+        $this->assertEquals(vfsStream::url('root/was-hidden'), $copied->getPathname());
 
         $this->assertTrue(is_dir(vfsStream::url('root/dir1/dir-1-b/.hidden')));
         $this->assertTrue(is_file(vfsStream::url('root/dir1/dir-1-b/.hidden/template1.twig')));
@@ -72,10 +72,10 @@ class DirectoryTest extends \Codeception\Test\Unit
 
     public function testMove(): void
     {
-        $directory = Directory::make(vfsStream::url('root/dir1/dir-1-b/.hidden'))
-            ->move(vfsStream::url('root/was-hidden2'));
+        $directory = Directory::make(vfsStream::url('root/dir1/dir-1-b/.hidden'));
+        $moved = $directory->move(vfsStream::url('root/was-hidden2'));
 
-        $this->assertEquals(vfsStream::url('root/was-hidden2'), $directory->getPathname());
+        $this->assertEquals(vfsStream::url('root/was-hidden2'), $moved->getPathname());
 
         $this->assertFalse(file_exists(vfsStream::url('root/dir1/dir-1-b/.hidden')));
         $this->assertFalse(file_exists(vfsStream::url('root/dir1/dir-1-b/.hidden/template1.twig')));

@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Tool;
 
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 use Psr\Http\Message\ResponseInterface;
 use function json_decode;
 
@@ -33,14 +32,17 @@ class HttpClient
      *
      * @param string $baseUri = '' - Base URI for all API calls.
      * @param array  $config  = [] - Client configuration.
+     * @codeCoverageIgnoreStart
      */
     public function __construct(string $baseUri = '', array $config = [])
     {
+
         $this->client = new Client($config);
 
         $this->request = new Request;
         $this->baseUri = $baseUri;
     }
+    /** @codeCoverageIgnoreEnd */
 
     public function getRequest(): Request
     {

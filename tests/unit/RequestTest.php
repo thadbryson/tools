@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
+use Assert\InvalidArgumentException;
+use function codecept_debug;
 use Tool\Request;
 use Tool\Str;
 use function json_encode;
@@ -14,6 +16,28 @@ class RequestTest extends \Codeception\Test\Unit
      * @var \UnitTester
      */
     protected $tester;
+
+    public function testFind(): void
+    {
+        $_GET  = ['id' => 1, 'name' => 'Test'];
+
+        $this->assertEquals(1, Request::find('id'));
+
+        $this->assertEquals(100, Request::find('nada', 100));
+        $this->assertNull(Request::find('nope'));
+    }
+
+    public function testFindOrFail(): void
+    {
+        $_GET  = ['id' => 1, 'name' => 'Test'];
+
+        $this->assertEquals(1, Request::findOrFail('id'));
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Form key "form.nope" not submitted.');
+
+        Request::findOrFail('form.nope');
+    }
 
     /**
      * @dataProvider dataMobileAgents

@@ -7,6 +7,7 @@ namespace Tests\Unit\Filesystem;
 use DateTime;
 use InvalidArgumentException;
 use SplFileInfo;
+use Tool\Collection;
 use Tool\Filesystem\Finder;
 use Tool\Filesystem\Pathinfo;
 use function dirname;
@@ -61,6 +62,22 @@ class FinderTest extends \Codeception\Test\Unit
 
         $finder->setFileInfoClass(SplFileInfo::class);
         $this->checkIteratorAndArray($finder, SplFileInfo::class);
+    }
+
+    public function testToCollection(): void
+    {
+        $finder = Finder::make(...$this->directories)->toCollection();
+
+        $this->assertInstanceOf(Collection::class, $finder);
+        $this->assertContainsOnlyInstancesOf(Pathinfo::class, $finder->all());
+    }
+
+    public function testInvalidDirectoryIn(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The "no" directory does not exist.');
+
+        Finder::make('no');
     }
 
     protected function checkIteratorAndArray(Finder $finder, string $splClass): void

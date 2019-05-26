@@ -147,18 +147,22 @@ class Clock extends \Carbon\Carbon
 
     public static function isNowBetweenTime($start, $end): bool
     {
+        $start = Clock::makeOrNull($start);
+        $end   = Clock::makeOrNull($end);
+
         if ($start === null || $end === null) {
             return false;
         }
 
-        return static::isBetweenTime(new Clock($start), new Clock($end), new DateTime);
+        return static::isTimeBetween(new Clock($start), new Clock($end), new DateTime);
     }
 
     public static function getDiff($start, $end = null): ?CarbonInterval
     {
-        $end = $end ?? new static;
+        $start = static::makeOrNull($start);
+        $end   = static::makeOrNull($end);
 
-        if ($start instanceof DateTimeInterface === false || $end instanceof DateTimeInterface === false) {
+        if ($start === null || $end === null) {
             return new CarbonInterval(0);
         }
 
@@ -189,25 +193,16 @@ class Clock extends \Carbon\Carbon
     }
 
     /**
-     * Determines if the instance is within the next week.
-     *
-     * @return bool
-     */
-    public function isCurrentWeek(): bool
-    {
-        return $this->isSameWeek();
-    }
-
-    /**
      * Checks if the passed in date is the same exact hour as the instance´s hour.
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
      *
      * @return bool
+     * @throws Exception
      */
-    public function isSameWeek(DateTimeInterface $date = null): bool
+    public function isSameWeek($date = null): bool
     {
-        return $this->isSameAs('W', $date);
+        return $this->isSameAs('W', $date = new Clock($date));
     }
 
     /**
@@ -233,7 +228,7 @@ class Clock extends \Carbon\Carbon
         return $this->format($short ? 'D' : 'l');
     }
 
-    public static function intervalDescription($startsAt, $endsAt, bool $isAllDay = false): string
+    public static function intervalDescription($startsAt, $endsAt): string
     {
         $startsAt = Clock::makeOrNull($startsAt);
         $endsAt   = Clock::makeOrNull($endsAt);
@@ -243,7 +238,7 @@ class Clock extends \Carbon\Carbon
         }
 
         // All day?
-        if ($isAllDay) {
+        if (static::isAllDay($startsAt, $endsAt)) {
             return $startsAt->format('D, M j, Y');
         }
 

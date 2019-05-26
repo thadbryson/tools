@@ -113,6 +113,22 @@ class AssertTest extends \Codeception\Test\Unit
             ['classOrObject', new \DateTime('2015-01-20')],
             ['fileExtension', __FILE__, 'php'],
             ['fileExtension', __FILE__, '.php'],
+            ['truthy', 1],
+            ['truthy', '1'],
+            ['truthy', 'true'],
+            ['truthy', 'yes'],
+            ['truthy', 'YES'],
+            ['truthy', 'y'],
+            ['truthy', 'Y'],
+            ['truthy', 'T'],
+            ['falsey', 0],
+            ['falsey', '0'],
+            ['falsey', 'false'],
+            ['falsey', 'no'],
+            ['falsey', 'NO'],
+            ['falsey', 'n'],
+            ['falsey', 'N'],
+            ['falsey', 'F'],
         ];
     }
 
@@ -156,6 +172,16 @@ class AssertTest extends \Codeception\Test\Unit
             ['methodExists', 'format ', \DateTime::class],
             ['methodExists', 1, \DateTime::class . 'nah'],
             ['fileExtension', 'word.txt', 'pdf'],
+            ['truthy', 10],
+            ['truthy', '100'],
+            ['truthy', 'yeah!'],
+            ['truthy', 'a'],
+            ['truthy', 'A'],
+            ['falsey', 10],
+            ['falsey', '77'],
+            ['falsey', 'nada'],
+            ['falsey', 'a'],
+            ['falsey', 'A'],
         ];
     }
 

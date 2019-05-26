@@ -5,24 +5,26 @@ declare(strict_types = 1);
 namespace Tests\Support\Stubs;
 
 use GuzzleHttp\Psr7\Response;
+use Tool\HttpClient;
 use function json_encode;
 
 /**
  * Class HttpClientStub
  */
-final class HttpClientStub
+final class HttpClientStub extends HttpClient
 {
-    /**
-     * @var string
-     */
-    private $baseUri;
-
     /**
      * @var array
      */
     private $data = [];
 
-    public function __construct(string $baseUri)
+    /**
+     * JsonClient constructor.
+     *
+     * @param string $baseUri = '' - Base URI for all API calls.
+     * @param array  $config  = [] - Client configuration.
+     */
+    public function __construct(string $baseUri = '')
     {
         $this->baseUri = $baseUri;
     }

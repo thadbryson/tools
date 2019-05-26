@@ -4,8 +4,11 @@ declare(strict_types = 1);
 
 namespace Tests\Unit;
 
+use DateTime;
 use Tool\Cast;
 use function strtolower;
+use Tool\Clock;
+use Tool\Collection;
 use function ucfirst;
 use const M_PI;
 use const PHP_INT_MAX;
@@ -57,10 +60,10 @@ class CastTest extends \Codeception\Test\Unit
             ['bool', '0', false],
             ['bool', 1.0, null],
             ['bool', '', null],
-            ['bool', 'true', null],
-            ['bool', 'TRUE', null],
-            ['bool', 'false', null],
-            [' bool', 'FALSE', null],
+            ['bool', 'true', true],
+            ['bool', 'TRUE', true],
+            ['bool', 'false', false],
+            [' bool', 'FALSE', false],
             ['bool ', [], null],
             ['BOOL', [], null],
 
@@ -123,9 +126,19 @@ class CastTest extends \Codeception\Test\Unit
             ['array', '0.0', ['0.0']],
             ['array', '1.0', ['1.0']],
             ['array', '-6444.3333', ['-6444.3333']],
+            ['array', Collection::make([1, 2, 3]), [1, 2, 3]],
             [' array', true, [true]],
             ['array ', false, [false]],
             ['ARRAY', false, [false]],
+
+            ['collection', [], new Collection([])],
+            ['collection', [1, 2, 3], new Collection([1, 2, 3])],
+            ['collection', null, null],
+
+            ['datetime', 'dd', null],
+            ['datetime', 'abc', null],
+            ['datetime', new DateTime('2000-01-01 12:00:00'), new Clock('2000-01-01 12:00:00')],
+            ['datetime', '2000-01-01 12:00:00', new Clock('2000-01-01 12:00:00')],
         ];
     }
 

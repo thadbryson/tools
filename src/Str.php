@@ -68,6 +68,10 @@ class Str extends \Stringy\Stringy
      */
     public function swapRight(string $substr, string $replace)
     {
+        if ($this->endsWith($substr) === false) {
+            return $this;
+        }
+
         return $this
             ->removeRight($substr)
             ->append($replace);
@@ -134,12 +138,16 @@ class Str extends \Stringy\Stringy
     /**
      * Remove $substr from string entirely.
      *
-     * @param string $substr
+     * @param string ...$substrs
      * @return $this
      */
-    public function remove(string $substr)
+    public function remove(string ...$substrs)
     {
-        return $this->replace($substr, '');
+        foreach ($substrs as $substr) {
+            $this->str = $this->replace($substr, '')->get();
+        }
+
+        return $this;
     }
 
     /**
@@ -178,9 +186,10 @@ class Str extends \Stringy\Stringy
     public function abbr(int $length, string $append = '...')
     {
         if ($length < strlen($this->str)) {
-            $str = $this->limit($length, $append);
+            $full = $this->get();
+            $str  = $this->limit($length, $append);
 
-            $this->str = sprintf('<abbr title="%s">%s</abbr>', $this->str, $str);
+            $this->str = sprintf('<abbr title="%s">%s</abbr>', $full, $str);
         }
 
         return $this;
@@ -189,16 +198,16 @@ class Str extends \Stringy\Stringy
     /**
      * Use <abbr> text with different text placeholder.
      *
-     * @param string $text
+     * @param string $title
      * @param int    $length
      * @param string $append
      * @return $this
      */
-    public function abbrText(string $text, int $length, string $append = '...')
+    public function abbrTitle(string $title, int $length, string $append = '...')
     {
         $str = $this->limit($length, $append);
 
-        $this->str = sprintf('<abbr title="%s">%s</abbr>', $text, $str);
+        $this->str = sprintf('<abbr title="%s">%s</abbr>', $title, $str);
 
         return $this;
     }
@@ -328,6 +337,14 @@ class Str extends \Stringy\Stringy
     {
         $str = $this->trim()->trimLeft('#');
 
+        if ($str->length() === 3) {
+            $char1 = $str->at(0);
+            $char2 = $str->at(1);
+            $char3 = $str->at(2);
+
+            $str = Str::make("{$char1}{$char1}{$char2}{$char2}{$char3}{$char3}");
+        }
+
         if ($str->length() !== 6 || $str->isHexadecimal() === false) {
             return null;
         }
@@ -337,9 +354,9 @@ class Str extends \Stringy\Stringy
         $blue  = $str->substr(4, 2)->get();
 
         return [
-            'red'   => hexdec($red),
-            'green' => hexdec($green),
-            'blue'  => hexdec($blue)
+            'red'   => (int) hexdec($red),
+            'green' => (int) hexdec($green),
+            'blue'  => (int) hexdec($blue)
         ];
     }
 }

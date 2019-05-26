@@ -4,12 +4,11 @@ declare(strict_types = 1);
 
 namespace Tool;
 
-use DateTime;
 use InvalidArgumentException;
 use function array_replace_recursive;
+use function is_array;
 use function is_float;
 use function is_int;
-use function is_numeric;
 use function is_object;
 use function is_string;
 use function json_decode;
@@ -82,8 +81,8 @@ class Cast
             case 'datetime':
                 return static::toDateTime($value);
 
-            case 'time':
-                return static::toTime($value);
+            case 'collection':
+                return static::toCollection($value);
 
             default:
                 throw new InvalidArgumentException('Invalid cast type given: ' . $type);
@@ -100,15 +99,11 @@ class Cast
             $value = strtolower($value);
         }
 
-        if (is_numeric($value)) {
-            $value = (int) $value;
-        }
-
-        if (in_array($value, [true, 'true', 1, 'on', 'yes', 'y', 't'], true)) {
+        if (in_array($value, [true, 'true', 1, '1', 'on', 'yes', 'y', 't'], true)) {
             return true;
         }
 
-        if (in_array($value, [false, 'false', 0, 'off', 'no', 'n', 'f'], true)) {
+        if (in_array($value, [false, 'false', 0, '0', 'off', 'no', 'n', 'f'], true)) {
             return false;
         }
 
@@ -154,22 +149,24 @@ class Cast
 
     public static function toArray($value): ?array
     {
-        if ($value === null) {
-            return null;
+        if ($value === null || is_array($value)) {
+            return $value;
         }
 
+        // Collection object?
         if (is_object($value)) {
             return Collection::make($value)->all();
         }
 
+        // JSON
         if (is_string($value)) {
-            return json_decode($value, true);
+            return (array) json_decode($value, true);
         }
 
         return (array) $value;
     }
 
-    public static function toCollection($value): Collection
+    public static function toCollection($value): ?Collection
     {
         $value = static::toArray($value);
 
@@ -182,34 +179,6 @@ class Cast
 
     public static function toDateTime($value): ?Clock
     {
-        if ($value === null) {
-            return null;
-        }
-
-        $clock = Clock::makeOrNull($value);
-
-        if ($clock !== null) {
-            return $clock;
-        }
-
-        return null;
-    }
-
-    public static function toTime($value): ?string
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        // Attempt to format.
-        foreach (['H:i:s', 'g:ia', 'g:iA'] as $format) {
-            $current = DateTime::createFromFormat($format, (string) $value);
-
-            if ($current !== false) {
-                return $current->format('H:i') . ':00';
-            }
-        }
-
-        return null;
+        return Clock::makeOrNull($value);
     }
 }

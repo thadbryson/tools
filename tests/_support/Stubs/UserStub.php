@@ -9,6 +9,8 @@ namespace Tests\Support\Stubs;
  */
 final class UserStub
 {
+    private $action = '';
+
     public function myMethod(): bool
     {
         return true;
@@ -17,5 +19,20 @@ final class UserStub
     public function myStaticMethod(): string
     {
         return 'yes';
+    }
+
+    public function save(): void
+    {
+        $this->action = 'save';
+    }
+
+    public function delete(): void
+    {
+        $this->action = 'delete';
+    }
+
+    public function getAction(): string
+    {
+        return $this->action;
     }
 }

@@ -119,6 +119,35 @@ class ArrTest extends \Codeception\Test\Unit
         ], $map);
     }
 
+    public function testMapEach(): void
+    {
+        $values = [
+            ['user' => ['id' => 1, 'name' => 'Test 1'], 1],
+            ['user' => ['id' => 2, 'name' => 'Test 2'], 2],
+            ['user' => ['id' => 3, 'name' => 'Test 3'], 3],
+        ];
+
+        $mappings = [
+            'user.id'   => 'id',
+            'user.name' => 'user_name'
+        ];
+
+        $mapped      = Arr::mapEach($values, $mappings);
+        $mappedKeyed = Arr::mapEach($values, $mappings, 'id');
+
+        $this->assertEquals([
+            ['user' => ['id' => 1, 'name' => 'Test 1'], 1, 'id' => 1, 'user_name' => 'Test 1'],
+            ['user' => ['id' => 2, 'name' => 'Test 2'], 2, 'id' => 2, 'user_name' => 'Test 2'],
+            ['user' => ['id' => 3, 'name' => 'Test 3'], 3, 'id' => 3, 'user_name' => 'Test 3'],
+        ], $mapped);
+
+        $this->assertEquals([
+            ['user' => ['id' => 1, 'name' => 'Test 1'], 1, 'id' => 1, 'user_name' => 'Test 1'],
+            ['user' => ['id' => 2, 'name' => 'Test 2'], 2, 'id' => 2, 'user_name' => 'Test 2'],
+            ['user' => ['id' => 3, 'name' => 'Test 3'], 3, 'id' => 3, 'user_name' => 'Test 3'],
+        ], $mappedKeyed);
+    }
+
     public function testMapOnly(): void
     {
         $map = Arr::mapOnly($this->asset, [
@@ -136,6 +165,32 @@ class ArrTest extends \Codeception\Test\Unit
             ],
             2        => [],
         ], $map);
+    }
+
+    public function testMapEachOnly(): void
+    {
+        $values = [
+            ['user' => ['id' => 1, 'name' => 'Test 1']],
+            ['user' => ['id' => 2, 'name' => 'Test 2']],
+            ['user' => ['id' => 3, 'name' => 'Test 3']],
+        ];
+
+        $mappings = ['user.id' => 'id'];
+
+        $mapped      = Arr::mapEach($values, $mappings);
+        $mappedKeyed = Arr::mapEach($values, $mappings, 'id');
+
+        $this->assertEquals([
+            ['id' => 1, 'user_name' => 'Test 1'],
+            ['id' => 2, 'user_name' => 'Test 2'],
+            ['id' => 3, 'user_name' => 'Test 3']
+        ], $mapped);
+
+        $this->assertEquals([
+            1 => ['id' => 1, 'user_name' => 'Test 1'],
+            2 => ['id' => 2, 'user_name' => 'Test 2'],
+            3 => ['id' => 3, 'user_name' => 'Test 3']
+        ], $mappedKeyed);
     }
 
     public function testCopy(): void

@@ -55,6 +55,19 @@ class FilesystemTest extends \Codeception\Test\Unit
         // TODO: test can't be saved
     }
 
+    public function testSaveJsonGetJson(): void
+    {
+        $data = [
+            'data' => 'here',
+            'json' => 'saved',
+            'id'   => 101
+        ];
+
+        $this->assertEquals(59, Filesystem::saveJson(vfsStream::url('root/test.json'), $data));
+
+        $this->assertEquals($data, Filesystem::getJson(vfsStream::url('root/test.json')));
+    }
+
     public function testEnsureFile(): void
     {
         $this->assertFalse(is_file(vfsStream::url('root/file2.txt')), 'File should not exist for test: file.txt');

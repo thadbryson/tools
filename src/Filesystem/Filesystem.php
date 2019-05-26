@@ -82,6 +82,11 @@ class Filesystem
         return static::chmod($path, $mode ?? $default);
     }
 
+    /**
+     * @param string $path
+     * @return string|null
+     * @codeCoverageIgnore
+     */
     public static function getPermissionsDescription(string $path): ?string
     {
         if (static::exists($path) === false) {

@@ -56,6 +56,7 @@ class File extends Pathinfo
     /**
      * @param string $permissions
      * @return false|resource
+     * @codeCoverageIgnore
      */
     public function open(string $permissions = 'r')
     {
@@ -69,6 +70,7 @@ class File extends Pathinfo
 
     /**
      * @return $this
+     * @codeCoverageIgnore
      */
     public function close()
     {
@@ -84,6 +86,11 @@ class File extends Pathinfo
         return Filesystem::save($this->getPathname(), $contents, $lock);
     }
 
+    /**
+     * @param string $target
+     * @return File|null
+     * @codeCoverageIgnore
+     */
     public function copy(string $target): ?File
     {
         if (Filesystem::copy($this->getPathname(), $target) === true) {
@@ -93,6 +100,11 @@ class File extends Pathinfo
         return null;
     }
 
+    /**
+     * @param string $target
+     * @return File|null
+     * @codeCoverageIgnore
+     */
     public function move(string $target): ?File
     {
         if (Filesystem::move($this->getPathname(), $target) === true) {

@@ -40,31 +40,38 @@ class StrTest extends \Codeception\Test\Unit
 
     public function testSwapLeft(): void
     {
-
+        $this->assertEquals('~~~ string', Str::make('left string')->swapLeft('left', '~~~')->get());
+        $this->assertEquals('left string', Str::make('left string')->swapLeft('other', '~~~')->get());
     }
 
     public function testSwapRight(): void
     {
-
+        $this->assertEquals('left string***', Str::make('left string right')->swapRight(' right', '***')->get());
+        $this->assertEquals('string right', Str::make('string right')->swapRight('other', '~~~')->get());
     }
 
     public function testRemove(): void
     {
-
+        $this->assertEquals(' string right', Str::make('left string right')->remove('left')->get());
+        $this->assertEquals(' string ', Str::make('left string right')->remove('right', 'left')->get());
     }
 
     public function testLimit(): void
     {
-
+        $this->assertEquals('string...', Str::make('string right')->limit(6)->get());
+        $this->assertEquals('string^^^^^', Str::make('string right')->limit(6, '^^^^^')->get());
     }
 
     public function testAbbr(): void
     {
+        $this->assertEquals('<abbr title="string">str...</abbr>', Str::make('string')->abbr(3)->get());
+        $this->assertEquals('<abbr title="string">str|||</abbr>', Str::make('string')->abbr(3, '|||')->get());
     }
 
     public function testAbbrText(): void
     {
-
+        $this->assertEquals('<abbr title="TITLE">str...</abbr>', Str::make('string')->abbrTitle('TITLE', 3)->get());
+        $this->assertEquals('<abbr title="diffy">str|||</abbr>', Str::make('string')->abbrTitle('diffy', 3, '|||')->get());
     }
 
     public function testBeforeSubstr(): void
@@ -196,16 +203,56 @@ class StrTest extends \Codeception\Test\Unit
 
     public function testTemperature(): void
     {
-
+        $this->assertEquals('78&deg; F', Str::make('78')->temperature()->get());
+        $this->assertEquals('78° F', Str::make('78')->temperature(false, true)->get());
+        $this->assertEquals('22&deg; C', Str::make('22')->temperature(true, false)->get());
+        $this->assertEquals('0° C', Str::make('0')->temperature(false, false)->get());
     }
 
     public function testUtf8(): void
     {
-
+        $this->assertEquals('test', Str::make('TEST', 'ISO-8859-1')->utf8()->toLowerCase()->get());
     }
 
     public function testColorHexToRgb(): void
     {
+        $this->assertNull(Str::make('uuu')->colorHexToRgb());
+        $this->assertNull(Str::make('some text not a color')->colorHexToRgb());
 
+        $this->assertEquals([
+            'red'   => 0,
+            'green' => 0,
+            'blue'  => 0
+        ], Str::make('#000000')->colorHexToRgb());
+
+        $this->assertEquals([
+            'red'   => 255,
+            'green' => 255,
+            'blue'  => 255
+        ], Str::make('#ffffff')->colorHexToRgb());
+
+        $this->assertEquals([
+            'red'   => 0,
+            'green' => 0,
+            'blue'  => 0
+        ], Str::make('#000')->colorHexToRgb());
+
+        $this->assertEquals([
+            'red'   => 255,
+            'green' => 255,
+            'blue'  => 255
+        ], Str::make('#fff')->colorHexToRgb());
+
+        $this->assertEquals([
+            'red'   => 119,
+            'green' => 255,
+            'blue'  => 170
+        ], Str::make('#7fa')->colorHexToRgb());
+
+        $this->assertEquals([
+            'red'   => 167,
+            'green' => 52,
+            'blue'  => 93
+        ], Str::make('#a7345d')->colorHexToRgb());
     }
 }

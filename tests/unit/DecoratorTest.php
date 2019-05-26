@@ -18,10 +18,9 @@ class DecoratorTest extends \Codeception\Test\Unit
     /**
      * @dataProvider dataDecorator
      */
-    public function testDecorator(array $items, array $values = null): void
+    private function assertDecorator(Decorator $decorator, array $items, array $values = null): void
     {
-        $decorator = new Decorator($items);
-        $values    = $values ?? $items;
+        $values = $values ?? $items;
 
         $this->assertEquals($values, $decorator->toArray());
         $this->assertEquals($values, $decorator->toArrayOriginal());
@@ -32,6 +31,22 @@ class DecoratorTest extends \Codeception\Test\Unit
             $this->assertEquals($expected, $value, sprintf('Property "%s", expected "%" and value "%s"',
                 $property, $expected, $value));
         }
+    }
+
+    /**
+     * @dataProvider dataDecorator
+     */
+    public function testDecorator(array $items, array $values = null): void
+    {
+        $this->assertDecorator(new Decorator($items), $items, $values);
+    }
+
+    /**
+     * @dataProvider dataDecorator
+     */
+    public function testMakeDecorator(array $items, array $values = null): void
+    {
+        $this->assertDecorator(Decorator::make($items), $items, $values);
     }
 
     public function dataDecorator(): array

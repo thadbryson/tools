@@ -229,22 +229,6 @@ class Collection extends \Illuminate\Support\Collection
         }, $test);
     }
 
-    /**
-     * Run a callable on all the items in an array - recursively.
-     *
-     * @param callable $callable
-     * @param mixed    ...$args
-     *
-     * @return $this
-     */
-    public function callEverything(callable $callable, ...$args): Collection
-    {
-        return $this->actOnAll(function ($value) use ($callable, $args) {
-
-            return call_user_func($callable, $value, ...$args);
-        });
-    }
-
     public function saveAll(): Collection
     {
         return $this->each(function ($model) {
@@ -255,11 +239,11 @@ class Collection extends \Illuminate\Support\Collection
         });
     }
 
-    public function deleteAllModels(): Collection
+    public function deleteAll(): Collection
     {
         return $this->each(function (object $model) {
 
-            if (method_exists($model, 'delete')) {
+            if (is_object($model) && method_exists($model, 'delete')) {
                 $model->delete();
             }
         });

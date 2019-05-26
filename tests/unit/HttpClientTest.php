@@ -9,6 +9,7 @@ use Tests\Support\Stubs\HttpClientStub;
 use Tool\HttpClient;
 use function json_encode;
 use function strtolower;
+use Tool\Request;
 
 /**
  * Class HttpClient
@@ -32,6 +33,12 @@ class HttpClientTest extends \Codeception\Test\Unit
             'id'    => 1,
             'other' => 'some',
         ]);
+    }
+
+    public function testGetRequest(): void
+    {
+        $this->assertInstanceOf(Request::class, $this->client->getRequest());
+        $this->assertEquals('https://example.co', $this->client->getRequest()->getBaseUrl());
     }
 
     public function testGetBaseUri(): void

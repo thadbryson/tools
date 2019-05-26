@@ -9,7 +9,7 @@ use Tool\HttpClient;
 /**
  * Class JsonClientStub
  */
-final class HttpClientStub extends HttpClient
+final class JsonClientStub extends HttpClient
 {
     public function __construct(string $baseUri = '', array $config = [])
     {

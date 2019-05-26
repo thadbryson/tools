@@ -53,11 +53,11 @@ class Environment
     }
 
     /**
-     * Are we on a Free BSD Operating system? Could be a Mac too.
+     * Are we on a Macintosh or Free BSD Operating system? Could be a Mac too.
      *
      * @return bool
      */
-    public static function isFreeBSD(): bool
+    public static function isMac(): bool
     {
         return static::getOS() === 'FRE';
     }

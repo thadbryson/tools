@@ -15,9 +15,18 @@ class Request extends \Illuminate\Http\Request
 {
     /**
      * @param string $dot
-     * @return array
+     * @return mixed
      */
-    public static function findOrFail(string $dot): array
+    public static function find(string $dot, $default = null)
+    {
+        return Request::capture()->input($dot, $default);
+    }
+
+    /**
+     * @param string $dot
+     * @return mixed
+     */
+    public static function findOrFail(string $dot)
     {
         $request = Request::capture();
 

@@ -101,11 +101,21 @@ class AliasMethodsTraitTest extends \Codeception\Test\Unit
 
     public function testForgetFirst(): void
     {
-
+        $this->tester->assertArr([
+            'code' => 'abc',
+            'some' => [
+                'addr'    => 101,
+                'zip'     => 20000,
+                'friends' => ['Tom', 'Tina', 'Jenny'],
+            ],
+        ], $this->coll->forgetFirst());
     }
 
     public function testForgetLast(): void
     {
-
+        $this->tester->assertArr([
+            'id'   => 1,
+            'code' => 'abc',
+        ], $this->coll->forgetLast());
     }
 }

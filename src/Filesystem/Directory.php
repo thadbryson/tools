@@ -33,6 +33,12 @@ class Directory extends Pathinfo
         return new static($path);
     }
 
+    /**
+     * @param string   $target
+     * @param int|null $options
+     * @return Directory|null
+     * @codeCoverageIgnore
+     */
     public function copy(string $target, int $options = null): ?Directory
     {
         if (Filesystem::copyDirectory($this->getPathname(), $target, $options) === true) {
@@ -42,6 +48,11 @@ class Directory extends Pathinfo
         return null;
     }
 
+    /**
+     * @param string $target
+     * @return Directory|null
+     * @codeCoverageIgnore
+     */
     public function move(string $target): ?Directory
     {
         if (Filesystem::move($this->getPathname(), $target) === true) {

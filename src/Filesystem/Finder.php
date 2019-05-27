@@ -6,6 +6,7 @@ namespace Tool\Filesystem;
 
 use ArrayIterator;
 use Iterator;
+use ReflectionClass;
 use SplFileInfo;
 use Tool\Collection;
 use Tool\Validation\Assert;
@@ -19,8 +20,6 @@ class Finder extends \Symfony\Component\Finder\Finder
      * @var string
      */
     protected $fileInfoClass = Pathinfo::class;
-
-    protected $searchDirectories = [];
 
     public function __construct()
     {
@@ -37,35 +36,12 @@ class Finder extends \Symfony\Component\Finder\Finder
         return (new static)->in($directories);
     }
 
-    public function in($dirs): self
-    {
-        $resolvedDirs = [];
-
-        foreach ((array) $dirs as $dir) {
-
-            $glob = glob($dir, (\defined('GLOB_BRACE') ? GLOB_BRACE : 0) | GLOB_ONLYDIR);
-
-            if (is_dir($dir)) {
-                $resolvedDirs[] = $dir;
-            }
-            elseif ($glob) {
-                $resolvedDirs = array_merge($resolvedDirs, array_map([$this, 'normalizeDir'], $glob));
-            }
-            else {
-                throw new \InvalidArgumentException(sprintf('The "%s" directory does not exist.', $dir));
-            }
-        }
-
-        $this->searchDirectories = array_merge($this->searchDirectories, $resolvedDirs);
-
-        parent::in($dirs);
-
-        return $this;
-    }
-
     public function getDirectories(): array
     {
-        return $this->searchDirectories;
+        $secret = (new ReflectionClass(parent::class))->getProperty('dirs');
+        $secret->setAccessible(true);
+
+        return $secret->getValue($this);
     }
 
     public function getFileInfoClass(): string
@@ -102,5 +78,16 @@ class Finder extends \Symfony\Component\Finder\Finder
     public function toCollection(): Collection
     {
         return new Collection($this->toArray());
+    }
+
+    protected function normalizeDir($dir)
+    {
+        $dir = rtrim($dir, '/' . \DIRECTORY_SEPARATOR);
+
+        if (preg_match('#^s?ftp://#', $dir)) {
+            $dir .= '/';
+        }
+
+        return $dir;
     }
 }

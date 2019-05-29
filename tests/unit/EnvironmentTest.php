@@ -24,7 +24,7 @@ class EnvironmentTest extends \Codeception\Test\Unit
 
     public function testGetOs(): void
     {
-        // Not using Stub so code in Environment::getOS() gets tested.
+        // Not using Stub so code in Environment::getOperatingSystem() gets tested.
         $this->assertEquals(PHP_OS === 'Windows', Environment::isWindows());
         $this->assertEquals(PHP_OS === 'Linux', Environment::isLinux());
         $this->assertEquals(PHP_OS === 'Free BSD', Environment::isMac());
@@ -37,19 +37,19 @@ class EnvironmentTest extends \Codeception\Test\Unit
 
     public function testIsWindows(): void
     {
-        EnvironmentStub::setOs('WIN');
+        EnvironmentStub::setOperatingSystem('WIN');
         $this->assertEnvironment(true, false, false);
     }
 
     public function testIsLinux(): void
     {
-        EnvironmentStub::setOs('LIN');
+        EnvironmentStub::setOperatingSystem('LIN');
         $this->assertEnvironment(false, true, false);
     }
 
     public function testIsFreeBSD(): void
     {
-        EnvironmentStub::setOs('FRE');
+        EnvironmentStub::setOperatingSystem('FRE');
         $this->assertEnvironment(false, false, true);
     }
 

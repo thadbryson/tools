@@ -6,13 +6,9 @@ namespace Tool;
 
 use Illuminate\Support\Pluralizer;
 use Tool\Traits\Str as StrTraits;
-use Tool\Validation\Assert;
 use function hexdec;
-use function json_decode;
-use function json_last_error;
 use function strlen;
 use function utf8_encode;
-use const JSON_ERROR_NONE;
 
 /**
  * Class Str
@@ -20,7 +16,11 @@ use const JSON_ERROR_NONE;
  */
 class Str extends \Stringy\Stringy
 {
-    use StrTraits\BooleanTraits,
+    use StrTraits\AbbrTrait,
+        StrTraits\BooleanTrait,
+        StrTraits\FormatingTrait,
+        StrTraits\JsonTrait,
+        StrTraits\MethodTrait,
         StrTraits\StaticMakeTrait;
 
     /**
@@ -107,35 +107,6 @@ class Str extends \Stringy\Stringy
     }
 
     /**
-     * Perform standard json_decode of string.
-     *
-     * @return mixed
-     */
-    public function jsonDecode()
-    {
-        return $this->jsonDecodeOptions(true);
-    }
-
-    /**
-     * Persom json_decode with options.
-     *
-     * @param bool $assoc
-     * @param int  $options
-     * @param int  $depth
-     * @return mixed
-     */
-    public function jsonDecodeOptions(bool $assoc = false, int $options = 0, int $depth = 512)
-    {
-        $decoded = json_decode($this->str, $assoc, $depth, $options);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \InvalidArgumentException('String is not valid JSON: ' . $this->get());
-        }
-
-        return $decoded;
-    }
-
-    /**
      * Remove $substr from string entirely.
      *
      * @param string ...$substrs
@@ -163,141 +134,6 @@ class Str extends \Stringy\Stringy
     }
 
     /**
-     * If string is longer than $length then shorten and add $append string at end.
-     *
-     * @param int    $length
-     * @param string $append = '...'
-     * @return $this
-     */
-    public function limit(int $length, string $append = '...')
-    {
-        $this->str = \Illuminate\Support\Str::limit($this->str, $length, $append);
-
-        return $this;
-    }
-
-    /**
-     * Return shortened text in <abbr> tag.
-     *
-     * @param int    $length
-     * @param string $append = '...
-     * @return $this
-     */
-    public function abbr(int $length, string $append = '...')
-    {
-        if ($length < strlen($this->str)) {
-            $full = $this->get();
-            $str  = $this->limit($length, $append);
-
-            $this->str = sprintf('<abbr title="%s">%s</abbr>', $full, $str);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Use <abbr> text with different text placeholder.
-     *
-     * @param string $title
-     * @param int    $length
-     * @param string $append
-     * @return $this
-     */
-    public function abbrTitle(string $title, int $length, string $append = '...')
-    {
-        $str = $this->limit($length, $append);
-
-        $this->str = sprintf('<abbr title="%s">%s</abbr>', $title, $str);
-
-        return $this;
-    }
-
-    /**
-     * Get as a "getter" method name.
-     *
-     * @param string $append
-     * @return $this
-     */
-    public function getter(string $append = '')
-    {
-        return $this->codeMethod('get', $append);
-    }
-
-    /**
-     * Get as a "setter" method name.
-     *
-     * @param string $append
-     * @return $this
-     */
-    public function setter(string $append = '')
-    {
-        return $this->codeMethod('set', $append);
-    }
-
-    /**
-     * Get as a "hasser" method name.
-     *
-     * @param string $append
-     * @return $this
-     */
-    public function hasser(string $append = '')
-    {
-        return $this->codeMethod('has', $append);
-    }
-
-    /**
-     * Get as an "isser" method name.
-     *
-     * @param string $append
-     * @return $this
-     */
-    public function isser(string $append = '')
-    {
-        return $this->codeMethod('is', $append);
-    }
-
-    /**
-     * Get monetery string format.
-     *
-     * @return $this
-     */
-    public function money(string $locale = 'en_US', string $format = '%n')
-    {
-        Assert::numeric($this->get(), '$var must be a numeric string, integer, or float.');
-        setlocale(LC_MONETARY, $locale . '.' . $this->getEncoding());
-
-        $this->str = money_format($format, (float) $this->get());
-
-        return $this;
-    }
-
-    /**
-     * Get international monetery format.
-     *
-     * @return $this
-     */
-    public function moneyInternational(string $locale = 'en_US')
-    {
-        return $this->money($locale, '%i');
-    }
-
-    /**
-     * Format to temperature. Ex: '75 &deg; F'
-     *
-     * @param bool $fahrenheit
-     * @return $this
-     */
-    public function temperature(bool $html = true, bool $fahrenheit = true)
-    {
-        $sign = $html ? '&deg; ' : '° ';
-        $sign .= $fahrenheit ? 'F' : 'C';
-
-        $this->str .= $sign;
-
-        return $this;
-    }
-
-    /**
      * UTF-8 encode the string.
      *
      * @return $this
@@ -309,23 +145,6 @@ class Str extends \Stringy\Stringy
         $this->str = utf8_encode($this->str);
 
         return $this;
-    }
-
-    /**
-     * Get text as a method.
-     *
-     * @param string $prepend
-     * @param string $append
-     * @return $this
-     */
-    public function codeMethod(string $prepend, string $append)
-    {
-        return $this->replace('_', ' ')
-            ->prepend($prepend . ' ')
-            ->append(' ' . $append)
-            ->titleize()
-            ->lowerCaseFirst()
-            ->replace(' ', '');
     }
 
     /**

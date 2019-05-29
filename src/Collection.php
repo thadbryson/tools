@@ -4,14 +4,9 @@ declare(strict_types = 1);
 
 namespace Tool;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Tool\Traits\Collection as CollectionTraits;
-use Tool\Validation\Assert;
 use function array_walk_recursive;
-use function is_object;
 use function is_string;
-use function method_exists;
 
 /**
  * Collection Class
@@ -25,8 +20,12 @@ class Collection extends \Illuminate\Support\Collection
     public const MAP_KEY = '@key';
 
     use CollectionTraits\AliasMethodsTrait,
+        CollectionTraits\CastTrait,
+        CollectionTraits\FilterTrait,
         CollectionTraits\FromTypesTrait,
         CollectionTraits\KeyMethodsTrait,
+        CollectionTraits\ModelTrait,
+        CollectionTraits\RejectTrait,
         CollectionTraits\RestrictedTrait,
         CollectionTraits\ValidationTrait;
 
@@ -138,22 +137,6 @@ class Collection extends \Illuminate\Support\Collection
         return $this;
     }
 
-    public function castInteger(): Collection
-    {
-        return $this->map(function ($value) {
-
-            return Cast::toInteger($value);
-        });
-    }
-
-    public function castString(): Collection
-    {
-        return $this->map(function ($value) {
-
-            return Cast::toString($value);
-        });
-    }
-
     /**
      * Change every value (nested too) by returned result of $callback($value, $key).
      *
@@ -218,71 +201,12 @@ class Collection extends \Illuminate\Support\Collection
      */
     public function utf8Everything(): Collection
     {
-        $test = function ($value): bool {
-            return is_string($value) === true;
-        };
-
         return $this->actOnAllIf(function ($value) {
 
             return StrStatic::utf8($value);
-        }, $test);
-    }
+        }, function ($value): bool {
 
-    public function saveAll(): Collection
-    {
-        return $this->each(function ($model) {
-
-            if (is_object($model) && method_exists($model, 'save')) {
-                $model->save();
-            }
-        });
-    }
-
-    public function deleteAll(): Collection
-    {
-        return $this->each(function (object $model) {
-
-            if (is_object($model) && method_exists($model, 'delete')) {
-                $model->delete();
-            }
-        });
-    }
-
-    public function deleteNot(Builder $query = null, string $searchKey = 'id'): Collection
-    {
-        if ($query === null) {
-            $first = Assert::isSubclassOf($this->first(), Model::class, 'First element is not a Model. Please specify a Builder object.');
-
-            /** @var Model $first */
-            $query = $first->newQuery();
-        }
-
-        // Run the delete.
-        $query
-            ->whereNotIn($searchKey, $this->pluck($searchKey)->all())
-            ->delete();
-
-        return $this;
-    }
-
-    public function rejectValue($value): Collection
-    {
-        return $this->reject(function ($item) use ($value) {
-
-            return $item === $value;
-        });
-    }
-
-    public function rejectNull(): Collection
-    {
-        return $this->rejectValue(null);
-    }
-
-    public function filterValue($value): Collection
-    {
-        return $this->filter(function ($item) use ($value) {
-
-            return $item === $value;
+            return is_string($value) === true;
         });
     }
 }

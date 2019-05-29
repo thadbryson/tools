@@ -14,7 +14,7 @@ use function is_numeric;
  *
  * @mixin Str
  */
-trait BooleanTraits
+trait BooleanTrait
 {
     public function isJson(): bool
     {

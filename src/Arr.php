@@ -5,10 +5,8 @@ declare(strict_types = 1);
 namespace Tool;
 
 use Tool\Traits\Arr as ArrTraits;
-use Tool\Validation\Assert;
 use function array_replace_recursive;
 use function array_walk_recursive;
-use function in_array;
 use function is_string;
 
 /**
@@ -17,129 +15,9 @@ use function is_string;
 class Arr extends \Illuminate\Support\Arr
 {
     use ArrTraits\AliasMethodsTrait,
-        ArrTraits\KeyMethodsTrait;
-
-    /**
-     * Do all these values exist in the $array (1-dimension). Strict === comparison.
-     *
-     * @param array $array
-     * @param mixed ...$values
-     * @return bool
-     */
-    public static function in(array $array, ...$values): bool
-    {
-        Assert::minCount($values, 1, 'Haystack array cannot be empty.');
-
-        foreach ($values as $value) {
-
-            if (in_array($value, $array, true) === false) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Do all these values exist in the $array (1-dimension). Strict === comparison.
-     *
-     * @param array $array
-     * @param mixed ...$values
-     * @return bool
-     */
-    public static function inAny(array $array, ...$values): bool
-    {
-        Assert::minCount($values, 1, 'Haystack array cannot be empty.');
-
-        foreach ($values as $value) {
-
-            if (in_array($value, $array, true) === true) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Do all these values exist in the $array (1-dimension), non-strict == comparison.
-     *
-     * @param array $array
-     * @param mixed ...$values
-     * @return bool
-     */
-    public static function inLoose(array $array, ...$values): bool
-    {
-        Assert::minCount($values, 1, 'Haystack array cannot be empty.');
-
-        foreach ($values as $value) {
-
-            if (in_array($value, $array, false) === false) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Do all these values exist in the $array (1-dimension), non-strict == comparison.
-     *
-     * @param array $array
-     * @param mixed ...$values
-     * @return bool
-     */
-    public static function inLooseAny(array $array, ...$values): bool
-    {
-        Assert::minCount($values, 1, 'Haystack array cannot be empty.');
-
-        foreach ($values as $value) {
-
-            if (in_array($value, $array, false) === true) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Change keys / values in $mappings (from DOT => to DOT).
-     *
-     * @param array    $array
-     * @param string[] $mappings
-     *
-     * @return array
-     */
-    public static function map(array $array, array $mappings): array
-    {
-        return static::mapInternal($array, $mappings, false);
-    }
-
-    /**
-     * Change keys / values in $mappings (from DOT => to DOT).
-     *
-     * @param array    $arrays
-     * @param string[] $mappings
-     * @param string   $keyMap = null
-     *
-     * @return array
-     */
-    public static function mapEach(array $arrays, array $mappings, string $keyMap = null): array
-    {
-        $return = [];
-
-        foreach ($arrays as $index => $array) {
-
-            $return[$index] = static::mapInternal($array, $mappings, false);
-
-            if ($keyMap !== null) {
-                $return[$index][$keyMap] = $index;
-            }
-        }
-
-        return $return;
-    }
+        ArrTraits\InTrait,
+        ArrTraits\KeyMethodsTrait,
+        ArrTraits\MapTrait;
 
     /**
      * Move a value from $array to $destination.
@@ -157,44 +35,6 @@ class Arr extends \Illuminate\Support\Arr
         $toDot = $toDot ?? $fromDot;
 
         return static::set($destination, $toDot, $value);
-    }
-
-    /**
-     * Map $array with $mappings ($fromDOT => $toDOT). Leave only values mapped in new array.
-     *
-     * @param array    $array
-     * @param string[] $mappings
-     *
-     * @return array
-     */
-    public static function mapOnly(array $array, array $mappings): array
-    {
-        return static::mapInternal($array, $mappings, true);
-    }
-
-    /**
-     * Change keys / values in $mappings (from DOT => to DOT).
-     *
-     * @param array    $arrays
-     * @param string[] $mappings
-     * @param string   $keyMap = null
-     *
-     * @return array
-     */
-    public static function mapEachOnly(array $arrays, array $mappings, string $keyMap = null): array
-    {
-        $return = [];
-
-        foreach ($arrays as $index => $array) {
-
-            $return[$index] = static::mapInternal($array, $mappings, true);
-
-            if ($keyMap !== null) {
-                $return[$index][$keyMap] = $index;
-            }
-        }
-
-        return $return;
     }
 
     /**
@@ -351,25 +191,5 @@ class Arr extends \Illuminate\Support\Arr
         }
 
         return $array;
-    }
-
-    /**
-     * Handles map() and mapOnly() methods internally.
-     *
-     * @param array    $array
-     * @param string[] $mappings
-     * @param bool     $only
-     *
-     * @return array
-     */
-    protected static function mapInternal($array, array $mappings, bool $only): array
-    {
-        $result = $only ? [] : $array;
-
-        foreach ($mappings as $fromDot => $toDot) {
-            $result = static::move($array, $result, (string) $fromDot, $toDot);
-        }
-
-        return $result;
     }
 }

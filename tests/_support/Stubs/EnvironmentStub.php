@@ -10,12 +10,12 @@ class EnvironmentStub extends Environment
 {
     protected static $os;
 
-    protected static function getOS(): string
+    protected static function getOperatingSystem(): string
     {
         return static::$os;
     }
 
-    public static function setOs(string $os): void
+    public static function setOperatingSystem(string $os): void
     {
         static::$os = $os;
     }

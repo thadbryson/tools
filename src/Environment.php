@@ -24,7 +24,7 @@ class Environment
         return php_sapi_name() === 'cli';
     }
 
-    protected static function getOS(): string
+    protected static function getOperatingSystem(): string
     {
         return Str::make(PHP_OS)
             ->substr(0, 3)
@@ -39,7 +39,7 @@ class Environment
      */
     public static function isWindows(): bool
     {
-        return static::getOS() === 'WIN';
+        return static::getOperatingSystem() === 'WIN';
     }
 
     /**
@@ -49,7 +49,7 @@ class Environment
      */
     public static function isLinux(): bool
     {
-        return static::getOS() === 'LIN';
+        return static::getOperatingSystem() === 'LIN';
     }
 
     /**
@@ -59,7 +59,7 @@ class Environment
      */
     public static function isMac(): bool
     {
-        return static::getOS() === 'FRE';
+        return static::getOperatingSystem() === 'FRE';
     }
 
     /**

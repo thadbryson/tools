@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Tool\Traits\Collection as CollectionTraits;
 use Tool\Validation\Assert;
 use function array_walk_recursive;
-use function call_user_func;
 use function is_object;
 use function is_string;
 use function method_exists;

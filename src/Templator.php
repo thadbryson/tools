@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Tool;
 
 use Tool\Validation\Assert;
-use Twig_Environment;
-use Twig_Loader_Array;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 use function file_get_contents;
 
 /**
@@ -16,7 +16,7 @@ use function file_get_contents;
 class Templator
 {
     /**
-     * Global Template object - default is \Twig_Environment
+     * Global Template object - default is Environment
      *
      * @var mixed
      */
@@ -52,15 +52,15 @@ class Templator
     }
 
     /**
-     * Get global Twig_Environment object.
+     * Get global Environment object.
      */
-    public static function getEngine(): Twig_Environment
+    public static function getEngine(): Environment
     {
         // Create and set Twig if it's not already.
         if (static::$engine === null) {
-            $loader = new Twig_Loader_Array([]);
+            $loader = new ArrayLoader([]);
 
-            static::setEngine(new Twig_Environment($loader));
+            static::setEngine(new Environment($loader));
         }
 
         return static::$engine;

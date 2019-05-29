@@ -64,20 +64,20 @@ class Clock extends \Carbon\Carbon
      * Create instance from a saved DateTime format string.
      *
      * @param string $value
-     *
      * @return Clock
+     * @throws Exception
      */
     public static function createFromSaved(string $value): self
     {
-        return static::createFromFormat(self::FORMAT_SAVE, $value);
+        return new static(static::createFromFormat(self::FORMAT_SAVE, $value));
     }
 
     /**
      * Create from a DateTimeInterface object (convert).
      *
      * @param DateTimeInterface $datetime
-     *
      * @return Clock
+     * @throws Exception
      */
     public static function createFromDateTime(DateTimeInterface $datetime): self
     {
@@ -186,6 +186,7 @@ class Clock extends \Carbon\Carbon
      * Determines if the instance is within the next week.
      *
      * @return bool
+     * @throws Exception
      */
     public function isCurrentWeekend(): bool
     {

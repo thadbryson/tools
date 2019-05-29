@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Tool\Validation;
 
 use Illuminate\Support\MessageBag;
-use Tool\Exceptions\Error;
 use Tool\Validation\Exceptions\ValidationException;
 
 /**

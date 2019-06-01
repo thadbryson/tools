@@ -19,7 +19,8 @@ class PropertyGetTraitTest extends \Codeception\Test\Unit
 
     public function testPropertyAssert(): void
     {
-        $this->expectExceptionObject(new InvalidArgumentException('Property nope not found on class Tool\Paging\Pager.', 500));
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Property "nope" not found on decorator Tool\Paging\Pager.');
 
         $pager = new Pager(10, 0);
         $pager->nope;

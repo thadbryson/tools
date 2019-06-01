@@ -73,7 +73,7 @@ class DecoratorTest extends \Codeception\Test\Unit
         $expected = [
             'id'      => 'id: 5',
             'me'      => 'Who?',
-            'some'    => 17,
+            'some'    => 27,
             'friends' => [
                 ['id' => 1, 'name' => 'Fred', 'age' => 11],
                 ['id' => 2, 'name' => 'Chad', 'age' => 22],
@@ -86,7 +86,7 @@ class DecoratorTest extends \Codeception\Test\Unit
 
         $this->assertEquals('id: 5', $decorator->id);
         $this->assertEquals('Who?', $decorator->me);
-        $this->assertEquals(17, $decorator->some);
+        $this->assertEquals(27, $decorator->some);
         $this->assertEquals([
             ['id' => 1, 'name' => 'Fred', 'age' => 11],
             ['id' => 2, 'name' => 'Chad', 'age' => 22],

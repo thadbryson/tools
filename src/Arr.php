@@ -32,9 +32,12 @@ class Arr extends \Illuminate\Support\Arr
     public static function move(array &$array, array $destination, string $fromDot, string $toDot = null): array
     {
         $value = static::pull($array, $fromDot);
-        $toDot = $toDot ?? $fromDot;
 
-        return static::set($destination, $toDot, $value);
+        static::set($destination, $toDot ?? $fromDot, $value);
+
+        // Important not to return ::set(&$destination...) b/c that return
+        // value is different than $destination.
+        return $destination;
     }
 
     /**

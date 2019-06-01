@@ -44,7 +44,7 @@ trait MapTrait
             $return[$index] = static::mapInternal($array, $mappings, false);
 
             if ($keyMap !== null) {
-                $return[$index][$keyMap] = $index;
+                static::set($return[$index], $keyMap, $index);
             }
         }
 
@@ -82,7 +82,7 @@ trait MapTrait
             $return[$index] = static::mapInternal($array, $mappings, true);
 
             if ($keyMap !== null) {
-                $return[$index][$keyMap] = $index;
+                static::set($return[$index], $keyMap, $index);
             }
         }
 

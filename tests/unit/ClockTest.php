@@ -149,7 +149,7 @@ class ClockTest extends \Codeception\Test\Unit
         $this->assertEquals('1 year 2 months 4 days 10 hours 20 minutes 30 seconds', $diff->forHumans());
 
         $diff = Clock::getDiff('aaa', 'aaa');
-        $this->assertEquals('0 seconds', $diff->forHumans());
+        $this->assertNull($diff);
     }
 
     public function testIsBefore(): void

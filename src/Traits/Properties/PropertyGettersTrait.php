@@ -26,7 +26,7 @@ trait PropertyGettersTrait
 
         // No value or getter? - invalid call.
         if ($this->propertyHas($name) === false && $hasGetter === false) {
-            throw new InvalidArgumentException(sprintf('Property %s was not found on class %s.', $name, static::class));
+            throw new InvalidArgumentException(sprintf('Property "%s" was not found on class %s.', $name, static::class));
         }
 
         $value = $this->propertyGet($name);

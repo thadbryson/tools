@@ -6,7 +6,7 @@ namespace Tests\Unit\Traits\Arr;
 
 use Tool\Arr;
 
-class ArrAliasMethodsTest extends \Codeception\Test\Unit
+class AliasMethodsTest extends \Codeception\Test\Unit
 {
     /**
      * @var \UnitTester

@@ -120,24 +120,6 @@ class CollectionTest extends \Codeception\Test\Unit
         ]));
     }
 
-    public function testCastInteger(): void
-    {
-        $casted = Collection::make([
-            '0', 0, '1', 1, 10, 'a'
-        ])->castInteger();
-
-        $this->assertEquals([0, 0, 1, 1, 10, 0], $casted);
-    }
-
-    public function testCastString(): void
-    {
-        $casted = Collection::make([
-            '0', 0, '1', 1, 10, 'a'
-        ])->castString();
-
-        $this->assertEquals(['0', '0', '1', '1', '10', 'a'], $casted);
-    }
-
     public function testActOnAll(): void
     {
         $this->tester->assertArr([
@@ -202,70 +184,6 @@ class CollectionTest extends \Codeception\Test\Unit
             true,
             false,
             null
-        ], $coll->toArray());
-    }
-
-    public function testSaveAll(): void
-    {
-        $coll = Collection::make([
-            new UserStub,
-            new UserStub,
-            new UserStub
-        ])->saveAll();
-
-        $coll->each(function (UserStub $stub) {
-
-            $this->assertEquals('save', $stub->getAction());
-        });
-    }
-
-    public function testDeleteAll(): void
-    {
-        $coll = Collection::make([
-            new UserStub,
-            new UserStub,
-            new UserStub
-        ])->deleteAll();
-
-        $coll->each(function (UserStub $stub) {
-
-            $this->assertEquals('delete', $stub->getAction());
-        });
-    }
-
-    public function testDeleteNot(): void
-    {
-
-    }
-
-    public function testRejectValue(): void
-    {
-        $coll = Collection::make([
-            7, 1, 'a', 7, true
-        ])->rejectValue(7);
-
-        $this->assertEquals([1, 'a', true], $coll->toArray());
-    }
-
-    public function testRejectNull(): void
-    {
-        $coll = Collection::make([
-            7, 1, 'a', null, null, 7, true, null, 'abcdef', null, 'other'
-        ])->rejectNull();
-
-        $this->assertEquals([7, 1, 'a', 7, true, 'abcdef', 'other'], $coll->toArray());
-    }
-
-    public function testFilterValue(): void
-    {
-        $coll = Collection::make([
-            7, 1, 'a', 7, 1 => 10, 2 => 10, 'abc' => 6, 'def' => 10, true
-        ])->filterValue(10);
-
-        $this->assertEquals([
-            1 => 10,
-            2 => 10,
-            'def' => 10
         ], $coll->toArray());
     }
 }

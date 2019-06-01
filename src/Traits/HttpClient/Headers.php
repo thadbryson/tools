@@ -26,31 +26,36 @@ trait Headers
      * @param array $headers
      * @return HttpClient
      */
-    public function setHeaders(array $headers): self
+    public function setHeaders(array $headers): HttpClient
     {
         $this->request->headers->add($headers);
 
         return $this;
     }
 
-    public function setAuthBearer(string $token): self
+    public function setAuthBearer(string $token): HttpClient
     {
-        $this->request->headers->set('Authorization', 'Bearer ' . $token);
+        $this->request->headers->set('authorization', 'Bearer ' . $token);
 
         return $this;
     }
 
-    public function sendJson()
+    public function sendJson(): HttpClient
     {
         $this->sendJson = true;
 
         return $this;
     }
 
-    public function clearJson()
+    public function clearJson(): HttpClient
     {
         $this->sendJson = false;
 
         return $this;
+    }
+
+    public function isJson(): bool
+    {
+        return $this->sendJson;
     }
 }

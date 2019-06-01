@@ -14,10 +14,11 @@ use function json_decode;
  */
 class HttpClient
 {
-    use Traits\HttpClient\HttpMethods,
-        Traits\HttpClient\Headers,
-        Traits\HttpClient\QueryParameters,
-        Traits\HttpClient\Options;
+    use Traits\HttpClient\Headers,
+        Traits\HttpClient\HttpMethods,
+        Traits\HttpClient\Mappings,
+        Traits\HttpClient\Options,
+        Traits\HttpClient\QueryParameters;
 
     protected $client;
 
@@ -28,25 +29,19 @@ class HttpClient
     public $request;
 
     /**
-     * JsonClient constructor.
+     * HttpClient constructor.
      *
      * @param string $baseUri = '' - Base URI for all API calls.
      * @param array  $config  = [] - Client configuration.
-     * @codeCoverageIgnoreStart
      */
     public function __construct(string $baseUri = '', array $config = [])
     {
-
-        $this->client = new Client($config);
-
         $this->request = new Request;
         $this->baseUri = $baseUri;
-    }
-    /** @codeCoverageIgnoreEnd */
 
-    public function getRequest(): Request
-    {
-        return $this->request;
+        $config['base_uri'] = $baseUri;
+
+        $this->client = new Client($config);
     }
 
     public static function jsonDecode(ResponseInterface $response, int $options = 0): array

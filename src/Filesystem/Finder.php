@@ -79,15 +79,4 @@ class Finder extends \Symfony\Component\Finder\Finder
     {
         return new Collection($this->toArray());
     }
-
-    protected function normalizeDir($dir)
-    {
-        $dir = rtrim($dir, '/' . \DIRECTORY_SEPARATOR);
-
-        if (preg_match('#^s?ftp://#', $dir)) {
-            $dir .= '/';
-        }
-
-        return $dir;
-    }
 }

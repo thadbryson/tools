@@ -33,7 +33,7 @@ class ExtendedDecorator extends Decorator
 
     public function getId(): string
     {
-        return 'id: ' . $this->propertyGet('id');
+        return 'id: ' . static::TEST_DATA['id'];
     }
 
     public function getSome(int $value): int

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Unit\Traits\Properties;
 
+use InvalidArgumentException;
 use Tests\Support\Stubs\PropertiesGetterStub;
 
 class PropertyGettersTraitTest extends \Codeception\Test\Unit
@@ -13,8 +14,8 @@ class PropertyGettersTraitTest extends \Codeception\Test\Unit
     {
         $getter = new PropertiesGetterStub;
 
-        $this->expectException(\Assert\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Nope');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Property "nope" was not found on class Tests\Support\Stubs\PropertiesGetterStub.');
 
         $getter->nope;
     }

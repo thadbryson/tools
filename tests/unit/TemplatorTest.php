@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace Tests\Unit;
 
 use Tool\Templator;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
 class TemplatorTest extends \Codeception\Test\Unit
 {
@@ -17,16 +19,16 @@ class TemplatorTest extends \Codeception\Test\Unit
 
     public function _before(): void
     {
-        $loader = new \Twig_Loader_Array([
+        $loader = new ArrayLoader([
             'template' => 'some',
         ]);
 
-        $this->engine = new \Twig_Environment($loader);
+        $this->engine = new Environment($loader);
     }
 
     public function testGetEngin(): void
     {
-        $this->assertInstanceOf(\Twig_Loader_Array::class, Templator::getEngine()->getLoader());
+        $this->assertInstanceOf(ArrayLoader::class, Templator::getEngine()->getLoader());
     }
 
     public function testSetEngin(): void

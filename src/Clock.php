@@ -163,7 +163,7 @@ class Clock extends \Carbon\Carbon
         $end   = static::makeOrNull($end);
 
         if ($start === null || $end === null) {
-            return new CarbonInterval(0);
+            return null;
         }
 
         $start = static::createFromDateTime($start);

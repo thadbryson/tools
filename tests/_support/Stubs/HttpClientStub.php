@@ -4,52 +4,32 @@ declare(strict_types = 1);
 
 namespace Tests\Support\Stubs;
 
-use GuzzleHttp\Psr7\Response;
 use Tool\HttpClient;
-use function json_encode;
 
-/**
- * Class HttpClientStub
- */
-final class HttpClientStub extends HttpClient
+class HttpClientStub extends HttpClient
 {
     /**
-     * @var array
-     */
-    private $data = [];
-
-    /**
-     * JsonClient constructor.
+     * HttpClient constructor.
      *
      * @param string $baseUri = '' - Base URI for all API calls.
      * @param array  $config  = [] - Client configuration.
      */
-    public function __construct(string $baseUri = '')
+    public function __construct(string $baseUri = '', array $config = [])
     {
-        $this->baseUri = $baseUri;
+        parent::__construct($baseUri, $config);
+
+        $this->client = null;
     }
 
-    public function setTestResponse(array $data): self
+    protected function internalSend(string $uri, string $method, array $options)
     {
-        $this->data = $data;
+        $this->lastUri = $this->prepareUri($uri);
 
-        return $this;
-    }
-
-    public function getTestResponse(): array
-    {
-        return $this->data;
-    }
-
-    public function getConfig(): array
-    {
         return [
-            'base_uri' => $this->baseUri,
+            'base_url' => $this->request->getBaseUrl(),
+            'uri'      => $this->lastUri,
+            'method'   => $method,
+            'options'  => $options
         ];
-    }
-
-    public function request()
-    {
-        return new Response(200, [], json_encode($this->data));
     }
 }

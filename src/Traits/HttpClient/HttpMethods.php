@@ -17,13 +17,6 @@ use Tool\Str;
 trait HttpMethods
 {
     /**
-     * Configuration for mapping response data.
-     *
-     * @var array
-     */
-    protected $mappings = [];
-
-    /**
      * Send an HTTP Request.
      *
      * @param string $uri   = '' - URI or path.
@@ -33,7 +26,7 @@ trait HttpMethods
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function send(string $method, string $uri = '', array $post = [], array $query = []): array
+    protected function send(string $method, string $uri = '', array $post = [], array $query = []): array
     {
         // Set method 1st so query and post parameters can be set.
         $this->request->setMethod($method);
@@ -42,20 +35,22 @@ trait HttpMethods
         $this->request->query->add($query);
         $this->request->request->add($post);
 
-        $this->lastUri = $this->prepareUri($uri);
-        $options       = $this->prepareOptions();
+        $options = $this->getOptions();
 
-        $response = $this->client->request($method, $this->lastUri, $options);
+        $response = $this->internalSend($uri, $method, $options);
         $mappings = $this->mappings;
 
         // Reset the Request data.
-        $this->mappings         = [];
+        $this->mappings = [];
+        $this->options  = [];
+
         $this->request->query   = new ParameterBag;
         $this->request->request = new ParameterBag;
         $this->request->headers = new ParameterBag;
-        $this->options          = [];
 
-        $response = static::jsonDecode($response);
+        if ($this->sendJson === true) {
+            $response = static::jsonDecode($response);
+        }
 
         if ($mappings === []) {
             return $response;
@@ -73,95 +68,34 @@ trait HttpMethods
             Arr::map($response, $mappings['mappings']);
     }
 
+    /**
+     * @param string $uri
+     * @param string $method
+     * @param array  $options
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @codeCoverageIgnore
+     */
+    protected function internalSend(string $uri, string $method, array $options)
+    {
+        $this->lastUri = $this->prepareUri($uri);
+
+        return $this->client->request($method, $this->lastUri, $options);
+    }
+
     protected function prepareUri(string $uri): string
     {
         $baseUri = '';
 
-        if (Str::make($uri)
-                ->removeLeft('/')
-                ->startsWithAny(['http:', 'https:']) === false) {
+        if (Str::make($uri)->startsWithAny(['http:', 'https:']) === false) {
 
-            $baseUri = $this->getBaseUri();
+            $baseUri = trim($this->getBaseUri(), '/');
         }
 
-        $uri = trim($baseUri, '/') . '/' . trim($uri, '/');
-        $uri = trim($uri, '/');
+        $uri = $baseUri . '/' . trim($uri, '/');
 
-        return $uri;
-    }
-
-    protected function prepareOptions(): array
-    {
-        $opts = $this->options;
-
-        // Add all global query parameters.
-        $this->request->query->add($this->getGlobalQuery());
-
-        // Set form body to the Request. _POST data.
-        // NOTE: some APIs won't handle the form body on a GET request.
-        if ($this->request->isMethod('GET') === false && $this->request->request->count() > 0) {
-            $opts[$this->sendJson ? 'json' : 'form_params'] = $this->request->request->all();
-        }
-
-        $opts['query']   = $this->request->query->all();
-        $opts['headers'] = $this->request->headers->all();
-
-        return $opts;
-    }
-
-    public function setMappings(array $mappings): self
-    {
-        $this->mappings = [
-            'mappings' => $mappings,
-            'each'     => false,
-            'only'     => false,
-            'keyMap'   => null
-        ];
-
-        return $this;
-    }
-
-    public function setMappingsOnly(array $mappings): self
-    {
-        $this->mappings = [
-            'mappings' => $mappings,
-            'each'     => false,
-            'only'     => true,
-            'keyMap'   => null
-        ];
-
-        return $this;
-    }
-
-    public function setMappingsMany(array $mappings, string $keyMap = null): self
-    {
-        $this->mappings = [
-            'mappings' => $mappings,
-            'each'     => true,
-            'only'     => false,
-            'keyMap'   => $keyMap
-        ];
-
-        return $this;
-    }
-
-    public function setMappingsManyOnly(array $mappings, string $keyMap = null): self
-    {
-        $this->mappings = [
-            'mappings' => $mappings,
-            'each'     => true,
-            'only'     => true,
-            'keyMap'   => $keyMap
-        ];
-
-        return $this;
-    }
-
-    public function clearMappings(): self
-    {
-        $this->mappings = [];
-
-        return $this;
+        return trim($uri, '/');
     }
 
     public function get(string $uri = '/', array $query = []): array

@@ -39,7 +39,10 @@ trait ModelTrait
     public function deleteNot(Builder $query = null, string $searchKey = 'id'): Collection
     {
         if ($query === null) {
-            $first = Assert::isSubclassOf($this->first(), Model::class, 'First element is not a Model. Please specify a Builder object.');
+            $first = Assert::isSubclassOf($this->first(), Model::class,
+                sprintf('First element in collection is not a %s class object. ' .
+                    'Must be unless you specify a %s object in the first argument.',
+                    Model::class, Builder::class));
 
             /** @var Model $first */
             $query = $first->newQuery();

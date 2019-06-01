@@ -61,7 +61,7 @@ trait PropertyGetTrait
     protected function propertyAssert(string $name)
     {
         if ($this->propertyHas($name) === false) {
-            throw new InvalidArgumentException(sprintf('Property %s not found on decorator %s.', $name, static::class), 500);
+            throw new InvalidArgumentException(sprintf('Property "%s" not found on decorator %s.', $name, static::class), 500);
         }
 
         return $this->propertyGet($name);

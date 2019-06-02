@@ -23,10 +23,10 @@ trait HttpMethods
      * @param array  $post  = []
      * @param array  $query = []
      *
-     * @return array
+     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function send(string $method, string $uri = '', array $post = [], array $query = []): array
+    protected function send(string $method, string $uri = '', array $post = [], array $query = [])
     {
         // Set method 1st so query and post parameters can be set.
         $this->request->setMethod($method);

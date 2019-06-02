@@ -18,7 +18,7 @@ trait Headers
      *
      * @var bool
      */
-    protected $sendJson = false;
+    protected $sendJson = true;
 
     /**
      * Set Headers for next Request.

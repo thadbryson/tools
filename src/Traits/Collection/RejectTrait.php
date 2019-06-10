@@ -25,4 +25,12 @@ trait RejectTrait
     {
         return $this->rejectValue(null);
     }
+
+    public function rejectEmpty(): Collection
+    {
+        return $this->reject(function ($value) {
+
+            return empty($value);
+        });
+    }
 }

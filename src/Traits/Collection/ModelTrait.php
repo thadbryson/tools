@@ -18,26 +18,32 @@ trait ModelTrait
 {
     public function saveAll(): Collection
     {
-        return $this->each(function ($model) {
-
-            if (is_object($model) && method_exists($model, 'save')) {
-                $model->save();
-            }
-        });
+        return $this->callMethod('save');
     }
 
     public function deleteAll(): Collection
     {
-        return $this->each(function (object $model) {
+        return $this->callMethod('delete');
+    }
 
-            if (is_object($model) && method_exists($model, 'delete')) {
-                $model->delete();
+    public function callMethod(string $methodName, ...$args): Collection
+    {
+        return $this->map(function ($model) use ($methodName, $args) {
+
+            if (is_object($model) && method_exists($model, $methodName)) {
+                $model->{$methodName}(...$args);
             }
+
+            return $model;
         });
     }
 
     public function deleteNot(Builder $query = null, string $searchKey = 'id'): Collection
     {
+        if ($this->isEmpty()) {
+            return $this;
+        }
+
         if ($query === null) {
             $first = Assert::isSubclassOf($this->first(), Model::class,
                 sprintf('First element in collection is not a %s class object. ' .

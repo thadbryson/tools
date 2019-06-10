@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tool\Traits\HttpClient;
 
+use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Tool\Arr;
 use Tool\HttpClient;
@@ -89,7 +90,6 @@ trait HttpMethods
         $baseUri = '';
 
         if (Str::make($uri)->startsWithAny(['http:', 'https:']) === false) {
-
             $baseUri = trim($this->getBaseUri(), '/');
         }
 

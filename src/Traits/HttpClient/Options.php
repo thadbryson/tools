@@ -53,6 +53,10 @@ trait Options
             $options[$formKey] = $this->request->request->all();
         }
 
+        if ($this->isJson()) {
+            $this->request->headers->set('Content-Type', 'application/json');
+        }
+
         $options['query']   = $this->request->query->all();
         $options['headers'] = $this->request->headers->all();
 

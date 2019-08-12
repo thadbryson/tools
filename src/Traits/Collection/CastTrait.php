@@ -29,4 +29,19 @@ trait CastTrait
             return Cast::toString($value);
         });
     }
+
+    public function cast(array $casts): Collection
+    {
+        $values = Cast::all($this->all(), $casts);
+
+        return new static($values);
+    }
+
+    public function castMap(array $casts): Collection
+    {
+        return $this->map(function ($value) use ($casts) {
+
+            return Cast::all($value, $casts);
+        });
+    }
 }

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tool\Traits\Collection;
 
 use Illuminate\Http\Request;
+use function json_decode;
 use Tool\Collection;
 use function array_replace_recursive;
 
@@ -15,6 +16,11 @@ use function array_replace_recursive;
  */
 trait FromTypesTrait
 {
+    public static function fromJson(string $json, int $depth = 512, int $options = 0): Collection
+    {
+        return static::make((array) json_decode($json, true, $depth, $options));
+    }
+
     /**
      * Build Collection from exploded string.
      *

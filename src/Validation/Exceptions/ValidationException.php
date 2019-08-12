@@ -48,7 +48,7 @@ class ValidationException extends Exception
         // List errors if on command line and there are errors.
         if (Environment::isCommandLine() === true && $this->errors->count() > 0) {
 
-            $message .= "\n\nErrors: \n" . implode("\n- ", $this->errors->all()) . "\n";
+            $message .= "\n\nErrors: \n- " . implode("\n- ", $this->errors->all()) . "\n";
         }
 
         return $message;

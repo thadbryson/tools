@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tool\Traits\Collection;
 
+use function array_keys;
 use Illuminate\Database\Eloquent\Model;
 use function is_array;
 use function is_object;
@@ -61,5 +62,24 @@ trait KeyTrait
 
             return Arr::only($item, $dots);
         });
+    }
+
+    public function firstKey(callable $callback = null, $default = null)
+    {
+        if ($this->items !== []) {
+
+            if ($callback === null) {
+                return Arr::first(array_keys($this->items));
+            }
+
+            foreach ($this->items as $key => $value) {
+
+                if (call_user_func($callback, $value, $key)) {
+                    return $key;
+                }
+            }
+        }
+
+        return value($default);
     }
 }

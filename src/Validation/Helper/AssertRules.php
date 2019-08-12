@@ -13,6 +13,7 @@ use function implode;
 use function in_array;
 use function is_dir;
 use function is_file;
+use function is_float;
 use function is_object;
 use function is_string;
 use function is_subclass_of;
@@ -349,6 +350,24 @@ class AssertRules extends BaseAssertion
         }
 
         return true;
+    }
+
+    public static function latitude($value, string $message = null, string $propertyPath = null): bool
+    {
+        if (is_float($value) && $value >= -90 && $value <= 90) {
+            return true;
+        }
+
+        throw static::createException($value, $message ?? '%s is not a valid latitude.', $propertyPath);
+    }
+
+    public static function longitude($value, string $message = null, string $propertyPath = null): bool
+    {
+        if (is_float($value) && $value >= -180 && $value <= 180) {
+            return true;
+        }
+
+        throw static::createException($value, $message ?? '%s is not a valid longitude.', $propertyPath);
     }
 
     /**

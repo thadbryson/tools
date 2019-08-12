@@ -44,7 +44,7 @@ class Decorator implements Interfaces\Decorator
         $data = [];
 
         foreach (array_keys($this->traitProperties) as $key) {
-            $data[$key] = $this->__get($key);
+            $data[$key] = $this->__get((string) $key);
         }
 
         return $data;

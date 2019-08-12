@@ -17,6 +17,8 @@ use Tool\Str;
  */
 trait HttpMethods
 {
+    protected $isReset = true;
+
     /**
      * Send an HTTP Request.
      *
@@ -42,12 +44,9 @@ trait HttpMethods
         $mappings = $this->mappings;
 
         // Reset the Request data.
-        $this->mappings = [];
-        $this->options  = [];
-
-        $this->request->query   = new ParameterBag;
-        $this->request->request = new ParameterBag;
-        $this->request->headers = new ParameterBag;
+        if ($this->isReset) {
+            $this->reset();
+        }
 
         if ($this->sendJson === true) {
             $response = static::jsonDecode($response);
@@ -67,6 +66,32 @@ trait HttpMethods
         return $mappings['only'] === true ?
             Arr::mapOnly($response, $mappings['mappings']) :
             Arr::map($response, $mappings['mappings']);
+    }
+
+    public function reset(): self
+    {
+        $this->mappings = [];
+        $this->options  = [];
+
+        $this->request->query   = new ParameterBag;
+        $this->request->request = new ParameterBag;
+        $this->request->headers = new ParameterBag;
+
+        return $this;
+    }
+
+    public function enableReset(): self
+    {
+        $this->isReset = true;
+
+        return $this;
+    }
+
+    public function disableReset(): self
+    {
+        $this->isReset = false;
+
+        return $this;
     }
 
     /**

@@ -108,6 +108,8 @@ use Tool\Validation\Helper;
  * @method static string fileExtension($value, string $extension, string $message = null, string $propertyPath = null)
  * @method static string notFile($filepath, string $message = null, string $propertyPath = null)
  * @method static string notDirectory($filepath, string $message = null, string $propertyPath = null)
+ * @method static float|int latitude(float $latitude, string $message = null, string $propertyPath = null)
+ * @method static float|int longitude(float $longitude, string $message = null, string $propertyPath = null)
  * @method static string[] allAlnum(mixed $value, string|callable $message = null, string $propertyPath = null)
  * @method static string[] allBase64(string $value, string|callable $message = null, string $propertyPath = null)
  * @method static int[]|float[] allBetween(mixed $value, mixed $lowerLimit, mixed $upperLimit, string $message = null, string $propertyPath = null)

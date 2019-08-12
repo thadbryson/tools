@@ -210,4 +210,54 @@ class Collection extends \Illuminate\Support\Collection
             return is_string($value) === true;
         });
     }
+
+    public function mapColumn($column, callable $map): Collection
+    {
+        return $this->map(function (array $rowData) use ($column, $map) {
+
+            if (array_key_exists($column, $rowData)) {
+                $rowData[$column] = $map($rowData[$column]);
+            }
+
+            return $rowData;
+        });
+    }
+
+    public function mapColumns(?callable ...$maps): Collection
+    {
+        $mapped = $this;
+
+        foreach ($maps as $column => $map) {
+
+            if ($map !== null) {
+                $mapped = $mapped->mapColumn($column, $map);
+            }
+        }
+
+        return $mapped;
+    }
+
+    /**
+     * Randomize entire Collection. Return new Collection.
+     *
+     * @return Collection
+     * @throws Validation\Exceptions\ValidationException
+     */
+    public function randomize(): Collection
+    {
+        return new Collection($this->random($this->count()));
+    }
+
+    /**
+     * Get and remove value from Collection where callable passes first.
+     *
+     * @param callable $callable
+     * @return mixed
+     */
+    public function pullFirst(callable $callable)
+    {
+        $key = $this->firstKey($callable);
+
+        return $this->pull($key);
+    }
 }

@@ -111,6 +111,7 @@ use Tool\Validation\Assert;
  * @method static string abbrText(string $str, string $text, int $length, string $append = '...')
  * @method static string utf8(string $str)
  * @method static int[]|null colorHexToRgb(string $hex)
+ * @method static string phone(string $str)
  */
 class StrStatic
 {
@@ -125,7 +126,7 @@ class StrStatic
     {
         $str = Arr::removeFirst($arguments);
 
-        Assert::methodExists($method, static::class);
+        Assert::methodExists($method, Str::class);
 
         $result = Str::make($str)->{$method}(...$arguments);
 

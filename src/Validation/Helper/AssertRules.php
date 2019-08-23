@@ -49,7 +49,7 @@ class AssertRules extends BaseAssertion
     }
 
     /**
-     * Assert that value is not in array of choices.
+     * Assert that value is not in array of choices - strict comparison.
      *
      * @param mixed                $value
      * @param array                $choices

@@ -49,16 +49,16 @@ class AssertRules extends BaseAssertion
     }
 
     /**
-     * Assert that value is not in array of choices - strict comparison.
+     * Assert that value is not in array of choices.
      *
      * @param mixed                $value
      * @param array                $choices
      * @param string|callable|null $message
-     * @param string|null          $propertyPath = null
+     * @param string|null          $propertyPath
      *
      * @return bool
      */
-    public static function notInArray($value, array $choices, $message = null, $propertyPath = null): bool
+    public static function notInArray($value, array $choices, $message = null, $propertyPath = null)
     {
         if (true === \in_array($value, $choices, true)) {
             $message = \sprintf(
@@ -66,9 +66,7 @@ class AssertRules extends BaseAssertion
                 static::stringify($value),
                 static::stringify($choices)
             );
-
-            throw static::createException($value, $message, static::INVALID_VALUE_IN_ARRAY, $propertyPath,
-                ['choices' => $choices]);
+            throw static::createException($value, $message, static::INVALID_VALUE_IN_ARRAY, $propertyPath, ['choices' => $choices]);
         }
 
         return true;

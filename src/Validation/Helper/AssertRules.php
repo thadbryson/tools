@@ -58,7 +58,7 @@ class AssertRules extends BaseAssertion
      *
      * @return bool
      */
-    public static function notInArray($value, array $choices, $message = null, $propertyPath = null)
+    public static function notInArray($value, array $choices, $message = null, string $propertyPath = null): bool
     {
         if (true === \in_array($value, $choices, true)) {
             $message = \sprintf(

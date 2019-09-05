@@ -615,7 +615,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "6.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -660,7 +660,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "6.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -704,16 +704,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "6.0.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "2cace4b27da9da7e5993ca3d9787b1cb16c0ba0b"
+                "reference": "62ce95bd5a6f80afec07cfceec5aec093010b479"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/2cace4b27da9da7e5993ca3d9787b1cb16c0ba0b",
-                "reference": "2cace4b27da9da7e5993ca3d9787b1cb16c0ba0b",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/62ce95bd5a6f80afec07cfceec5aec093010b479",
+                "reference": "62ce95bd5a6f80afec07cfceec5aec093010b479",
                 "shasum": ""
             },
             "require": {
@@ -760,11 +760,11 @@
                 "orm",
                 "sql"
             ],
-            "time": "2019-09-01T10:29:25+00:00"
+            "time": "2019-09-03T11:25:18+00:00"
         },
         {
             "name": "illuminate/filesystem",
-            "version": "6.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
@@ -815,16 +815,16 @@
         },
         {
             "name": "illuminate/http",
-            "version": "6.0.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/http.git",
-                "reference": "61fe8a03d69efc9addc5012ac4a49535407f07a8"
+                "reference": "0f11d65b01e83e839e1083ee8e9ed6e18500bb1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/http/zipball/61fe8a03d69efc9addc5012ac4a49535407f07a8",
-                "reference": "61fe8a03d69efc9addc5012ac4a49535407f07a8",
+                "url": "https://api.github.com/repos/illuminate/http/zipball/0f11d65b01e83e839e1083ee8e9ed6e18500bb1f",
+                "reference": "0f11d65b01e83e839e1083ee8e9ed6e18500bb1f",
                 "shasum": ""
             },
             "require": {
@@ -832,8 +832,11 @@
                 "illuminate/session": "^6.0",
                 "illuminate/support": "^6.0",
                 "php": "^7.2",
-                "symfony/http-foundation": "^4.3",
-                "symfony/http-kernel": "^4.3"
+                "symfony/http-foundation": "^4.3.4",
+                "symfony/http-kernel": "^4.3.4"
+            },
+            "suggest": {
+                "ext-gd": "Required to use Illuminate\\Http\\Testing\\FileFactory::image()."
             },
             "type": "library",
             "extra": {
@@ -858,11 +861,11 @@
             ],
             "description": "The Illuminate Http package.",
             "homepage": "https://laravel.com",
-            "time": "2019-08-06T08:59:24+00:00"
+            "time": "2019-09-03T13:07:02+00:00"
         },
         {
             "name": "illuminate/session",
-            "version": "6.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
@@ -913,16 +916,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "6.0.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "3c10b573185b7424a89989c111a66188e1177163"
+                "reference": "9f1dc5486c2e9d25e33a9239e5ae088d876ef805"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/3c10b573185b7424a89989c111a66188e1177163",
-                "reference": "3c10b573185b7424a89989c111a66188e1177163",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/9f1dc5486c2e9d25e33a9239e5ae088d876ef805",
+                "reference": "9f1dc5486c2e9d25e33a9239e5ae088d876ef805",
                 "shasum": ""
             },
             "require": {
@@ -940,8 +943,8 @@
                 "illuminate/filesystem": "Required to use the composer class (^6.0).",
                 "moontoast/math": "Required to use ordered UUIDs (^1.1).",
                 "ramsey/uuid": "Required to use Str::uuid() (^3.7).",
-                "symfony/process": "Required to use the composer class (^4.3).",
-                "symfony/var-dumper": "Required to use the dd function (^4.3).",
+                "symfony/process": "Required to use the composer class (^4.3.4).",
+                "symfony/var-dumper": "Required to use the dd function (^4.3.4).",
                 "vlucas/phpdotenv": "Required to use the Env class and env helper (^3.3)."
             },
             "type": "library",
@@ -970,11 +973,11 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2019-09-02T16:37:25+00:00"
+            "time": "2019-09-03T13:35:30+00:00"
         },
         {
             "name": "illuminate/translation",
-            "version": "6.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/translation.git",
@@ -1020,27 +1023,27 @@
         },
         {
             "name": "illuminate/validation",
-            "version": "6.0.x-dev",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/validation.git",
-                "reference": "91226df93385b73699e1758c90fb50d767c786e6"
+                "reference": "6fceee3e720e578a6224bcb98fe692731a26ed80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/validation/zipball/91226df93385b73699e1758c90fb50d767c786e6",
-                "reference": "91226df93385b73699e1758c90fb50d767c786e6",
+                "url": "https://api.github.com/repos/illuminate/validation/zipball/6fceee3e720e578a6224bcb98fe692731a26ed80",
+                "reference": "6fceee3e720e578a6224bcb98fe692731a26ed80",
                 "shasum": ""
             },
             "require": {
-                "egulias/email-validator": "^2.0",
+                "egulias/email-validator": "^2.1.10",
                 "ext-json": "*",
                 "illuminate/container": "^6.0",
                 "illuminate/contracts": "^6.0",
                 "illuminate/support": "^6.0",
                 "illuminate/translation": "^6.0",
                 "php": "^7.2",
-                "symfony/http-foundation": "^4.3"
+                "symfony/http-foundation": "^4.3.4"
             },
             "suggest": {
                 "illuminate/database": "Required to use the database presence verifier (^6.0)."
@@ -1068,7 +1071,7 @@
             ],
             "description": "The Illuminate Validation package.",
             "homepage": "https://laravel.com",
-            "time": "2019-08-24T20:39:11+00:00"
+            "time": "2019-09-03T12:53:11+00:00"
         },
         {
             "name": "nesbot/carbon",

@@ -1,6 +1,7 @@
 {
-    "name": "thadbryson/toolkit",
-    "license": "proprietary",
+    "name": "thadbryson/tools",
+    "description": "Basic PHP programming helper classes. Things for strings, arrays, etc.",
+    "license": "MIT",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {

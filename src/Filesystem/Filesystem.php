@@ -4,6 +4,13 @@ declare(strict_types = 1);
 
 namespace Tool\Filesystem;
 
+use InvalidArgumentException;
+use function is_dir;
+use function is_writable;
+use function realpath;
+use function rtrim;
+use function strlen;
+use function substr_count;
 use Tool\Str;
 use Tool\Validation\Assert;
 use function array_slice;
@@ -122,6 +129,13 @@ class Filesystem
         $contents = static::get($path, $lock);
 
         return json_decode($contents, true, $depth, $options);
+    }
+
+    public static function countFolders(string $path): int
+    {
+        $path = rtrim($path, DIRECTORY_SEPARATOR);
+
+        return substr_count($path, DIRECTORY_SEPARATOR);
     }
 
     public static function ensureFile(string $path, string $contents = '', bool $lock = false): bool

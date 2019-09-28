@@ -18,6 +18,7 @@ use function is_object;
 use function is_string;
 use function is_subclass_of;
 use function strtolower;
+use Tool\Filesystem\Filesystem;
 
 /**
  * Wrap Webmozart Assert class  in this.
@@ -79,7 +80,6 @@ class AssertRules extends BaseAssertion
      * @param mixed                $object
      * @param string|callable|null $message      = null
      * @param string|null          $propertyPath = null
-     *
      * @return bool
      */
     public static function methodExists($method, $object, $message = null, $propertyPath = null): bool
@@ -255,6 +255,16 @@ class AssertRules extends BaseAssertion
         if (Cast::toBoolean($value) !== false) {
             throw static::createException($value, $message ?? '%s is not a false-like value.', $propertyPath);
         }
+
+        return true;
+    }
+
+    public static function writableSafe($value, string $message = null, string $propertyPath = null): bool
+    {
+        static::string($value, $message, $propertyPath);
+        static::directory($value, $message, $propertyPath);
+        static::writeable($value, $message, $propertyPath);
+        static::greaterOrEqualThan(Filesystem::countFolders($value), 2, $message, $propertyPath);
 
         return true;
     }

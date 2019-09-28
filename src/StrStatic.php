@@ -112,6 +112,7 @@ use Tool\Validation\Assert;
  * @method static string utf8(string $str)
  * @method static int[]|null colorHexToRgb(string $hex)
  * @method static string phone(string $str)
+ * @method static string random(int $numChars = 50)
  */
 class StrStatic
 {

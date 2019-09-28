@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Tool;
 
 use Illuminate\Support\Pluralizer;
+use Illuminate\Support\Str as LaravelStr;
 use Tool\Traits\Str as StrTraits;
-use function hexdec;
 use function strlen;
 use function utf8_encode;
 
@@ -145,6 +145,19 @@ class Str extends \Stringy\Stringy
         $this->replace("\'", '');
 
         $this->str = utf8_encode($this->str);
+
+        return $this;
+    }
+
+    /**
+     * Generate random string
+     *
+     * @param int $count = 50
+     * @return $this
+     */
+    public function random(int $count = 50)
+    {
+        $this->str = LaravelStr::random($count);
 
         return $this;
     }

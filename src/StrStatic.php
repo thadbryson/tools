@@ -113,6 +113,7 @@ use Tool\Validation\Assert;
  * @method static int[]|null colorHexToRgb(string $hex)
  * @method static string phone(string $str)
  * @method static string random(int $count = 50)
+ * @method static string memory(int $precision = 2)
  */
 class StrStatic
 {

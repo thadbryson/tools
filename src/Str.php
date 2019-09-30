@@ -161,4 +161,23 @@ class Str extends \Stringy\Stringy
 
         return $this;
     }
+
+    /**
+     * Format filesize memory to abbreviated units. Ex: 50 MB, 20KB
+     *
+     * @return $this
+     */
+    public function memory(int $precision = 2)
+    {
+        $suffix = ['', 'KB', 'MB', 'GB', 'TB'];
+
+        $base  = log((int) $this->str) / log(1024);
+        $index = floor($base);
+
+        $size = pow(1024, $base - floor($base));
+
+        $this->str = round($size, $precision) . ' ' . $suffix[(string) $index];
+
+        return $this;
+    }
 }

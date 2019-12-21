@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tests\Unit\Traits\Str;
 
 use Tool\Str;
+use Tool\StrStatic;
 
 class StaticMakeTraitTest extends \Codeception\Test\Unit
 {
@@ -29,20 +30,20 @@ class StaticMakeTraitTest extends \Codeception\Test\Unit
 
     public function testStaticUuid(): void
     {
-        $uuid1 = Str::uuid();
-        $uuid2 = Str::uuid();
+        $uuid1 = StrStatic::uuid();
+        $uuid2 = StrStatic::uuid();
 
         $this->assertNotEquals((string) $uuid1, (string) $uuid2, 'All UUIDs should be unique. Never repeat.');
 
-        $this->assertStringContainsString('-', $uuid1->get());
-        $this->assertEquals(36, strlen($uuid1->get()), 'UUID made: ' . $uuid1->get());
+        $this->assertStringContainsString('-', $uuid1);
+        $this->assertEquals(36, strlen($uuid1), 'UUID made: ' . $uuid1);
     }
 
     public function testStaticRandom(): void
     {
-        $this->tester->assertStr(Str::random(0, 'ISO-8859-1'), '', 'ISO-8859-1');
+        $this->tester->assertStr(Str::make('')->random(0, 'ISO-8859-1'), '', 'ISO-8859-1');
 
-        $this->assertEquals(1, Str::random(1)->length());
-        $this->assertEquals(1, strlen((string) Str::random(1)));
+        $this->assertEquals(1, Str::make('')->random(1)->length());
+        $this->assertEquals(1, strlen(StrStatic::random(1)));
     }
 }

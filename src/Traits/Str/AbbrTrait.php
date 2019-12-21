@@ -15,12 +15,8 @@ trait AbbrTrait
 {
     /**
      * If string is longer than $length then shorten and add $append string at end.
-     *
-     * @param int    $length
-     * @param string $append = '...'
-     * @return $this
      */
-    public function limit(int $length, string $append = '...')
+    public function limit(int $length, string $append = '...'): self
     {
         $this->str = \Illuminate\Support\Str::limit($this->str, $length, $append);
 
@@ -29,12 +25,8 @@ trait AbbrTrait
 
     /**
      * Return shortened text in <abbr> tag.
-     *
-     * @param int    $length
-     * @param string $append = '...
-     * @return $this
      */
-    public function abbr(int $length, string $append = '...')
+    public function abbr(int $length, string $append = '...'): self
     {
         if ($length < strlen($this->str)) {
             $full = $this->get();
@@ -48,13 +40,8 @@ trait AbbrTrait
 
     /**
      * Use <abbr> text with different text placeholder.
-     *
-     * @param string $title
-     * @param int    $length
-     * @param string $append = '...'
-     * @return $this
      */
-    public function abbrTitle(string $title, int $length, string $append = '...')
+    public function abbrTitle(string $title, int $length, string $append = '...'): self
     {
         $str = $this->limit($length, $append);
 

@@ -20,33 +20,17 @@ class QueryParametersTest extends \Codeception\Test\Unit
 
     public function testGetGlobalQueryInit(): void
     {
-        $this->assertEquals([], $this->client->getGlobalQuery());
-    }
-
-    public function testSetGlobalQuery(): void
-    {
-        $this->client->setGlobalQuery([
-            'id'   => 1,
-            'name' => 'Test 1',
-            'some' => 'other'
-        ]);
-
-        $this->assertEquals([
-            'id'   => 1,
-            'name' => 'Test 1',
-            'some' => 'other'
-        ], $this->client->getGlobalQuery());
+        $this->assertEquals([], $this->client->globalQuery);
     }
 
     public function testAddGlobalQuery(): void
     {
-        $this->client
-            ->addGlobalQuery('id', 7)
-            ->addGlobalQuery('key', 'this');
+        $this->client->globalQuery['id']  = 7;
+        $this->client->globalQuery['key'] = 'this';
 
         $this->assertEquals([
             'id'  => 7,
             'key' => 'this'
-        ], $this->client->getGlobalQuery());
+        ], $this->client->globalQuery);
     }
 }

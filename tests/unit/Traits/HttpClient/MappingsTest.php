@@ -20,7 +20,7 @@ class MappingsTest extends \Codeception\Test\Unit
 
     public function testGetMappingsDefault(): void
     {
-        $this->assertEquals([], $this->client->getMappings());
+        $this->assertEquals([], $this->client->mappings);
     }
 
     private function checkMapping(array $mappings, bool $each, bool $only, string $keyMap = null): void
@@ -30,7 +30,7 @@ class MappingsTest extends \Codeception\Test\Unit
             'each'     => $each,
             'only'     => $only,
             'keyMap'   => $keyMap
-        ], $this->client->getMappings());
+        ], $this->client->mappings);
     }
 
     public function testSetMappings(): void
@@ -85,13 +85,5 @@ class MappingsTest extends \Codeception\Test\Unit
 
         $this->client->setMappingsManyOnly($mappings, 'someKey');
         $this->checkMapping($mappings, true, true, 'someKey');
-    }
-
-    public function testClearMappings(): void
-    {
-        $this->client->setMappingsManyOnly(['id' => 'some']);
-        $this->client->clearMappings();
-
-        $this->testGetMappingsDefault();
     }
 }

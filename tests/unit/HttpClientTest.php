@@ -27,15 +27,10 @@ class HttpClientTest extends \Codeception\Test\Unit
     public function _before(): void
     {
         $this->client = new HttpClientStub('https://example.co');
-        $this->client->setGlobalQuery([
+        $this->client->globalQuery = [
             'id'    => 1,
             'other' => 'some',
-        ]);
-    }
-
-    public function testGetBaseUri(): void
-    {
-        $this->assertEquals('https://example.co', $this->client->getBaseUri());
+        ];
     }
 
     public function testStaticJsonDecode(): void
@@ -57,6 +52,6 @@ class HttpClientTest extends \Codeception\Test\Unit
 
     public function testGetLastUri(): void
     {
-        $this->assertEquals('', $this->client->getLastUri());
+        $this->assertEquals('', $this->client->lastUri);
     }
 }

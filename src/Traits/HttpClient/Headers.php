@@ -15,10 +15,8 @@ trait Headers
 {
     /**
      * Send form bodies as JSON?
-     *
-     * @var bool
      */
-    protected $sendJson = true;
+    public bool $sendJson = true;
 
     /**
      * Set Headers for next Request.
@@ -38,24 +36,5 @@ trait Headers
         $this->request->headers->set('authorization', 'Bearer ' . $token);
 
         return $this;
-    }
-
-    public function sendJson(): HttpClient
-    {
-        $this->sendJson = true;
-
-        return $this;
-    }
-
-    public function clearJson(): HttpClient
-    {
-        $this->sendJson = false;
-
-        return $this;
-    }
-
-    public function isJson(): bool
-    {
-        return $this->sendJson;
     }
 }

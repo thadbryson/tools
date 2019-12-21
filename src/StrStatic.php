@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tool;
 
+use Illuminate\Support\Str as LaravelStr;
 use Tool\Validation\Assert;
 
 /**
@@ -112,7 +113,6 @@ use Tool\Validation\Assert;
  * @method static string utf8(string $str)
  * @method static int[]|null colorHexToRgb(string $hex)
  * @method static string phone(string $str)
- * @method static string random(int $count = 50)
  * @method static string memory(int $precision = 2)
  */
 class StrStatic
@@ -137,5 +137,13 @@ class StrStatic
         }
 
         return $result;
+    }
+
+    /**
+     * Generate random string
+     */
+    public function random(int $count = 50): string
+    {
+        return LaravelStr::random($count);
     }
 }

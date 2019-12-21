@@ -15,56 +15,40 @@ trait MethodTrait
 {
     /**
      * Get as a "getter" method name.
-     *
-     * @param string $append = ''
-     * @return $this
      */
-    public function getter(string $append = '')
+    public function getter(string $append = ''): self
     {
         return $this->codeMethod('get', $append);
     }
 
     /**
      * Get as a "setter" method name.
-     *
-     * @param string $append = ''
-     * @return $this
      */
-    public function setter(string $append = '')
+    public function setter(string $append = ''): self
     {
         return $this->codeMethod('set', $append);
     }
 
     /**
      * Get as a "hasser" method name.
-     *
-     * @param string $append = ''
-     * @return $this
      */
-    public function hasser(string $append = '')
+    public function hasser(string $append = ''): self
     {
         return $this->codeMethod('has', $append);
     }
 
     /**
      * Get as an "isser" method name.
-     *
-     * @param string $append = ''
-     * @return $this
      */
-    public function isser(string $append = '')
+    public function isser(string $append = ''): self
     {
         return $this->codeMethod('is', $append);
     }
 
     /**
      * Get text as a method.
-     *
-     * @param string $prepend
-     * @param string $append
-     * @return $this
      */
-    public function codeMethod(string $prepend, string $append)
+    public function codeMethod(string $prepend, string $append): self
     {
         return $this->replace('_', ' ')
             ->prepend($prepend . ' ')

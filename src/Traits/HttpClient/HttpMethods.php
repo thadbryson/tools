@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tool\Traits\HttpClient;
 
 use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Tool\Arr;
 use Tool\HttpClient;
@@ -17,7 +18,7 @@ use Tool\Str;
  */
 trait HttpMethods
 {
-    protected $isReset = true;
+    protected bool $isReset = true;
 
     /**
      * Send an HTTP Request.
@@ -48,7 +49,7 @@ trait HttpMethods
             $this->reset();
         }
 
-        if ($this->sendJson === true) {
+        if ($this->sendJson === true && $response instanceof ResponseInterface) {
             $response = static::jsonDecode($response);
         }
 
@@ -80,20 +81,6 @@ trait HttpMethods
         return $this;
     }
 
-    public function enableReset(): self
-    {
-        $this->isReset = true;
-
-        return $this;
-    }
-
-    public function disableReset(): self
-    {
-        $this->isReset = false;
-
-        return $this;
-    }
-
     /**
      * @param string $uri
      * @param string $method
@@ -115,7 +102,7 @@ trait HttpMethods
         $baseUri = '';
 
         if (Str::make($uri)->startsWithAny(['http:', 'https:']) === false) {
-            $baseUri = trim($this->getBaseUri(), '/');
+            $baseUri = trim($this->baseUri, '/');
         }
 
         $uri = $baseUri . '/' . trim($uri, '/');

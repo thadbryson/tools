@@ -35,8 +35,6 @@ class Str extends \Stringy\Stringy
 
     /**
      * Get raw string value.
-     *
-     * @return string
      */
     public function get(): string
     {
@@ -45,12 +43,8 @@ class Str extends \Stringy\Stringy
 
     /**
      * Swap left side text $substr with $replace.
-     *
-     * @param string $substr
-     * @param string $replace
-     * @return $this|Str
      */
-    public function swapLeft(string $substr, string $replace)
+    public function swapLeft(string $substr, string $replace): self
     {
         if ($this->startsWith($substr) === false) {
             return $this;
@@ -63,12 +57,8 @@ class Str extends \Stringy\Stringy
 
     /**
      * Swap right side text $substr with $replace.
-     *
-     * @param string $substr
-     * @param string $replace
-     * @return $this
      */
-    public function swapRight(string $substr, string $replace)
+    public function swapRight(string $substr, string $replace): self
     {
         if ($this->endsWith($substr) === false) {
             return $this;
@@ -81,40 +71,29 @@ class Str extends \Stringy\Stringy
 
     /**
      * Get text before substring $substr from offset $offset.
-     *
-     * @param string $substr
-     * @param int    $offset
-     * @return $this
      */
-    public function beforeSubstr(string $substr, int $offset = 0)
+    public function beforeSubstr(string $substr, int $offset = 0): self
     {
         $index = $this->indexOf($substr, $offset);
 
-        return $this->substr(0, $index);
+        return $this->substr(0, (int) $index);
     }
 
     /**
      * Get text after substring $substr from offset $offset.
-     *
-     * @param string $substr
-     * @param int    $offset
-     * @return Str
      */
-    public function afterSubstr(string $substr, int $offset = 0)
+    public function afterSubstr(string $substr, int $offset = 0): self
     {
         $index = $this->indexOf($substr, $offset);
         $index += strlen($substr);
 
-        return $this->substr($this->str, $index);
+        return $this->substr($index);
     }
 
     /**
      * Remove $substr from string entirely.
-     *
-     * @param string ...$substrs
-     * @return $this
      */
-    public function remove(string ...$substrs)
+    public function remove(string ...$substrs): self
     {
         foreach ($substrs as $substr) {
             $this->str = $this->replace($substr, '')->get();
@@ -125,10 +104,8 @@ class Str extends \Stringy\Stringy
 
     /**
      * Get the plural form of an English word.
-     *
-     * @return $this
      */
-    public function plural(int $count = 2)
+    public function plural(int $count = 2): self
     {
         $this->str = Pluralizer::plural($this->str, $count);
 
@@ -137,10 +114,8 @@ class Str extends \Stringy\Stringy
 
     /**
      * UTF-8 encode the string.
-     *
-     * @return $this
      */
-    public function utf8()
+    public function utf8(): self
     {
         $this->replace("\'", '');
 
@@ -151,11 +126,8 @@ class Str extends \Stringy\Stringy
 
     /**
      * Generate random string
-     *
-     * @param int $count = 50
-     * @return $this
      */
-    public function random(int $count = 50)
+    public function random(int $count = 50): self
     {
         $this->str = LaravelStr::random($count);
 
@@ -164,10 +136,8 @@ class Str extends \Stringy\Stringy
 
     /**
      * Format filesize memory to abbreviated units. Ex: 50 MB, 20KB
-     *
-     * @return $this
      */
-    public function memory(int $precision = 2)
+    public function memory(int $precision = 2): self
     {
         $suffix = ['', 'KB', 'MB', 'GB', 'TB'];
 

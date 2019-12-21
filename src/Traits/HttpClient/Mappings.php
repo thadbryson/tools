@@ -15,10 +15,8 @@ trait Mappings
 {
     /**
      * Configuration for mapping response data.
-     *
-     * @var array
      */
-    protected $mappings = [];
+    public array $mappings = [];
 
     public function setMappings(array $mappings): HttpClient
     {
@@ -66,17 +64,5 @@ trait Mappings
         ];
 
         return $this;
-    }
-
-    public function clearMappings(): HttpClient
-    {
-        $this->mappings = [];
-
-        return $this;
-    }
-
-    public function getMappings(): array
-    {
-        return $this->mappings;
     }
 }

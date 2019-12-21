@@ -17,16 +17,17 @@ class HttpClient
     use Traits\HttpClient\Headers,
         Traits\HttpClient\HttpMethods,
         Traits\HttpClient\Mappings,
-        Traits\HttpClient\Options,
-        Traits\HttpClient\QueryParameters;
+        Traits\HttpClient\Options;
 
-    protected $client;
+    public ?Client $client;
 
-    protected $baseUri;
+    public string $baseUri;
 
-    protected $lastUri = '';
+    public string $lastUri = '';
 
-    public $request;
+    public Request $request;
+
+    public array $globalQuery = [];
 
     /**
      * HttpClient constructor.
@@ -53,16 +54,6 @@ class HttpClient
 
     public function isUsed(): bool
     {
-        return $this->getLastUri() !== '';
-    }
-
-    public function getLastUri(): string
-    {
-        return $this->lastUri;
-    }
-
-    public function getBaseUri(): string
-    {
-        return $this->baseUri;
+        return $this->lastUri !== '';
     }
 }

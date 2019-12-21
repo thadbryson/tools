@@ -13,47 +13,27 @@ use Tool\HttpClient;
  */
 trait Options
 {
-    protected $options = [];
-
-    /**
-     * Set Options for next Request.
-     *
-     * @param array $options
-     * @return HttpClient
-     */
-    public function setOptions(array $options): HttpClient
-    {
-        $this->options = $options;
-
-        return $this;
-    }
-
-    public function addOption(string $key, $option): HttpClient
-    {
-        $this->options[$key] = $option;
-
-        return $this;
-    }
+    public array $options = [];
 
     public function getOptions(): array
     {
         $options = $this->options;
 
         // Add all global query parameters.
-        $this->request->query->add($this->getGlobalQuery());
+        $this->request->query->add($this->globalQuery);
 
         // Set form body to the Request. _POST data.
         // NOTE: some APIs won't handle the form body on a GET request.
         if ($this->request->isMethod('GET') === false && $this->request->request->count() > 0) {
 
-            $formKey = $this->isJson() ?
+            $formKey = $this->sendJson ?
                 'json' :
                 'form_params';
 
             $options[$formKey] = $this->request->request->all();
         }
 
-        if ($this->isJson()) {
+        if ($this->sendJson) {
             $this->request->headers->set('Content-Type', 'application/json');
         }
 

@@ -28,15 +28,15 @@ class OptionsTest extends \Codeception\Test\Unit
 
     public function testSetOptions(): void
     {
-        $this->client->setOptions([
+        $this->client->options = [
             'base_uri' => 'http://example.co',
             'json'     => [
                 'id'   => 1,
                 'name' => 'Test'
             ]
-        ]);
+        ];
 
-        $this->client->sendJson();
+        $this->client->sendJson = true;
         $this->client->request->setMethod('POST');
         $this->client->request->request->set('some', 'key');
 
@@ -53,7 +53,7 @@ class OptionsTest extends \Codeception\Test\Unit
 
     public function testAddOption(): void
     {
-        $this->client->addOption('some', 'value');
+        $this->client->options['some'] = 'value';
 
         $this->assertEquals([
             'query'   => [],

@@ -13,10 +13,8 @@ trait PropertyGetTrait
 {
     /**
      * Hold object properties for magic __get()
-     *
-     * @var array
      */
-    protected $traitProperties = [];
+    protected array $traitProperties = [];
 
     /**
      * Read properties dynamically.

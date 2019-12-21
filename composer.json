@@ -5,7 +5,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "ext-intl": "*",
         "ext-json": "*",
         "ext-simplexml": "*",
@@ -24,7 +24,7 @@
     "require-dev": {
         "codeception/codeception": "3.*",
         "mockery/mockery": "1.2.*",
-        "mikey179/vfsStream": "1.6.*"
+        "mikey179/vfsstream": "1.6.*"
     },
     "autoload": {
         "psr-4": {

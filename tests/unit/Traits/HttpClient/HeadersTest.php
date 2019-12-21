@@ -41,23 +41,4 @@ class HeadersTest extends \Codeception\Test\Unit
             'authorization' => ['Bearer 911']
         ], $this->client->request->header());
     }
-
-    public function testSendJson(): void
-    {
-        $this->assertFalse($this->client->isJson());
-        $this->client->sendJson();
-
-        $this->assertTrue($this->client->isJson());
-    }
-
-    public function testClearJson(): void
-    {
-        $this->assertFalse($this->client->isJson());
-
-        $this->client->sendJson();
-        $this->assertTrue($this->client->isJson());
-
-        $this->client->clearJson();
-        $this->assertFalse($this->client->isJson());
-    }
 }

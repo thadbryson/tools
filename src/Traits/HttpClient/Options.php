@@ -4,7 +4,9 @@ declare(strict_types = 1);
 
 namespace Tool\Traits\HttpClient;
 
+use Tool\Arr;
 use Tool\HttpClient;
+use function array_merge_recursive;
 
 /**
  * Trait Options
@@ -17,7 +19,7 @@ trait Options
 
     public function getOptions(): array
     {
-        $options = $this->options;
+        $options = [];
 
         // Add all global query parameters.
         $this->request->query->add($this->globalQuery);
@@ -40,6 +42,6 @@ trait Options
         $options['query']   = $this->request->query->all();
         $options['headers'] = $this->request->headers->all();
 
-        return $options;
+        return array_merge_recursive($this->options, $options);
     }
 }

@@ -28,7 +28,7 @@ class ValidationExceptionTest extends \Codeception\Test\Unit
         $this->assertEquals("Invalid stuff here
 
 Errors: 
-error1
+- error1
 - error2
 - again
 ", $this->exception->getMessage());

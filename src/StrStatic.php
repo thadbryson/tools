@@ -114,6 +114,7 @@ use Tool\Validation\Assert;
  * @method static int[]|null colorHexToRgb(string $hex)
  * @method static string phone(string $str)
  * @method static string memory(int $precision = 2)
+ * @method static string uuid()
  */
 class StrStatic
 {

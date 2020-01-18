@@ -6,6 +6,7 @@ namespace Tests\Unit\Traits\Str;
 
 use Tool\Str;
 use Tool\StrStatic;
+use function strlen;
 
 class StaticMakeTraitTest extends \Codeception\Test\Unit
 {
@@ -41,9 +42,15 @@ class StaticMakeTraitTest extends \Codeception\Test\Unit
 
     public function testStaticRandom(): void
     {
-        $this->tester->assertStr(Str::make('')->random(0, 'ISO-8859-1'), '', 'ISO-8859-1');
+        $str = Str::make('')->random(0);
 
-        $this->assertEquals(1, Str::make('')->random(1)->length());
-        $this->assertEquals(1, strlen(StrStatic::random(1)));
+        $this->assertEquals('', $str->get(), '0 length should be empty string.');
+
+        foreach ([] as $length) {
+            $str = Str::make()->random(10);
+
+            $this->assertEquals($length, $str->length(), sprintf('%s count should get %s length', $length, $length));
+            $this->assertEquals($length, strlen($str->get()), sprintf('%s strlen() count should get %s length', $length, $length));
+        }
     }
 }

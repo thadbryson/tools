@@ -26,7 +26,11 @@ class HttpMethodsTest extends \Codeception\Test\Unit
             'method'   => $method,
             'options'  => [
                 'query'   => [],
-                'headers' => []
+                'headers' => [
+                    'content-type' => [
+                        0 => 'application/json'
+                    ]
+                ]
             ]
         ], $response);
     }

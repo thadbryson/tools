@@ -22,7 +22,11 @@ class OptionsTest extends \Codeception\Test\Unit
     {
         $this->assertEquals([
             'query'   => [],
-            'headers' => []
+            'headers' => [
+                'content-type' => [
+                    0 => 'application/json',
+                ],
+            ],
         ], $this->client->getOptions());
     }
 
@@ -32,8 +36,8 @@ class OptionsTest extends \Codeception\Test\Unit
             'base_uri' => 'http://example.co',
             'json'     => [
                 'id'   => 1,
-                'name' => 'Test'
-            ]
+                'name' => 'Test',
+            ],
         ];
 
         $this->client->sendJson = true;
@@ -42,12 +46,17 @@ class OptionsTest extends \Codeception\Test\Unit
 
         $this->assertEquals([
             'query'    => [],
-            'headers'  => [],
+            'headers'  => [
+                'content-type' => [
+                    0 => 'application/json',
+                ],
+            ],
             'base_uri' => 'http://example.co',
             'json'     => [
                 'id'   => 1,
-                'name' => 'Test'
-            ]
+                'name' => 'Test',
+                'some' => 'key',
+            ],
         ], $this->client->getOptions());
     }
 
@@ -57,8 +66,12 @@ class OptionsTest extends \Codeception\Test\Unit
 
         $this->assertEquals([
             'query'   => [],
-            'headers' => [],
-            'some'    => 'value'
+            'headers' => [
+                'content-type' => [
+                    0 => 'application/json',
+                ],
+            ],
+            'some'    => 'value',
         ], $this->client->getOptions());
     }
 }

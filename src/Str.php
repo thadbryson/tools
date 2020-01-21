@@ -6,6 +6,7 @@ namespace Tool;
 
 use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Str as LaravelStr;
+use Stringy\Stringy;
 use Tool\Traits\Str as StrTraits;
 use function strlen;
 use function utf8_encode;
@@ -14,7 +15,7 @@ use function utf8_encode;
  * Class Str
  *
  */
-class Str extends \Stringy\Stringy
+class Str extends Stringy
 {
     use StrTraits\AbbrTrait,
         StrTraits\BooleanTrait,

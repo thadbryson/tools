@@ -115,6 +115,7 @@ use Tool\Validation\Assert;
  * @method static string phone(string $str)
  * @method static string memory(int $precision = 2)
  * @method static string uuid()
+ * @method static string random(int $count = 50)
  */
 class StrStatic
 {
@@ -138,13 +139,5 @@ class StrStatic
         }
 
         return $result;
-    }
-
-    /**
-     * Generate random string
-     */
-    public function random(int $count = 50): string
-    {
-        return LaravelStr::random($count);
     }
 }

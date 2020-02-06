@@ -6,6 +6,10 @@ namespace Tool\Traits\Str;
 
 use Tool\Str;
 use Tool\Validation\Assert;
+use function floor;
+use function log;
+use function pow;
+use function round;
 
 /**
  * Trait MoneyTrait
@@ -94,6 +98,23 @@ trait FormatingTrait
         else {
             $this->str = '';
         }
+
+        return $this;
+    }
+
+    /**
+     * Format filesize memory to abbreviated units. Ex: 50 MB, 20KB
+     */
+    public function memory(int $precision = 2): self
+    {
+        $suffix = ['', 'KB', 'MB', 'GB', 'TB'];
+
+        $base  = log((int) $this->str) / log(1024);
+        $index = floor($base);
+
+        $size = pow(1024, $base - floor($base));
+
+        $this->str = round($size, $precision) . ' ' . $suffix[(string) $index];
 
         return $this;
     }

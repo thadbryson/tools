@@ -9,6 +9,7 @@ use Illuminate\Support\Str as LaravelStr;
 use Stringy\Stringy;
 use Tool\Traits\Str as StrTraits;
 use function strlen;
+use function strrpos;
 use function utf8_encode;
 
 /**
@@ -135,20 +136,25 @@ class Str extends Stringy
         return $this;
     }
 
-    /**
-     * Format filesize memory to abbreviated units. Ex: 50 MB, 20KB
-     */
-    public function memory(int $precision = 2): self
+    public function beforeLastSubstr(string $substr): self
     {
-        $suffix = ['', 'KB', 'MB', 'GB', 'TB'];
+        $position = strrpos($this->str, $substr);
 
-        $base  = log((int) $this->str) / log(1024);
-        $index = floor($base);
+        if ($position === false) {
+            return $this;
+        }
 
-        $size = pow(1024, $base - floor($base));
+        return $this->substr(0, $position + 1);
+    }
 
-        $this->str = round($size, $precision) . ' ' . $suffix[(string) $index];
+    public function afterLastSubstr(string $substr): self
+    {
+        $position = strrpos($this->str, $substr);
 
-        return $this;
+        if ($position === false) {
+            return $this;
+        }
+
+        return $this->substr($position + 1);
     }
 }

@@ -10,7 +10,11 @@ use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
 use Tool\Arr;
+use function class_exists;
+use function get_class;
+use function interface_exists;
 use function is_object;
+use function trait_exists;
 
 /**
  * Validator Class
@@ -70,7 +74,7 @@ class Validator
         static::$factory = static::attachRules($factory);
     }
 
-    private static function getFactory(): Factory
+    protected static function getFactory(): Factory
     {
         if (static::$factory === null) {
             static::setFactory();
@@ -79,22 +83,33 @@ class Validator
         return static::$factory;
     }
 
-    private static function attachRules(Factory $factory): Factory
+    protected static function attachRules(Factory $factory): Factory
     {
         $factory->extend('class_exists', function (string $_, string $class): bool {
-
             return class_exists($class);
         });
 
         $factory->extend('method_exists', function (string $_, string $method, array $parameters): bool {
-
             $class = $parameters[0] ?? null;
 
             return method_exists($class, $method);
         });
 
-        $factory->extend('object', function (string $_, $object, array $parameters): bool {
+        $factory->extend('trait_exists', function (string $_, string $class): bool {
+            return trait_exists($class);
+        });
 
+        $factory->extend('interface_exists', function (string $_, string $class): bool {
+            return interface_exists($class);
+        });
+
+        $factory->extend('instance_of', function (string $_, $value, array $parameters): bool {
+            $class = Assert::classExists(Arr::get($parameters, '0'));
+
+            return $value instanceof $class;
+        });
+
+        $factory->extend('object', function (string $_, $object, array $parameters): bool {
             $class = $parameters[0] ?? null;
 
             return is_object($object) && $object instanceof $class;

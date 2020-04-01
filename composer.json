@@ -9,10 +9,10 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-simplexml": "*",
-        "illuminate/database": "5.8.*|6.0.*|7.*",
-        "illuminate/http": "5.8.*|6.0.*|7.*",
-        "illuminate/support": "5.8.*|6.0.*|7.*",
-        "illuminate/validation": "5.8.*|6.0.*|7.*",
+        "illuminate/database": "7.*",
+        "illuminate/http": "7.*",
+        "illuminate/support": "7.*",
+        "illuminate/validation": "7.*",
         "ramsey/uuid": "3.8.*",
         "danielstjules/stringy": "3.1.*",
         "twig/twig": "2.11.*",
@@ -22,7 +22,7 @@
         "roave/security-advisories": "dev-master"
     },
     "require-dev": {
-        "codeception/codeception": "3.*",
+        "codeception/codeception": "4.*",
         "mockery/mockery": "1.2.*",
         "mikey179/vfsstream": "1.6.*"
     },

@@ -1,45 +1,45 @@
 {
-    "name": "thadbryson/tools",
-    "description": "Basic PHP programming helper classes. Things for strings, arrays, etc.",
-    "license": "MIT",
+    "name":              "thadbryson/tools",
+    "description":       "Basic PHP programming helper classes. Things for strings, arrays, etc.",
+    "license":           "MIT",
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require": {
-        "php": ">=7.4",
-        "ext-intl": "*",
-        "ext-json": "*",
-        "ext-simplexml": "*",
-        "illuminate/database": "7.*|8.*",
-        "illuminate/http": "7.*|8.*",
-        "illuminate/support": "7.*|8.*",
-        "illuminate/validation": "7.*|8.*",
-        "ramsey/uuid": ">3",
-        "danielstjules/stringy": ">3",
-        "twig/twig": ">2",
-        "giggsey/libphonenumber-for-php": "8.10.*",
-        "guzzlehttp/guzzle": ">=6",
-        "beberlei/assert": "3.2.*",
-        "roave/security-advisories": "dev-master"
+    "prefer-stable":     true,
+    "require":           {
+        "php":                            ">=7.4",
+        "ext-intl":                       "*",
+        "ext-json":                       "*",
+        "ext-simplexml":                  "*",
+        "beberlei/assert":                ">=3.2",
+        "danielstjules/stringy":          ">=3",
+        "giggsey/libphonenumber-for-php": ">=8.10",
+        "guzzlehttp/guzzle":              ">=6",
+        "illuminate/database":            "7.*|^8.18.1",
+        "illuminate/http":                "7.*|^8.18.1",
+        "illuminate/support":             "7.*|^8.18.1",
+        "illuminate/validation":          "7.*|^8.18.1",
+        "ramsey/uuid":                    ">=3",
+        "roave/security-advisories":      "dev-master",
+        "twig/twig":                      ">=2"
     },
-    "require-dev": {
+    "require-dev":       {
         "codeception/codeception": "4.*",
-        "mockery/mockery": "1.2.*",
-        "mikey179/vfsstream": "1.6.*"
+        "mikey179/vfsstream":      "1.*",
+        "mockery/mockery":         "1.*"
     },
-    "autoload": {
+    "autoload":          {
         "psr-4": {
             "Tool\\": "src/"
         }
     },
-    "autoload-dev": {
+    "autoload-dev":      {
         "psr-4": {
-            "_generated\\": "tests/_support/_generated/",
-            "Helper\\": "tests/_support/Helper/",
+            "_generated\\":     "tests/_support/_generated/",
+            "Helper\\":         "tests/_support/Helper/",
             "Tests\\Support\\": "tests/_support/",
-            "Tests\\Unit\\": "tests/unit/"
+            "Tests\\Unit\\":    "tests/unit/"
         }
     },
-    "extra": {
+    "extra":             {
         "branch-alias": {
             "dev-community": "1.0-dev"
         }

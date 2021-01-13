@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Tool\Traits\Str;
 
 use Tool\Str;
+use function in_array;
 use function is_float;
 use function is_int;
 use function is_numeric;
@@ -79,5 +80,10 @@ trait BooleanTrait
         $str = $this->get();
 
         return is_float($str) || (is_string($str) && is_numeric($str) && strpos($str, '.') !== false);
+    }
+
+    public function inArray(array $options, bool $strict = false): bool
+    {
+        return in_array($this->str, $options, $strict);
     }
 }

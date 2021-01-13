@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Tool;
 
-use Illuminate\Support\Str as LaravelStr;
 use Tool\Validation\Assert;
+use function is_object;
 
 /**
  * Class StrStatic
@@ -119,22 +119,25 @@ use Tool\Validation\Assert;
  */
 class StrStatic
 {
+    public static string $str_class = Str::class;
+
     /**
      * Call any Str method statically.
-     *
-     * @param string $method
-     * @param array  $arguments
-     * @return mixed
      */
-    public static function __callStatic(string $method, array $arguments)
+    public static function __callStatic(string $method, array $arguments): mixed
     {
-        $str = Arr::removeFirst($arguments);
+        // Instantiate object for extenstion to work.
+        Assert::classExists(static::$str_class);
 
-        Assert::methodExists($method, Str::class);
+        $value = Arr::removeFirst($arguments);
 
-        $result = Str::make($str)->{$method}(...$arguments);
+        /** @var Str $str */
+        $str = new static::$str_class($value);
+        Assert::methodExists($method, $str);
 
-        if ($result instanceof Str) {
+        $result = $str->{$method}(...$arguments);
+
+        if (is_object($result)) {
             return (string) $result;
         }
 

@@ -157,4 +157,11 @@ class Str extends Stringy
 
         return $this->substr($position + 1);
     }
+
+    public function ensureBoth(string $substring): self
+    {
+        return $this
+            ->ensureLeft($substring)
+            ->ensureRight($substring);
+    }
 }

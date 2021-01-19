@@ -47,14 +47,14 @@ use function is_object;
  * @method static bool isLowerCase(string $str, string $encoding = null)
  * @method static bool isSerialized(string $str, string $encoding = null)
  * @method static bool isUpperCase(string $str, string $encoding = null)
- * @method static bool isEmpty(): bool
- * @method static bool isNotEmpty(): bool
- * @method static bool hasSubstr(string $substr, bool $caseSensitive = true): bool
- * @method static bool isTimezone(): bool
- * @method static bool isNumeric(): bool
- * @method static bool isNumericInt(): bool
- * @method static bool isNumericFloat(): bool
- * @method static bool inArray(array $options, bool $strict = false): bool
+ * @method static bool isEmpty(string $str, string $encoding = null)
+ * @method static bool isNotEmpty(string $str, string $encoding = null)
+ * @method static bool hasSubstr(string $str, string $substr, bool $caseSensitive = true, string $encoding = null)
+ * @method static bool isTimezone(string $str, string $encoding = null)
+ * @method static bool isNumeric(string $str, string $encoding = null)
+ * @method static bool isNumericInt(string $str, string $encoding = null)
+ * @method static bool isNumericFloat(string $str, string $encoding = null)
+ * @method static bool inArray(array $options, bool $strict = false)
  * @method static string last(string $str, string $encoding = null)
  * @method static int length(string $str, string $encoding = null)
  * @method static string[] lines(string $str, string $encoding = null)
